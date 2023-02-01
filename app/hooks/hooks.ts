@@ -1,7 +1,11 @@
+"use client";
+
 import { useState, useEffect } from "react";
 
 export const useDesktop = () => {
-	const [isDesktop, setDesktop] = useState(window.innerWidth >= 1487);
+	const [isDesktop, setDesktop] = useState(
+		typeof window !== "undefined" ? window.innerWidth >= 1487 : false
+	);
 
 	const updateMedia = () => {
 		setDesktop(window.innerWidth >= 1487);
@@ -16,7 +20,9 @@ export const useDesktop = () => {
 };
 
 export const useMobile = () => {
-	const [isMobile, setMobile] = useState(window.innerWidth < 749);
+	const [isMobile, setMobile] = useState(
+		typeof window !== "undefined" ? window.innerWidth < 749 : false
+	);
 
 	const updateMedia = () => {
 		setMobile(window.innerWidth < 749);

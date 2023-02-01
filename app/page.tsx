@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useState, useEffect, useRef, useContext, createContext } from 'react'
 import { Text, Container, Button } from '@nextui-org/react';
 import { FrameCorners, FrameHexagon } from '@arwes/core';

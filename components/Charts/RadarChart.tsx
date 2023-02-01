@@ -1,3 +1,5 @@
+'use client';
+
 import { Radar } from '@nivo/radar'
 import { CategoricalData, ChartDimensions, CountryMetrics } from '../../app/data/types'
 import { NIVO_THEME } from '../../app/constants'
