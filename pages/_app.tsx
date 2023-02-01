@@ -1,35 +1,42 @@
-import "@/styles/globals.css";
-import type { AppProps } from "next/app";
-import { Analytics } from "@vercel/analytics/react";
-import type { Session } from "next-auth";
-import { SessionProvider } from "next-auth/react";
-import { Provider as RWBProvider } from "react-wrap-balancer";
-import cx from "classnames";
-import localFont from "@next/font/local";
-import { Inter } from "@next/font/google";
+import { createTheme, NextUIProvider } from "@nextui-org/react"
 
-const sfPro = localFont({
-  src: "../styles/SF-Pro-Display-Medium.otf",
-  variable: "--font-sf",
-});
+// 2. Call `createTheme` and pass your custom values
+const theme = createTheme({
+    type: "dark",
+    theme: {
+        colors: {
+            // brand colors
+            primaryLight: '$green200',
+            primaryLightHover: '$green300',
+            primaryLightActive: '$green400',
+            primaryLightContrast: '$green600',
+            primary: '#4ADE7B',
+            primaryBorder: '$green500',
+            primaryBorderHover: '$green600',
+            primarySolidHover: '$green700',
+            primarySolidContrast: '$white',
+            primaryShadow: '$green500',
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
+            gradient: 'linear-gradient(112deg, $blue100 -25%, $pink500 -10%, $purple500 80%)',
+            link: '#5E1DAD',
 
-export default function MyApp({
-  Component,
-  pageProps: { session, ...pageProps },
-}: AppProps<{ session: Session }>) {
-  return (
-    <SessionProvider session={session}>
-      <RWBProvider>
-        <div className={cx(sfPro.variable, inter.variable)}>
-          <Component {...pageProps} />
-        </div>
-      </RWBProvider>
-      <Analytics />
-    </SessionProvider>
-  );
+            // you can also create your own color
+            myColor: '#ff4ecd'
+
+            // ...  more colors
+        },
+        space: {},
+        fonts: {}
+    }
+})
+
+function MyApp({ Component, pageProps }: { Component: any, pageProps: any }) {
+    return (
+        // 2. Use at the root of your app
+        <NextUIProvider theme={theme}>
+            <Component {...pageProps} />
+        </NextUIProvider>
+    );
 }
+
+export default MyApp;
