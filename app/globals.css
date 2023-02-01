@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+	--color-background: rgb(51, 51, 51);
+	--color-on-background: #fff;
+
+	--color-tooltip: rgba(0, 5, 11, 0.9);
+	--color-on-tooltip: #fff;
+
+	--color-handle-fill: #2c343a;
+	--color-handle-stroke: #67c2e4;
+	--color-handle-drag-fill: transparent;
+	--color-handle-dots: #67c2e4;
+	--color-handle-line: #67c2e4;
+}
+
+.tooltip {
+	position: relative;
+	display: inline-block;
+	border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+	visibility: hidden;
+	width: 120px;
+	background-color: #555;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px 0;
+	position: absolute;
+	z-index: 1;
+	bottom: 125%;
+	left: 50%;
+	margin-left: -60px;
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	margin-left: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+	visibility: visible;
+	opacity: 1;
+}
+
+.card {
+	border-radius: 10px;
+}
+
+.default-font-color {
+	color: #9fd0dcb1;
+	fill: #9fd0dcb1;
+}
+
+.glow {
+	font-size: xx-large;
+	color: #fff;
+	text-align: left;
+	-webkit-animation: glow 1s ease-in-out infinite alternate;
+	-moz-animation: glow 1s ease-in-out infinite alternate;
+	animation: glow 1s ease-in-out infinite alternate;
+}
+
+.pulse {
+	-webkit-animation: pulsate 1s ease-in-out infinite alternate;
+	-moz-animation: pulsate 1s ease-in-out infinite alternate;
+	animation: pulsate 1s ease-in-out infinite alternate;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	gap: 3rem;
+	align-items: center;
+}
+
+.text-shadow {
+	box-shadow: 0px 0px 10px 10px rgb(211, 159, 5);
+}
+
+.box {
+	padding: 0 5px;
+	--b: 3px; /* thickness of the border */
+	--c: #68adbed3; /* color of the border */
+	--w: 9px; /* width of border */
+
+	border: var(--b) solid transparent; /* space for the border */
+	--_g: transparent 90deg, var(--c) 0;
+	--_p: var(--w) var(--w) border-box no-repeat;
+	background: conic-gradient(
+				from 90deg at top var(--b) left var(--b),
+				var(--_g)
+			)
+			0 0 / var(--_p),
+		conic-gradient(from 180deg at top var(--b) right var(--b), var(--_g)) 100% 0 /
+			var(--_p),
+		conic-gradient(from 0deg at bottom var(--b) left var(--b), var(--_g)) 0 100% /
+			var(--_p),
+		conic-gradient(from -90deg at bottom var(--b) right var(--b), var(--_g))
+			100% 100% / var(--_p);
+}
+
+@keyframes glow {
+	from {
+		text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073,
+			0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+	}
+	to {
+		text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6,
+			0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+	}
+}
+
+@keyframes pulsate {
+	0% {
+		box-shadow: 0 0 0 black;
+	}
+	50% {
+		box-shadow: 0 0 17px black;
+	}
+	100% {
+		box-shadow: 0 0 0 black;
+	}
+}
+
+@layer base {
+	@font-face {
+		font-family: "Dreamscape";
+		src: url("./fonts/Dreamscape.ttf");
+	}
+
+	@font-face {
+		font-family: "Agelast";
+		src: url("./fonts/Agelast.otf");
+	}
+
+	@font-face {
+		font-family: "Nebula";
+		src: url("./fonts/Nebula-Regular.otf");
+	}
+
+	@font-face {
+		font-family: "Nebula-Hollow";
+		src: url("./fonts/Nebula-Hollow.otf");
+	}
+
+	@font-face {
+		font-family: "Equinox";
+		src: url("./fonts/Equinox-Bold.otf");
+	}
+
+	@font-face {
+		font-family: "Progress";
+		src: url("./fonts/Progress.ttf");
+	}
+
+	@font-face {
+		font-family: "Stacker";
+		src: url("./fonts/Stacker.ttf");
+	}
+
+	@font-face {
+		font-family: "Axeon";
+		src: url("./fonts/Axeon.otf");
+	}
+
+	@font-face {
+		font-family: "Exodar";
+		src: url("./fonts/Exodar.ttf");
+	}
+
+	@font-face {
+		font-family: "Varino";
+		src: url("./fonts/Varino.otf");
+	}
+}
