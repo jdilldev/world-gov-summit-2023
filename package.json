@@ -17,6 +17,7 @@
     "@emotion/react": "^11.10.5",
     "@nextui-org/react": "^1.0.0-beta.12",
     "@nivo/bar": "^0.80.0",
+    "@nivo/bullet": "^0.80.0",
     "@nivo/bump": "^0.80.0",
     "@nivo/circle-packing": "^0.80.0",
     "@nivo/core": "^0.80.0",
