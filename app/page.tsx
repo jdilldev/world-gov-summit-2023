@@ -61,11 +61,11 @@ const Home = () => {
         <div className='h-48 flex justify-center'>
           <div className='flex flex-col pt-2 px-1 border-solid border-l-4 border-r-4 border-b-4  border-[#0c354e] backdrop-blur-lg gap-3 fixed top-0 z-10 items-center lg:w-full lg:gap-1 lg:border-none'>
             <p className='tracking-[.3em] md:tracking-[.7em] text-slate-300 text-md md:text-xl lg:text-3xl uppercase font-equinox'>{`The Present Future`}</p>
-            <p className='tracking-[.5em] text-xl white uppercase font-dreamscape text-[#72a4b5]'>
+            <div className='tracking-[.5em] text-xl white uppercase font-dreamscape text-[#72a4b5]'>
               <p className={`${isThemeSelected ? 'tracking-normal text-sm md:tracking-widest font-body lg:font-dreamscape text-center' : ''}`}>{isDesktop ? 'Themes' : selectedTheme}
                 {!isThemeSelected && <span className='text-sm normal-case font-thin tracking-normal font-body'>{'(Click to select)'}</span>}
               </p>
-            </p>
+            </div>
             <div className='flex pb-1 md:pb-2 no-wrap justify-evenly w-full gap-4 lg:flex-wrap lg:justify-evenly lg:gap-4 2xl:gap-18'>
               {worldSummitThemes.map(worldSummitTheme => isDesktop ? <div
                 className={`hidden lg:h-8 lg:inline  ${worldSummitTheme.name === selectedTheme ? 'box text-[#3297b3a8]' : 'text-slate-500'}`}
