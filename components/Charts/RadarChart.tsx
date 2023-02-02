@@ -3,7 +3,6 @@
 import { Radar } from '@nivo/radar'
 import { CategoricalData, ChartDimensions, CountryMetrics } from '../../app/data/types'
 import { NIVO_THEME } from '../../app/constants'
-import { useDesktop } from '../../app/hooks/hooks'
 import { GridLabelComponent } from '@nivo/radar'
 // make sure parent container have a defined height when using
 // responsive component, otherwise height will be 0 and
@@ -11,7 +10,6 @@ import { GridLabelComponent } from '@nivo/radar'
 // website examples showcase many properties,
 // you'll often use just a few of them.
 const RadarChart = ({ data, indexBy, keys, dimensions: { width, height } }: { data: { [key: string]: string | number }[], indexBy: string, keys: string[], dimensions: ChartDimensions }) => {
-    const isDesktop = useDesktop()
     return <Radar
         width={width}
         height={height}

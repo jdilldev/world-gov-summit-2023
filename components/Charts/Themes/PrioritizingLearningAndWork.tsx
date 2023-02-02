@@ -1,9 +1,11 @@
 import { PRE_CONTENT_ICON_SIZE } from "../../../app/constants"
-import { getMax, getWorldAvg } from "../../../app/data/generateData"
-import { ChartDimensions } from "../../../app/data/types"
+import { getMax, getWorldAvg, retrieveData } from "../../../app/data/generateData"
+import { ChartDimensions, LinearData } from "../../../app/data/types"
 import { CustomTooltip, GdpPercentagesRadialBarChart, StatCard } from "../../Shared"
 import BarChart from "../BarChart"
 import CoupIcon from '../../../public/icons/removal.svg'
+import { ScatterPlot } from "@nivo/scatterplot"
+import FunnelChart from "../FunnelChart"
 
 export const KidsOutOfSchool = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
     const avg_2018 = getWorldAvg('2018_primary_school_aged_kids_out')
@@ -21,7 +23,46 @@ export const KidsOutOfSchool = ({ dimensions: { width, height } }: { dimensions:
         }} />
 }
 
-export const UnemploymentAndAccessToElectricity = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => { }
+export const UnemploymentAndAccessToElectricity = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
+    const data = retrieveData({ metrics: ['2021_unemployment', 'access_to_electricity'], aggregator: 'world' }, 'linear') as LinearData[]
+    //91 = 100
+    let electricity = 0
+    let unemployment = 0
+    let both = 0
+
+    Object.values(data).forEach(item => {
+        if (item.data[0] && item.data[0].y < 5) unemployment++
+        if (item.data[1] && item.data[1].y > 99) electricity++
+        if (item.data[0] && item.data[1] && item.data[1].y > 99 && item.data[0].y < 5) both++
+    })
+
+    const funnelData = [
+        {
+            "id": "electricity",
+            "value": electricity,
+            "label": "Access to Electricity"
+        },
+        {
+            "id": "unemployment",
+            "value": unemployment,
+            "label": "Low Unemployment"
+        },
+        {
+            "id": "both",
+            "value": both,
+            "label": "Access to Electricity and Low Unemployment"
+        }
+    ]
+
+    return <div className='font-equinox flex flex-col'>
+        <p className='text-center lowercase'>Access to Electricity and Unemployment</p>
+        <p className='font-body text-white text-sm'>Education and ability to acquire new skills is directly related to being able to use the Internet. Learning and working can be done remotely. Citizens of countries and regions with access to the internet are more likely to upskill, and therefore be more employable.</p>
+        <FunnelChart data={funnelData} dimensions={{ width, height: height - 15 }} />
+
+    </div>
+
+
+}
 
 export const Stability = ({ dimensions }: { dimensions: ChartDimensions }) => {
     const avg_2021 = getWorldAvg('2021_political_instability')

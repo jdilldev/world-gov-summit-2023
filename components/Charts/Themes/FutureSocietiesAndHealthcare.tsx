@@ -1,9 +1,11 @@
-import { ChartDimensions } from "../../../app/data/types"
+import { ChartDimensions, LinearData } from "../../../app/data/types"
 import { CustomTooltip, GdpPercentagesRadialBarChart, StatCard } from "../../Shared"
 import CirclePackingChart from "../CirclePackingChart"
 import DiseaseIcon from '../../../public/icons/bacteria.svg'
 import { PRE_CONTENT_ICON_SIZE } from "../../../app/constants"
-import { getWorldAvg } from "../../../app/data/generateData"
+import { getWorldAvg, retrieveData } from "../../../app/data/generateData"
+import LineChart from "../LineChart"
+import { HeatMap } from "@nivo/heatmap"
 
 
 export const Top10CausesOfDeath = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
@@ -113,8 +115,8 @@ export const HealthRadialChart = ({ dimensions: { width, height } }: { dimension
 }
 
 export const HealthExpenditureOfGDPDelta = ({ dimensions }: { dimensions: ChartDimensions }) => {
-    //  const healthExpenditureGDP = getWorldAvg('')
-    return <StatCard stat={'hi'} dimensions={dimensions} />
+    const three_year_health_data = retrieveData({ metrics: ['2017_health_gdp', '2018_health_gdp', '2019_health_gdp'], aggregator: 'world' }, 'linear') as LinearData[]
+    return <LineChart data={three_year_health_data} dimensions={dimensions} />
 }
 
 //55

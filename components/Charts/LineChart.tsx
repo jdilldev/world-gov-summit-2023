@@ -42,8 +42,8 @@ const LineChart = ({ data, dimensions: { width, height }, max, min }: { data: Li
         pointBorderColor={{ from: 'serieColor' }}
         pointLabelYOffset={-12}
         useMesh={true}
-        xFormat={(x) => (x as string).split('_')[0]}
-        tooltip={({ point: { serieId, data: { xFormatted, yFormatted } } }) => <ChartTooltip content={`In ${xFormatted}, ${yFormatted} of ${serieId}'s energy was renewable`} />}
+    // xFormat={(x) => (x as string).split('_')[0]}
+    // tooltip={({ point: { serieId, data: { xFormatted, yFormatted } } }) => <ChartTooltip content={`In ${xFormatted}, ${yFormatted} of ${serieId}'s energy was renewable`} />}
     />
 )
 

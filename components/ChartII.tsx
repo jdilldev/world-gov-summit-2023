@@ -4,6 +4,8 @@ import { useContext } from 'react';
 import { ChartDimensions } from '../app/data/types';
 import { GovernmentHealthBullet } from './Charts/Themes/AcceleratingGov';
 import { SummitThemeContext } from '../app/constants';
+import { UnemploymentAndAccessToElectricity } from './Charts/Themes/PrioritizingLearningAndWork';
+import { HealthExpenditureOfGDPDelta } from './Charts/Themes/FutureSocietiesAndHealthcare';
 
 
 const renderChartBasedOnTheme = (selectedTheme: string, width: number, height: number) => {
@@ -17,9 +19,9 @@ const renderChartBasedOnTheme = (selectedTheme: string, width: number, height: n
         case 'Governing Economic Resilience and Connectivity':
             return
         case 'Future of Societies and Healthcare':
-            return
+            return <HealthExpenditureOfGDPDelta dimensions={{ width, height }} />
         case 'Prioritizing Learning and Work':
-            return
+            return <UnemploymentAndAccessToElectricity dimensions={{ width, height }} />
         default: return <DefaultPlaceholder placeholderLocation='two' height={height} />
 
     }
@@ -38,6 +40,6 @@ export const ChartII = ({ width, height }: ChartDimensions) => {
         animator={{ animate: false }}
         className='bg-cyan-700 bg-opacity-20'
     >
-        {renderChartBasedOnTheme(selectedTheme, width, height)}
+        {renderChartBasedOnTheme(selectedTheme, width, height - 10)}
     </FrameCorners>
 }

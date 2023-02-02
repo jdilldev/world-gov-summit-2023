@@ -73,6 +73,7 @@ const getContentForTheme = (width: number, height: number, theme: string, positi
                 case 3:
                     return <GovernmentRadialBar width={width} height={height} />
             }
+            break;
         case 'Global City Design and Sustainability':
             switch (position) {
                 case 0:
@@ -87,6 +88,7 @@ const getContentForTheme = (width: number, height: number, theme: string, positi
                 case 3:
                     return <HappyPlanetIndex dimensions={{ width, height }} />
             }
+            break;
         case 'Exploring the Frontiers':
             switch (position) {
                 case 0:
@@ -98,6 +100,7 @@ const getContentForTheme = (width: number, height: number, theme: string, positi
                 case 3:
                     return <AstronautsAndSatellites dimensions={{ width, height }} />
             }
+            break;
         case 'Governing Economic Resilience and Connectivity':
             switch (position) {
                 case 0:
@@ -109,6 +112,7 @@ const getContentForTheme = (width: number, height: number, theme: string, positi
                 case 3:
                     return <EconomicGrowthDelta dimensions={{ width, height }} />
             }
+            break;
         case 'Future of Societies and Healthcare':
             switch (position) {
                 case 0:
@@ -120,6 +124,7 @@ const getContentForTheme = (width: number, height: number, theme: string, positi
                 case 3:
                     return <HealthRadialChart dimensions={{ width, height }} />
             }
+            break;
         case 'Prioritizing Learning and Work':
             switch (position) {
                 case 0:

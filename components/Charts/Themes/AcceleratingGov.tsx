@@ -1,4 +1,4 @@
-import { getWorldAvg } from "../../../app/data/generateData"
+import { getMax, getMin, getWorldAvg } from "../../../app/data/generateData"
 import { ChartDimensions } from "../../../app/data/types"
 import BulletChart from "../BulletChart"
 import RadarChart from "../RadarChart"
@@ -7,9 +7,9 @@ import LegendIcon from '../../../public/icons/rect-vertical.svg'
 import LegendIconII from '../../../public/icons/rect-horizontal.svg'
 import PieChart from "../PieChart"
 import ParallelCoordinatesChart from "../ParallelCoordinates"
-import { useMobile } from "../../../app/hooks/hooks"
 import GaugeChart from "../GaugeChart"
 import LineChart from "../LineChart"
+import FunnelChart from "../FunnelChart"
 
 export const GovernmentStabilityRadar = ({ width, height }: ChartDimensions) => {
     const data = [
@@ -49,21 +49,25 @@ export const GovernmentRadialBar = ({ width, height }: ChartDimensions) => <>
 </>
 
 export const GovernmentHealthBullet = ({ width, height }: ChartDimensions) => {
+    const integrityAvg = getWorldAvg('2022_government_integrity')
+    const { value: integrityMax } = getMax('2022_government_integrity', 'world')
+    const { value: integrityMin } = getMin('2022_government_integrity', 'world')
+
     const data = [
 
         {
             "id": "Integrity (2022)",
             "ranges": [
                 0,
-                8
+                integrityMax
             ],
             "measures": [
-                1,
-                5.7,
-                8
+                integrityMin,
+                integrityAvg,
+                integrityMax
             ],
             "markers": [
-                3
+                integrityAvg
             ]
         },
         {
@@ -82,7 +86,7 @@ export const GovernmentHealthBullet = ({ width, height }: ChartDimensions) => {
             ]
         },
         {
-            "id": "Efficacy (2021)",
+            "id": "efficacy (2021)",
             "ranges": [
                 0,
                 8
@@ -95,7 +99,13 @@ export const GovernmentHealthBullet = ({ width, height }: ChartDimensions) => {
             ]
         }
     ]
-    return <>
+
+
+    const data2 = []
+
+    return <></>
+
+    {/* <>
         <div className="flex flex-col items-start justify-between">
             <p className="font-agelast text-lg">Government Health</p>
             <div className="w-full text-sm flex flex-row justify-evenly gap-3 lg:gap-1">
@@ -105,7 +115,7 @@ export const GovernmentHealthBullet = ({ width, height }: ChartDimensions) => {
             </div>
         </div>
         <BulletChart data={data} width={width} height={height} />
-    </>
+    </> */}
 }
 
 

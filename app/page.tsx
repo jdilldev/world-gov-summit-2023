@@ -1,8 +1,7 @@
 'use client';
 import React, { useState, useEffect, useRef, useContext, createContext } from 'react'
-import { Text, Container, Button } from '@nextui-org/react';
 import { FrameCorners, FrameHexagon } from '@arwes/core';
-import Map, { GeolocateControl } from "react-map-gl";
+import Map from "react-map-gl";
 import { ParentSize } from '@visx/responsive';
 import { StatBoxes } from '../components/StatBoxes';
 import { HexagonFrame as RegionalInfo } from '../components/RegionalStats';
@@ -18,6 +17,7 @@ import Development from '../public/icons/009-overpopulation.svg'
 import { ButtonGroup } from '../components/Shared';
 import { ChartI } from '../components/ChartI';
 import { ChartII } from '../components/ChartII';
+import SummitLogo from '../public/WGS-summit-logo.svg'
 import { DEFAULT_THEME_PROMPT, SummitThemeContext } from './constants';
 
 const bag2 = 'https://api.mapbox.com/styles/v1/jdilldev/clcmbx409004c14qrslh0z9la/static/[-94.0749,-64.3648,117.0407,75.2404]/1150x1100?access_token=pk.eyJ1IjoiamRpbGxkZXYiLCJhIjoiY2xjbHR0MXNtOXE3ZTN2cGx1YWwxYmE4cyJ9.UKQMbbf2Q4revc3Nz9ws3g'
@@ -40,7 +40,7 @@ const Home = () => {
   const isDesktop = useDesktop()
   const [mapHeight, setMapHeight] = useState(0)
   const [chart2height, setchartheight] = useState(0)
-  const [mapProjection, setMapProjection] = useState<'mercator' | 'globe'>(isDesktop ? 'mercator' : 'globe')
+  const [mapProjection, setMapProjection] = useState<'mercator' | 'globe'>('mercator')
   const [selectedTheme, setSelectedTheme] = useState(DEFAULT_THEME_PROMPT)
 
   const isThemeSelected = selectedTheme !== DEFAULT_THEME_PROMPT
@@ -108,7 +108,7 @@ const Home = () => {
                     // style={{ backgroundImage: `url(${bag2})` }}
                     >
                       <ButtonGroup className='absolute top-0 right-0 z-10 font-normal' values={['Mercator', 'Globe']} controlValue={mapProjection} onChange={(value: string) => setMapProjection(value as 'mercator' | 'globe')} />
-                      {/*    <Map
+                      <Map
                         // trackResize
                         minZoom={1}
                         maxZoom={2.5}
@@ -129,14 +129,22 @@ const Home = () => {
 
                           return event.target.resize()
                         }}
-                      /> */}
+                      />
                     </FrameCorners>
                   </div>
                 </div>
                 <div className='h-1/4 lg:h-1/5'>
                   <FrameHexagon hover inverted palette='secondary' squareSize={40} lineWidth={3} animator={{ animate: false }} className='h-full w-full text-base md:text-lg' >
-                    <p className='text-sm md:text-base white text-center mb-2'>Feel free to toggle the orientation of the map.</p>
-                    <p className='text-sm md:text-base text-center px-4'>If you zoom into the map, you can see country locations. However, please note data and charts only display information at the global or subregional level.</p>
+                    {isThemeSelected ?
+                      <div className='flex flex-col'>
+                        <p>Created by Jasmine Dillard, 2023 | World Government Summit 2023
+                        </p>
+                        <SummitLogo className='w-48 h-48' />
+                      </div>
+                      : <>
+                        <p className='text-sm md:text-base white text-center mb-2'>Feel free to toggle the orientation of the map.</p>
+                        <p className='text-sm md:text-base text-center px-4'>If you zoom into the map, you can see country locations. However, please note data and charts only display information at the global or subregional level.</p>
+                      </>}
                   </FrameHexagon>
                 </div>
               </div>
