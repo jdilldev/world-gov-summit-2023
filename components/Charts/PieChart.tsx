@@ -4,14 +4,14 @@ import { PercentileData } from '../../app/data/types'
 
 const colors = ['#b3f5ffb9', '#00b1ccd9', '#047898e3']
 
-const PieChart = ({ data, width, height }: { data: PercentileData[], width: number, height: number }) => (
+const PieChart = ({ data, width, height, softMargins }: { softMargins?: boolean, data: PercentileData[], width: number, height: number }) => (
     <Pie
         width={width}
         height={height}
         theme={NIVO_THEME}
         data={data}
         valueFormat=" >-.2f"
-        margin={{ top: 40, right: 120, bottom: 20, left: 50 }}
+        margin={softMargins ? { top: 20, right: 0, bottom: 15, left: 0 } : { top: 40, right: 120, bottom: 20, left: 50 }}
         innerRadius={0.6}
         padAngle={3}
         cornerRadius={1}

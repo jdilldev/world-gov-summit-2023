@@ -1,11 +1,12 @@
-import { countNumberOfIncreaseAndDecrease, getMax, getMin, getWorldAvg } from "../../../app/data/generateData"
+import { countNumberOfIncreaseAndDecrease, getMax, getMin, getWorldAvg, retrieveData } from "../../../app/data/generateData"
 import { source_data_obj } from "../../../app/data/source_data"
-import { ChartDimensions } from "../../../app/data/types"
+import { CategoricalData, ChartDimensions } from "../../../app/data/types"
 import { ButtonGroup, CustomTooltip, StatCard, StatCardCustom, } from "../../Shared"
 import EconomicCrisisIcon from '../../../public/icons/economic-crisis.svg'
 import { PRE_CONTENT_ICON_SIZE } from "../../../app/constants"
 import { useState } from "react"
 import PieChart from "../PieChart"
+import BarChart from "../BarChart"
 
 export const InflationChanges = ({ dimensions }: { dimensions: ChartDimensions }) => {
     //https://www.imf.org/external/datamapper/PCPIPCH@WEO/OEMDC
@@ -37,10 +38,21 @@ export const GINI = ({ dimensions: { width, height } }: { dimensions: ChartDimen
     return <StatCardCustom content={<Content />} dimensions={{ width, height }} />
 }
 
-export const SEDA = () => {
+export const SEDA = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
+    const data = retrieveData({ metrics: ['seda'], aggregator: 'multiRegions' }, 'categorical') as CategoricalData[]
+    const globalAvg = getWorldAvg('seda').toFixed(1)
+    const { country, value: max } = getMax('seda', 'world')
+    const { country: countryMin, value: min } = getMin('seda', 'world')
 
+    return <div style={{ width, height }} className='w-full h-full font-equinox flex flex-col justify-around text-xl default-font-color  text-center'>
+        <p className='text-center lowercase'>The average SEDA score: <br /><span className='text-white underline underline-offset-4'>{globalAvg}</span></p>
+        <p className='text-white font-body  text-base text-center'>SEDA is an assessment based on 40 indicators in sustainability, economics, & investments (higher = better)</p>
+        <p className="lowercase">#1 {`${country}, ${max}`}</p>
+        <p className="lowercase">Last {`${countryMin}, ${min}`}</p>
+
+
+    </div>
 }
-
 export const EconomicGrowthDelta = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
     const { increased: inc2018, decreased: dec2018 } = countNumberOfIncreaseAndDecrease('2018_economic_growth', 'world')
     const { increased: inc2021, decreased: dec2021 } = countNumberOfIncreaseAndDecrease('2021_economic_growth', 'world')
@@ -55,7 +67,7 @@ export const EconomicGrowthDelta = ({ dimensions: { width, height } }: { dimensi
             <CustomTooltip placement={'leftEnd'} text={'Did you expect a more drastic difference between 2018 and 2021? With COVID-19 in full swing by 2021, many economies proved to be resillient.'} />
             <span className='text-xs lg:text-sm font-equinox lowercase'>GDP Growth and Decline</span>
         </div>
-        <PieChart data={year === '2021' ? data_2021 : data_2018} width={width - 20} height={height - 35} />
+        <PieChart softMargins={true} data={year === '2021' ? data_2021 : data_2018} width={width - 20} height={height - 35} />
         <ButtonGroup className="text-xs self-start" controlValue={year} onChange={(val: string) => setYear(val)} values={['2018', '2021']} />
     </div>
 }

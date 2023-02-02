@@ -8,6 +8,7 @@ import { UnemploymentAndAccessToElectricity } from './Charts/Themes/Prioritizing
 import { HealthExpenditureOfGDPDelta } from './Charts/Themes/FutureSocietiesAndHealthcare';
 import { CorrelationBetweenCO2EmissionsAndRenewables } from './Charts/Themes/GlobalCityDesign';
 import { GII } from './Charts/Themes/ExploringtheFrontier';
+import { SEDA } from './Charts/Themes/EconomicResillience';
 
 
 const renderChartBasedOnTheme = (selectedTheme: string, width: number, height: number) => {
@@ -19,7 +20,7 @@ const renderChartBasedOnTheme = (selectedTheme: string, width: number, height: n
         case 'Exploring the Frontiers':
             return <GII dimensions={{ width, height }} />
         case 'Governing Economic Resilience and Connectivity':
-            return
+            return <SEDA dimensions={{ width, height }} />
         case 'Future of Societies and Healthcare':
             return <HealthExpenditureOfGDPDelta dimensions={{ width, height }} />
         case 'Prioritizing Learning and Work':

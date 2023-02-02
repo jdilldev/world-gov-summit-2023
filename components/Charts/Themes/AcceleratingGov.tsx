@@ -134,17 +134,15 @@ export const GovernmentHDIDifferenceChart = ({ width, height }: ChartDimensions)
 
 export const GovernmentIncreaseDecreaseChart = ({ width, height }: ChartDimensions) => {
 
-    const data = [
-        {
-            "id": "increased",
-            "value": 20,
-        },
-        {
-            "id": "decreased",
-            "value": 50,
-        },
+    const globalAvg = getWorldAvg('2021_government_effectiveness')
 
-    ]
+    return <StatCard stat={globalAvg.toFixed(1) + ' Efficacy Score'} dimensions={{
+        width: width,
+        height: height
+    }}
+        text={'Range is from -2.5 to 2.5'}
+        secondaryText={'2021'}
 
-    return <PieChart data={data} width={width} height={height} />
+    />
+
 }

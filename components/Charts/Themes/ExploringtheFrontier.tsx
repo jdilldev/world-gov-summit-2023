@@ -73,7 +73,7 @@ export const GII = ({ dimensions: { width, height } }: { dimensions: ChartDimens
 
     return <div className='font-equinox flex flex-col'>
         <p className='text-center lowercase'>Most Innovative Subregions</p>
-        <p className='font-body text-white text-sm'>GII is a Global Innovation Index that ranks countries on their innovative ability and endevaors. Circle color correlates to value. Similarly colored circles have similar values.</p>
+        <p className='font-body text-white text-sm text-center'>GII is a Global Innovation Index that ranks countries on their innovative ability and endevaors. Circle color correlates to value. Similarly colored circles have similar values. Click the link to view the most innovative countries.</p>
         <a className="text-xs" href='src'>https://www.globalinnovationindex.org/analysis-indicator</a>
         <CirclePackingChart hasColors={true} dimensions={{ width, height: height - 80 }} data={data} />
     </div>
