@@ -47,10 +47,8 @@ export const SEDA = ({ dimensions: { width, height } }: { dimensions: ChartDimen
     return <div style={{ width, height }} className='w-full h-full font-equinox flex flex-col justify-around text-xl default-font-color  text-center'>
         <p className='text-center lowercase'>The average SEDA score: <br /><span className='text-white underline underline-offset-4'>{globalAvg}</span></p>
         <p className='text-white font-body  text-base text-center'>SEDA is an assessment based on 40 indicators in sustainability, economics, & investments (higher = better)</p>
-        <p className="lowercase">#1 {`${country}, ${max}`}</p>
-        <p className="lowercase">Last {`${countryMin}, ${min}`}</p>
-
-
+        <p className="lowercase text-green-400">#1 {`${country}, ${max}`}</p>
+        <p className="lowercase text-red-400">Last {`${countryMin}, ${min}`}</p>
     </div>
 }
 export const EconomicGrowthDelta = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
