@@ -73,7 +73,7 @@ const Home = () => {
                 <p className={`text-md lowercase min-w-fit max-w-full whitespace-nowrap font-equinox hover:text-[#3297b3a8] ${worldSummitTheme.name === selectedTheme ? 'uppercase tracking-widest ' : ''}`}>{worldSummitTheme.name}</p>
               </div> : <worldSummitTheme.icon
                 onClick={() => setSelectedTheme(worldSummitTheme.name)}
-                className={`w-[40px] h-[50px] stroke-2 fill-slate-400 hover:fill-[#3297b3a8] ${worldSummitTheme.name === selectedTheme ? 'fill-[#3297b3a8]' : ''}`} />
+                className={`w-[40px] h-[50px] md:w-[50px] mdLh-[55px]  stroke-2 fill-slate-400 hover:fill-[#3297b3a8] ${worldSummitTheme.name === selectedTheme ? 'fill-[#3297b3a8]' : ''}`} />
               )}
             </div>
           </div>
@@ -83,9 +83,9 @@ const Home = () => {
             <div className='flex flex-col gap-3 lg:flex lg:flex-row w-full h-full'>
               {!isDesktop && <StatBoxes />}
               <div className='flex flex-wrap flex-row gap-3 md:justify-between h-1/3 lg:h-full w-full lg:flex-nowrap lg:flex-col lg:w-1/3'>
-                {isDesktop && <RegionalInfo />}
+                {isDesktop && <RegionalInfo isThemeSelected={isThemeSelected} />}
                 <div className='flex flex-row gap-3 w-full h-full lg:h-3/4'>
-                  {!isDesktop && <RegionalInfo />}
+                  {!isDesktop && <RegionalInfo isThemeSelected={isThemeSelected} />}
                   <div className='w-2/3 lg:w-full'>
                     <ParentSize debounceTime={10}>{({ width, height }) =>
                       <ChartII width={width - 1} height={height - 10} />
@@ -142,7 +142,7 @@ const Home = () => {
                       </div>
                       : <>
                         <p className='text-sm md:text-base white text-center mb-2'>Feel free to toggle the orientation of the map.</p>
-                        <p className='text-sm md:text-base text-center px-4'>If you zoom into the map, you can see country locations. However, please note data and charts only display information at the global or subregional level.</p>
+                        <p className='text-sm md:text-base text-center px-4'>If you zoom into the map, you can see country locations.<br /> The map is read-only and intends to orient you.</p>
                       </>}
                   </FrameHexagon>
                 </div>

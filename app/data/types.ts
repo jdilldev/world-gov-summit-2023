@@ -117,7 +117,7 @@ export type CountryProfile = {
 
 export type CountryMetrics = keyof CountryProfile;
 
-export const M49_subregions = [
+export const M49_subregions: string[] = [
 	"Northern Africa",
 	"Sub-Saharan Africa",
 	"Northern America",

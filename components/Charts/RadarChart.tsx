@@ -34,8 +34,8 @@ const RadarChart = ({ data, indexBy, keys, dimensions: { width, height } }: { da
         gridShape='linear'
         theme={NIVO_THEME}
         //layers={['layers', 'grid', 'legends']}
-        gridLabel={width < 100 ? () => <p>gu</p> : undefined}
-        sliceTooltip={({ data, index }) => <ChartTooltip content={`${data}`} />}
+        //gridLabel={ }
+        sliceTooltip={({ data, index }) => <ChartTooltip content={`${index} ${data[0]['formattedValue']}`} />}
 
     />
 }

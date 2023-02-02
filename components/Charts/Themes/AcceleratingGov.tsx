@@ -113,10 +113,20 @@ export const GovernmentHealthBullet = ({ width, height }: ChartDimensions) => {
 
 
 export const GovernmentHDIDifferenceChart = ({ width, height }: ChartDimensions) => {
-    return <StatCard stat={'50'} dimensions={{ width, height }} />
+    const hdi = getWorldAvg('2017_HDI')
+    const hdi_2 = getWorldAvg('2021_HDI')
+    return <StatCard
+        preContent={<p className="font-equinox lowercase default-font-color">Human Development Index</p>}
+        stat={hdi_2.toFixed(1)}
+        dimensions={{ width, height }}
+        text={'2017 to 2021'}
+        secondaryText={'Change in HDI'}
+        delta={hdi_2 - hdi}
+    />
 }
 
 export const GovernmentIncreaseDecreaseChart = ({ width, height }: ChartDimensions) => {
+
     const data = [
         {
             "id": "increased",
