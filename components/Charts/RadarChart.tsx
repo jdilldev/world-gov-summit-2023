@@ -4,6 +4,7 @@ import { Radar } from '@nivo/radar'
 import { CategoricalData, ChartDimensions, CountryMetrics } from '../../app/data/types'
 import { NIVO_THEME } from '../../app/constants'
 import { GridLabelComponent } from '@nivo/radar'
+import { ChartTooltip } from '../Shared';
 // make sure parent container have a defined height when using
 // responsive component, otherwise height will be 0 and
 // no chart will be rendered.
@@ -19,7 +20,7 @@ const RadarChart = ({ data, indexBy, keys, dimensions: { width, height } }: { da
         enableDots={true}
         indexBy={indexBy}
         valueFormat=">-.2f"
-        margin={{ top: 20, right: 20, bottom: 30, left: 20 }}
+        margin={{ top: 10, right: 0, bottom: 10, left: 0 }}
         borderColor={'#78cce2'}
         borderWidth={2}
         gridLabelOffset={10}
@@ -33,7 +34,9 @@ const RadarChart = ({ data, indexBy, keys, dimensions: { width, height } }: { da
         gridShape='linear'
         theme={NIVO_THEME}
         //layers={['layers', 'grid', 'legends']}
-        gridLabel={width < 350 ? () => <p>gu</p> : undefined}
+        gridLabel={width < 100 ? () => <p>gu</p> : undefined}
+        sliceTooltip={({ data, index }) => <ChartTooltip content={`${data}`} />}
+
     />
 }
 

@@ -1,42 +1,35 @@
 import { getMax, getMin, getWorldAvg } from "../../../app/data/generateData"
 import { ChartDimensions } from "../../../app/data/types"
-import BulletChart from "../BulletChart"
 import RadarChart from "../RadarChart"
 import { GdpPercentagesRadialBarChart, StatCard } from "../../Shared"
-import LegendIcon from '../../../public/icons/rect-vertical.svg'
-import LegendIconII from '../../../public/icons/rect-horizontal.svg'
 import PieChart from "../PieChart"
-import ParallelCoordinatesChart from "../ParallelCoordinates"
-import GaugeChart from "../GaugeChart"
-import LineChart from "../LineChart"
-import FunnelChart from "../FunnelChart"
 
 export const GovernmentStabilityRadar = ({ width, height }: ChartDimensions) => {
     const data = [
         {
             "metric": "Government Effectiveness",
-            "Score": 12//getWorldAvg('2021_government_effectiveness')
+            "Score": -getWorldAvg('2021_government_effectiveness')
         },
         {
             "metric": "Rule of Law",
-            "Score": 8//getWorldAvg('2022_government_integrity')
+            "Score": -getWorldAvg('2021_rule_of_law')
         },
         {
             "metric": "Political Instability",
-            "Score": 15 //getWorldAvg('2021_political_instability')
+            "Score": -getWorldAvg('2021_political_instability')
         },
         {
             "metric": "Control of Corruption",
-            "Score": 21 //getWorldAvg('2021_political_instability')
+            "Score": -getWorldAvg('2021_control_of_corruption')
         },
         {
             "metric": "Regulatory Quality",
-            "Score": 17 //getWorldAvg('2021_political_instability')
+            "Score": -getWorldAvg('2021_regulatory_quality')
         }
     ]
 
     return < RadarChart
-        dimensions={{ width, height }}
+        dimensions={{ width, height: height }}
         data={data}
         indexBy={'metric'}
         keys={['Score']} />

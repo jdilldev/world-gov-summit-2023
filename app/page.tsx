@@ -59,21 +59,21 @@ const Home = () => {
     <SummitThemeContext.Provider value={selectedTheme}>
       <div className='h-[120vh] lg:h-screen lg:pb-4 flex flex-col w-full gap-3'>
         <div className='h-48 flex justify-center'>
-          <div style={{ backgroundImage: `url(${'bag2'})` }} className='flex flex-col pt-2 px-1 border-solid border-l-4 border-r-4 border-b-4  border-[#0c354e] backdrop-blur-lg gap-3 fixed top-0 z-10 w-[87%] md:w-[90%] items-center lg:w-full lg:gap-1 lg:border-none'>
-            <p className='tracking-[.3em] md:tracking-[.7em] text-slate-300 text-md md:text-2xl lg:text-3xl uppercase font-equinox'>{`The Present Future`}</p>
+          <div className='flex flex-col pt-2 px-1 border-solid border-l-4 border-r-4 border-b-4  border-[#0c354e] backdrop-blur-lg gap-3 fixed top-0 z-10 items-center lg:w-full lg:gap-1 lg:border-none'>
+            <p className='tracking-[.3em] md:tracking-[.7em] text-slate-300 text-md md:text-xl lg:text-3xl uppercase font-equinox'>{`The Present Future`}</p>
             <p className='tracking-[.5em] text-xl white uppercase font-dreamscape text-[#72a4b5]'>
-              <p className={`${isThemeSelected ? 'tracking-normal text-sm md:tracking-widest md:text-xl font-body lg:font-dreamscape text-center' : ''}`}>{isDesktop ? 'Themes' : selectedTheme}
+              <p className={`${isThemeSelected ? 'tracking-normal text-sm md:tracking-widest font-body lg:font-dreamscape text-center' : ''}`}>{isDesktop ? 'Themes' : selectedTheme}
                 {!isThemeSelected && <span className='text-sm normal-case font-thin tracking-normal font-body'>{'(Click to select)'}</span>}
               </p>
             </p>
-            <div className='flex pb-1 md:pb-2 no-wrap justify-evenly w-full gap-4 md:gap-6 lg:flex-wrap lg:justify-evenly lg:gap-4 2xl:gap-18'>
+            <div className='flex pb-1 md:pb-2 no-wrap justify-evenly w-full gap-4 lg:flex-wrap lg:justify-evenly lg:gap-4 2xl:gap-18'>
               {worldSummitThemes.map(worldSummitTheme => isDesktop ? <div
                 className={`hidden lg:h-8 lg:inline  ${worldSummitTheme.name === selectedTheme ? 'box text-[#3297b3a8]' : 'text-slate-500'}`}
                 onClick={() => setSelectedTheme(worldSummitTheme.name)}>
                 <p className={`text-md lowercase min-w-fit max-w-full whitespace-nowrap font-equinox hover:text-[#3297b3a8] ${worldSummitTheme.name === selectedTheme ? 'uppercase tracking-widest ' : ''}`}>{worldSummitTheme.name}</p>
               </div> : <worldSummitTheme.icon
                 onClick={() => setSelectedTheme(worldSummitTheme.name)}
-                className={`w-[40px] h-[50px] md:w-[70px] md:h-[70px] stroke-2 fill-slate-400 hover:fill-[#3297b3a8] ${worldSummitTheme.name === selectedTheme ? 'fill-[#3297b3a8]' : ''}`} />
+                className={`w-[40px] h-[50px] stroke-2 fill-slate-400 hover:fill-[#3297b3a8] ${worldSummitTheme.name === selectedTheme ? 'fill-[#3297b3a8]' : ''}`} />
               )}
             </div>
           </div>
@@ -121,7 +121,7 @@ const Home = () => {
                         pitch={mapProjection === 'mercator' ? 30 : 0}
                         projection={mapProjection}
                         attributionControl={false}
-                        //style={{ width: '100%', height: mapHeight - 20 + 'px' }}
+                        style={{ width: '100%', height: mapHeight - 30 + 'px' }}
                         mapStyle="mapbox://styles/jdilldev/cld37ljym000801o0ygnt71yu"
                         onRender={(event) => {
                           if (mapContainer.current)
@@ -134,7 +134,7 @@ const Home = () => {
                   </div>
                 </div>
                 <div className='h-1/4 lg:h-1/5'>
-                  <FrameHexagon hover inverted palette='secondary' squareSize={40} lineWidth={3} animator={{ animate: false }} className='h-full w-full text-base md:text-lg' >
+                  <FrameHexagon hover inverted palette='secondary' squareSize={40} lineWidth={3} animator={{ animate: false }} className='h-full w-full text-base lg:text-lg' >
                     {isThemeSelected ?
                       <div className='flex flex-col place-items-center w-full gap-1'>
                         <p>Created by Jasmine Dillard, 2023 | World Government Summit 2023</p>

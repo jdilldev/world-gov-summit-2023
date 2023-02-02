@@ -76,7 +76,7 @@ export const Stability = ({ dimensions }: { dimensions: ChartDimensions }) => {
                     <p>This may seem like a strange statistic for learning and working, but for nations and regions where there are high levels of political instability, education is unlikely to be a primary concern. <br /><br />These areas are disadvanatged in that they are trying to meet basic  needs, whereas having the opportunity to pursue education can be seen as a luxury.</p>}
             /></p>}
         text={'Political Instability'}
-        secondaryText={'Change 2017 - 2021'} delta={avg_2021 - avg_2017}
+        // secondaryText={'Change 2017 - 2021'} delta={avg_2021 - avg_2017}
         dimensions={dimensions} />
 }
 
