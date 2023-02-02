@@ -6,6 +6,8 @@ import { GovernmentHealthBullet } from './Charts/Themes/AcceleratingGov';
 import { SummitThemeContext } from '../app/constants';
 import { UnemploymentAndAccessToElectricity } from './Charts/Themes/PrioritizingLearningAndWork';
 import { HealthExpenditureOfGDPDelta } from './Charts/Themes/FutureSocietiesAndHealthcare';
+import { CorrelationBetweenCO2EmissionsAndRenewables } from './Charts/Themes/GlobalCityDesign';
+import { GII } from './Charts/Themes/ExploringtheFrontier';
 
 
 const renderChartBasedOnTheme = (selectedTheme: string, width: number, height: number) => {
@@ -13,9 +15,9 @@ const renderChartBasedOnTheme = (selectedTheme: string, width: number, height: n
         case 'Accelerating Development and Governance':
             return <GovernmentHealthBullet width={width} height={height} />
         case 'Global City Design and Sustainability':
-            return;
+            return <CorrelationBetweenCO2EmissionsAndRenewables dimensions={{ width, height }} />
         case 'Exploring the Frontiers':
-            return
+            return <GII dimensions={{ width, height }} />
         case 'Governing Economic Resilience and Connectivity':
             return
         case 'Future of Societies and Healthcare':

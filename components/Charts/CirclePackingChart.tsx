@@ -1,7 +1,10 @@
 import { CirclePacking } from '@nivo/circle-packing'
 import { NIVO_THEME } from '../../app/constants'
 import { ChartDimensions, HierarchicalData } from '../../app/data/types'
-const CirclePackingChart = ({ data, dimensions: { width, height } }: { data: HierarchicalData, dimensions: ChartDimensions }) => (
+
+const colors = ['#b3f5ffb9', '#00b1ccd9', '#047898e3']
+
+const CirclePackingChart = ({ data, hasColors, dimensions: { width, height } }: { hasColors?: boolean, data: HierarchicalData, dimensions: ChartDimensions }) => (
     <CirclePacking
         width={width}
         height={height}
@@ -9,7 +12,7 @@ const CirclePackingChart = ({ data, dimensions: { width, height } }: { data: Hie
         animate={false}
         theme={NIVO_THEME}
         margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
-        colors={{ scheme: 'yellow_green_blue' }}
+        colors={hasColors ? colors : { scheme: 'yellow_green_blue' }}
         colorBy={'id'}
         childColor={{
             from: 'inherit',

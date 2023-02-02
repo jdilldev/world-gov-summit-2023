@@ -1,8 +1,9 @@
-import { getMax, getMin, getWorldAvg } from "../../../app/data/generateData"
-import { ChartDimensions } from "../../../app/data/types"
+import { getMax, getMin, getWorldAvg, retrieveData } from "../../../app/data/generateData"
+import { ChartDimensions, LinearData } from "../../../app/data/types"
 import RadarChart from "../RadarChart"
 import { GdpPercentagesRadialBarChart, StatCard } from "../../Shared"
 import PieChart from "../PieChart"
+import BumpChart from "../BumpChart"
 
 export const GovernmentStabilityRadar = ({ width, height }: ChartDimensions) => {
     const data = [
@@ -94,9 +95,15 @@ export const GovernmentHealthBullet = ({ width, height }: ChartDimensions) => {
     ]
 
 
-    const data2 = []
 
-    return <></>
+    const data2 = retrieveData({ metrics: ['2017_HDI', '2021_HDI'], aggregator: 'multiRegions' }, 'linear') as LinearData[]
+
+    return <div className='font-equinox flex flex-col'>
+        <p className='text-center lowercase'>Regional HDI Change between 2017 and 2021</p>
+        <p className='font-body text-white text-sm'>This chart is different in that is show you the trend change, rather than actual numeric values.<br /> By looking at this from a regional perspective, we can see that some subregions improves, while others decreased. The overal net zero change in HDI over 4 years shows there is opportunity for improvement at the global level.</p>
+        <BumpChart data={data2} dimensions={{ width, height: height - 70 }} />
+    </div>
+
 
     {/* <>
         <div className="flex flex-col items-start justify-between">

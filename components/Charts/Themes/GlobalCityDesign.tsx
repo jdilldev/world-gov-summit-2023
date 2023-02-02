@@ -1,18 +1,25 @@
 import { getMax, getMin, retrieveData } from "../../../app/data/generateData"
-import { ChartDimensions, LinearData } from "../../../app/data/types"
+import { ChartDimensions, LinearData, PercentileData } from "../../../app/data/types"
 import GlobalWarmingIcon from '../../../public/icons/global-warming.svg'
 import { CustomTooltip, StatCard, StatCardCustom } from "../../Shared"
 import { PRE_CONTENT_ICON_SIZE } from "../../../app/constants"
 import HeatmapChart from "../HeatmapChart"
 import BumpChart from "../BumpChart"
 import LineChart from "../LineChart"
+import { Point } from "@nivo/line"
+import PieChart from "../PieChart"
 
 export const ShareOfElectricityFromRenewables = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
     const renewableEnergyTrends = retrieveData({ aggregator: 'multiRegions', metrics: ['2015_electricity_from_renewables', '2020_electricity_from_renewables'], }, 'linear') as LinearData[]
-    console.log(renewableEnergyTrends)
+    const { value: min } = getMin('2015_electricity_from_renewables', 'world')
+    const { value: max } = getMax('2015_electricity_from_renewables', 'world')
+
     return <div className='flex flex-col  place-items-center'>
         <p className='text-xs lg:text-base text-center text-white font-equinox '>Use of renewable energy<br /></p>
-        <LineChart data={renewableEnergyTrends} dimensions={{ width, height: height - 5 }} />
+        <LineChart
+
+            tooltipContent={({ p: { serieId, data: { xFormatted, yFormatted } } }: { p: Point }) => `In ${xFormatted}, ${yFormatted}% of ${serieId}'s energy was renewable`}
+            data={renewableEnergyTrends} dimensions={{ width, height: height - 5 }} />
     </div>
 }
 
@@ -83,7 +90,17 @@ export const WaterStressByRegion = ({ dimensions: { width, height } }: { dimensi
     </div>
 }
 
-export const CorrelationBetweenCO2EmissionsAndRenewables = () => {
+export const CorrelationBetweenCO2EmissionsAndRenewables = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
+
+    const data = retrieveData({ metrics: ['2019_CO2e_emissions_per_capita'], aggregator: 'multiRegions' }, 'percentile') as PercentileData[]
+
+    return <div style={{ width }} className='font-equinox flex flex-row w-full'>
+        <div className="flex flex-col max-w-[200px] text-center">
+            <p className=' text-center lowercase'>CO2E Emission (by Subregion)</p>
+            <p className='font-body text-white text-sm'>The burning of fossil fuels is seen as a major contributor to global warming. This chart shows a breakdown of which regions had the largest carbon footpritnt in 2019.</p>
+        </div>
+        <PieChart data={data} width={width - 150} height={height - 20} />
+    </div>
 }
 
 

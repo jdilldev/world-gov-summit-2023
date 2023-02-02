@@ -20,7 +20,7 @@ const RadarChart = ({ data, indexBy, keys, dimensions: { width, height } }: { da
         enableDots={true}
         indexBy={indexBy}
         valueFormat=">-.2f"
-        margin={{ top: 10, right: 0, bottom: 10, left: 0 }}
+        margin={{ top: 20, right: 20, bottom: 30, left: 20 }}
         borderColor={'#78cce2'}
         borderWidth={2}
         gridLabelOffset={10}
@@ -34,8 +34,8 @@ const RadarChart = ({ data, indexBy, keys, dimensions: { width, height } }: { da
         gridShape='linear'
         theme={NIVO_THEME}
         //layers={['layers', 'grid', 'legends']}
-        //gridLabel={ }
-        sliceTooltip={({ data, index }) => <ChartTooltip content={`${index} ${data[0]['formattedValue']}`} />}
+        // gridLabel={() => width > 150 ? undefined : <p>o</p>}
+        sliceTooltip={({ data, index }) => <ChartTooltip content={`${index} -${data[0]['formattedValue']}`} />}
 
     />
 }

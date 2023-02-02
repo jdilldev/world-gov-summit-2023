@@ -10,7 +10,8 @@ const PieChart = ({ data, width, height }: { data: PercentileData[], width: numb
         height={height}
         theme={NIVO_THEME}
         data={data}
-        margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
+        valueFormat=" >-.2f"
+        margin={{ top: 40, right: 120, bottom: 20, left: 50 }}
         innerRadius={0.6}
         padAngle={3}
         cornerRadius={1}
@@ -21,9 +22,9 @@ const PieChart = ({ data, width, height }: { data: PercentileData[], width: numb
         arcLinkLabelsTextColor="white"
         arcLinkLabelsThickness={2}
         arcLinkLabelsColor={{ from: 'color' }}
-        arcLabelsSkipAngle={10}
+        arcLabelsSkipAngle={5}
         arcLinkLabelsStraightLength={6}
-        arcLinkLabelsDiagonalLength={6}
+        arcLinkLabelsDiagonalLength={12}
         arcLabelsTextColor={'white'}
     />
 )

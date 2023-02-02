@@ -9,7 +9,7 @@ const BumpChart = ({ data, dimensions: { width, height } }: { data: LinearData[]
         height={height}
         theme={NIVO_THEME}
         colors={{ scheme: 'blues' }}
-        lineWidth={1}
+        lineWidth={3}
         activeLineWidth={6}
         inactiveLineWidth={3}
         inactiveOpacity={0.15}
@@ -25,17 +25,8 @@ const BumpChart = ({ data, dimensions: { width, height } }: { data: LinearData[]
         enableGridY={false}
         axisTop={null}
         axisBottom={null}
-        axisLeft={{
-            tickSize: 1,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: 'ranking',
-            legendPosition: 'middle',
-            legendOffset: -40,
-            tickValues: [0, 50],
-            ticksPosition: 'before'
-        }}
-        margin={{ top: 10, right: 20, bottom: 10, left: 20 }}
+        axisLeft={null}
+        margin={{ top: 10, right: 40, bottom: 50, left: 30 }}
         axisRight={null}
         animate={false}
     />

@@ -21,7 +21,7 @@ export const NIVO_THEME = {
 	background: "transparent",
 	textColor: "#9fd0dcb1",
 	fontSize: 12,
-	fontFamily: "equinox",
+	fontFamily: "avenir",
 	axis: {
 		domain: {
 			line: {

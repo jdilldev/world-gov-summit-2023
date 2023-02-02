@@ -1,10 +1,10 @@
-import { Line, Serie } from '@nivo/line'
+import { Line, Point, Serie } from '@nivo/line'
 import { NIVO_THEME } from '../../app/constants'
 import { ChartDimensions, LinearData } from '../../app/data/types'
 import { ChartTooltip } from '../Shared';
 
 
-const LineChart = ({ data, dimensions: { width, height }, max, min }: { data: LinearData[], dimensions: ChartDimensions, max?: number, min?: number }) => (
+const LineChart = ({ data, tooltipContent, dimensions: { width, height }, max, min }: { data: LinearData[], tooltipContent: ({ p }: { p: Point }) => string, dimensions: ChartDimensions, max?: number, min?: number }) => (
     <Line
         width={width}
         height={height}
@@ -17,7 +17,7 @@ const LineChart = ({ data, dimensions: { width, height }, max, min }: { data: Li
         xScale={{ type: 'point' }}
         yScale={{
             type: 'linear',
-            min: min ? min : 0,
+            min: min ? min : 'auto',
             max: max ? max : 'auto',
             stacked: false,
             reverse: false
@@ -32,7 +32,7 @@ const LineChart = ({ data, dimensions: { width, height }, max, min }: { data: Li
             tickPadding: 10,
             tickRotation: 0,
             //legend: 'count',
-            tickValues: [0, 20, 40, 60,],
+            tickValues: 5,
             legendOffset: 0,
             legendPosition: 'middle'
         }}
@@ -42,8 +42,11 @@ const LineChart = ({ data, dimensions: { width, height }, max, min }: { data: Li
         pointBorderColor={{ from: 'serieColor' }}
         pointLabelYOffset={-12}
         useMesh={true}
-    // xFormat={(x) => (x as string).split('_')[0]}
-    // tooltip={({ point: { serieId, data: { xFormatted, yFormatted } } }) => <ChartTooltip content={`In ${xFormatted}, ${yFormatted} of ${serieId}'s energy was renewable`} />}
+        xFormat={(x) => (x as string).split('_')[0]}
+        tooltip={({ point }) => {
+            const content = tooltipContent({ p: point })
+            return <ChartTooltip content={content} />
+        }}
     />
 )
 

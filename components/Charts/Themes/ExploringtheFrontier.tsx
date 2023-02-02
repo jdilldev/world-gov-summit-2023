@@ -1,11 +1,13 @@
-import { getWorldAvg } from "../../../app/data/generateData"
-import { ChartDimensions } from "../../../app/data/types"
+import { getWorldAvg, retrieveData } from "../../../app/data/generateData"
+import { ChartDimensions, HierarchicalData } from "../../../app/data/types"
 import { StatCard, StatCardCustom } from "../../Shared"
 import GdpIcon from '../../../public/icons/gdp.svg'
 import SpaceIcon from '../../../public/icons/solar-system.svg'
 import AstronautIcon from '../../../public/icons/astronaut.svg'
 import BitcoinIcon from '../../../public/icons/crypto.svg'
 import { PRE_CONTENT_ICON_SIZE } from "../../../app/constants"
+import { CirclePacking } from "@nivo/circle-packing"
+import CirclePackingChart from "../CirclePackingChart"
 
 export const CryptoStats = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
     //https://www.investopedia.com/articles/forex/041515/countries-where-bitcoin-legal-illegal.asp
@@ -64,4 +66,16 @@ export const AstronautsAndSatellites = ({ dimensions }: { dimensions: ChartDimen
         stat={'31 Nations'}
         text={'Have Astronauts'}
         dimensions={dimensions} />
+}
+
+export const GII = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
+    const data = retrieveData({ metrics: ['gii'], aggregator: 'multiRegions' }, 'hierarchical') as HierarchicalData
+
+    return <div className='font-equinox flex flex-col'>
+        <p className='text-center lowercase'>Most Innovative Subregions</p>
+        <p className='font-body text-white text-sm'>GII is a Global Innovation Index that ranks countries on their innovative ability and endevaors. Circle color correlates to value. Similarly colored circles have similar values.</p>
+        <a className="text-xs" href='src'>https://www.globalinnovationindex.org/analysis-indicator</a>
+        <CirclePackingChart hasColors={true} dimensions={{ width, height: height - 80 }} data={data} />
+    </div>
+
 }
