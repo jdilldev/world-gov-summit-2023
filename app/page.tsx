@@ -121,7 +121,7 @@ const Home = () => {
                         pitch={mapProjection === 'mercator' ? 30 : 0}
                         projection={mapProjection}
                         attributionControl={false}
-                        style={{ width: '100%', height: mapHeight - 20 + 'px' }}
+                        //style={{ width: '100%', height: mapHeight - 20 + 'px' }}
                         mapStyle="mapbox://styles/jdilldev/cld37ljym000801o0ygnt71yu"
                         onRender={(event) => {
                           if (mapContainer.current)
@@ -136,10 +136,9 @@ const Home = () => {
                 <div className='h-1/4 lg:h-1/5'>
                   <FrameHexagon hover inverted palette='secondary' squareSize={40} lineWidth={3} animator={{ animate: false }} className='h-full w-full text-base md:text-lg' >
                     {isThemeSelected ?
-                      <div className='flex flex-col'>
-                        <p>Created by Jasmine Dillard, 2023 | World Government Summit 2023
-                        </p>
-                        <SummitLogo className='w-48 h-48' />
+                      <div className='flex flex-col place-items-center w-full gap-1'>
+                        <p>Created by Jasmine Dillard, 2023 | World Government Summit 2023</p>
+                        <img className='w-[150px] h-[50px]' src={'./WGS-summit-logo-transparency.png'} />
                       </div>
                       : <>
                         <p className='text-sm md:text-base white text-center mb-2'>Feel free to toggle the orientation of the map.</p>
