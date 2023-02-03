@@ -9,6 +9,8 @@ export const SummitThemeContext = createContext(DEFAULT_THEME_PROMPT);
 export const PRE_CONTENT_ICON_SIZE =
 	"self-start md:self-center basis-1/3 lg:basis-1/2 mb-2";
 
+export const LIGHT_COLOR = "#78cce2";
+
 export const UN_PERMANENT = [
 	"China",
 	"France",

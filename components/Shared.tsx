@@ -15,6 +15,8 @@ type DefaultPlaceholderProps = {
     placeholderLocation: 'one' | 'two'
 }
 
+export const H1 = ({ text }: { text: string }) => <h1 className='font-equinox text-lg'></h1>
+
 export const ButtonGroup = ({ values, className, controlValue, onChange }: { values: string[], className?: string, controlValue: string, onChange: (value: string) => void }) => {
     return <div className={`flex flex-row gap-1 rounded-lg border-2 border-solid border-[#b8ff4d] w-fit ${className}`}>
         {values.map(value => <div

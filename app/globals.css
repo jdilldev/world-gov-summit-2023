@@ -16,6 +16,12 @@ body {
 	--color-handle-line: #67c2e4;
 }
 
+h1 {
+	font-family: equinox;
+	font-size: 1.3em;
+	text-transform: lowercase;
+}
+
 .tooltip {
 	position: relative;
 	display: inline-block;
@@ -62,6 +68,15 @@ body {
 .default-font-color {
 	color: #9fd0dcb1;
 	fill: #9fd0dcb1;
+}
+
+.light-font-color {
+	color: #78cce2;
+	fill: #78cce2;
+}
+
+.light-border-color {
+	border-color: #78cce2;
 }
 
 .glow {
