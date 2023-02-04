@@ -14,15 +14,8 @@ const CirclePackingChart = ({ data, hasColors, dimensions: { width, height } }: 
         margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
         colors={hasColors ? colors : { scheme: 'yellow_green_blue' }}
         colorBy={'id'}
-        childColor={{
-            from: 'inherit',
-            modifiers: [
-                [
-                    'brighter',
-                    0.4
-                ]
-            ]
-        }}
+
+        childColor={'red'}
         padding={4}
         enableLabels={true}
         labelsFilter={function (n) { return 2 === n.node.depth }}

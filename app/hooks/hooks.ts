@@ -3,12 +3,10 @@
 import { useState, useEffect } from "react";
 
 export const useDesktop = () => {
-	const [isDesktop, setDesktop] = useState(
-		typeof window !== "undefined" ? window.innerWidth >= 1487 : false
-	);
+	const [isDesktop, setDesktop] = useState(window.innerWidth >= 1243);
 
 	const updateMedia = () => {
-		setDesktop(window.innerWidth >= 1487);
+		setDesktop(window.innerWidth >= 1243);
 	};
 
 	useEffect(() => {

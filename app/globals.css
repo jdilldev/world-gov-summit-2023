@@ -22,6 +22,65 @@ h1 {
 	text-transform: lowercase;
 }
 
+.insights-layout {
+	height: 120vh;
+	display: grid;
+	grid-template-rows: 15% 20% 30% 35%;
+	grid-template-columns: 1fr;
+	grid-template-areas:
+		"theme-selector"
+		"stat-boxes"
+		"regional-selector-and-chart"
+		"main";
+	background-color: red;
+}
+
+.insights-layout-lg {
+	height: 100%;
+	display: grid;
+	grid-template-rows: 20% 1fr;
+	grid-template-columns: 0.5fr 1fr;
+	grid-template-areas:
+		"theme-selector theme-selector"
+		"left main";
+	background-color: yellowgreen;
+}
+
+.left {
+	background-color: rgba(0, 255, 255, 0.838);
+	grid-area: left;
+}
+
+.main-lg {
+	background-color: rgba(0, 255, 119, 0.856);
+	grid-area: main;
+}
+
+.theme-selector-lg {
+	grid-area: theme-selector;
+	background-color: aquamarine;
+}
+
+.theme-selector {
+	grid-area: theme-selector;
+	background-color: aquamarine;
+}
+
+.stat-boxes {
+	grid-area: stat-boxes;
+	background-color: #ff4da6;
+}
+
+.regional-selector-and-chart {
+	grid-area: regional-selector-and-chart;
+	background-color: blueviolet;
+}
+
+.main {
+	grid-area: main;
+	background-color: orange;
+}
+
 .tooltip {
 	position: relative;
 	display: inline-block;
@@ -68,6 +127,10 @@ h1 {
 .default-font-color {
 	color: #9fd0dcb1;
 	fill: #9fd0dcb1;
+}
+
+.default-border {
+	border: 2px solid #9fd0dcb1;
 }
 
 .light-font-color {

@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect, useRef, useContext, createContext } from 'react'
+import React, { useState, useEffect, useRef, useContext, createContext, useLayoutEffect } from 'react'
 import { FrameCorners, FrameHexagon } from '@arwes/core';
 import Map from "react-map-gl";
 import { ParentSize } from '@visx/responsive';
@@ -37,7 +37,8 @@ const Insights = () => {
     const chartContainer = useRef<HTMLDivElement | null>(null);
 
     //const map = useRef<Map | null>(null);
-    const isDesktop = useDesktop()
+    const [shouldRender, setShouldRender] = useState(false)
+    const [isDesktop, setDesktop] = useState(false)
     const [mapHeight, setMapHeight] = useState(0)
     const [chart2height, setchartheight] = useState(0)
     const [mapProjection, setMapProjection] = useState<'mercator' | 'globe'>('mercator')
@@ -55,9 +56,34 @@ const Insights = () => {
         }
     });
 
+    useEffect(() => {
+        setDesktop(window.innerWidth >= 1243)
+        setShouldRender(true)
+    })
+
     return (
         <SummitThemeContext.Provider value={selectedTheme}>
-            <div className='h-[120vh] lg:h-screen lg:pb-4 flex flex-col w-full gap-3'>
+            {shouldRender ? !isDesktop ? <div className='insights-layout'>
+                <div className='theme-selector'>med</div>
+                <div className='main'>red</div>
+                <div className='stat-boxes'>roadie</div>
+                <div className='regional-selector-and-chart'>Header</div>
+                <div className='hidden '>Header</div>
+
+            </div> :
+                <div className='insights-layout-lg'>
+                    <div className='theme-selector-lg'>dom</div>
+                    <div className="left">goaf</div>
+                    <div className='main-lg'>red</div>
+                </div> : <p>loading</p>}
+        </SummitThemeContext.Provider >
+    )
+}
+
+export default Insights
+
+/**
+ *    <div className='h-[120vh] lg:h-screen lg:pb-4 flex flex-col w-full gap-3'>
                 <div className='h-48 flex justify-center'>
                     <div className='flex flex-col pt-2 px-1 border-solid border-l-4 border-r-4 border-b-4  border-[#0c354e] backdrop-blur-lg gap-3 top-0 z-10 items-center lg:w-full lg:gap-1 lg:border-none'>
                         <p className='tracking-[.3em] md:tracking-[.7em] text-slate-300 text-md md:text-xl lg:text-3xl uppercase font-equinox'>{`The Present Future`}</p>
@@ -151,8 +177,5 @@ const Insights = () => {
                     </div>
                 </div >
             </div >
-        </SummitThemeContext.Provider >
-    )
-}
-
-export default Insights
+ * 
+ */
