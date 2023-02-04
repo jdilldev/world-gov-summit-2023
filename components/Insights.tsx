@@ -32,6 +32,7 @@ const worldSummitThemes: { name: string, icon: any }[] = [
 ]
 
 
+
 const Insights = () => {
     const mapContainer = useRef<HTMLDivElement | null>(null);
     const chartContainer = useRef<HTMLDivElement | null>(null);
@@ -57,22 +58,63 @@ const Insights = () => {
     });
 
     useEffect(() => {
-        setDesktop(window.innerWidth >= 1243)
+        const checkIsDesktop = () => {
+            setDesktop(window.innerWidth >= 1243)
+        }
+
+        checkIsDesktop()
         setShouldRender(true)
-    })
+        window.addEventListener("resize", checkIsDesktop);
+        return () => window.removeEventListener("resize", checkIsDesktop);
+    }, [])
+
+    const ThemeSelectorSection = () => {
+        return !isDesktop ?
+            <>
+                <p className='tracking-[.3em] md:tracking-[.7em] text-slate-300 text-xl md:text-2xl uppercase font-equinox'>{`The Present Future`}</p>
+                <div className='tracking-[.5em] text-xl white uppercase font-dreamscape text-[#72a4b5]'>
+                    <p className={`${isThemeSelected ? 'tracking-normal text-sm md:text-lg md:tracking-widest md:lowercase font-body md:font-agelast text-center' : ''}`}>{selectedTheme}
+                        {!isThemeSelected && <span className='text-sm normal-case font-thin tracking-normal font-body'>{'(Click to select)'}</span>}
+                    </p>
+                </div>
+                <div className='flex pb-1 md:pb-2 no-wrap justify-evenly w-full gap-4'>
+                    {worldSummitThemes.map(worldSummitTheme => <worldSummitTheme.icon
+                        onClick={() => setSelectedTheme(worldSummitTheme.name)}
+                        className={`w-[50px] h-[55px]  stroke-2 fill-slate-400 hover:fill-[#3297b3a8] ${worldSummitTheme.name === selectedTheme ? 'fill-[#3297b3a8]' : ''}`} />
+                    )}
+                </div>
+            </> : <> <p className='tracking-[.7em] text-slate-300 text-2xl uppercase font-equinox'>{`The Present Future | 2023`}</p>
+                <div className='tracking-[.5em] text-xl white uppercase font-dreamscape text-[#72a4b5]'>
+                    <p className={`tracking-normal text-2xl font-dreamscape text-center' : ''}`}>{'Themes'}
+                        {!isThemeSelected && <span className='text-sm normal-case font-thin tracking-normal font-body'>{' (Click to select)'}</span>}
+                    </p>
+                </div>
+                <div className='flex flex-wrap w-full gap-x-16 gap-y-4 justify-center items-center'>
+                    {worldSummitThemes.map(worldSummitTheme => <div className='h-8'>
+                        <div className={`w-fit ${worldSummitTheme.name === selectedTheme ? 'box text-[#3297b3a8]' : 'text-slate-500'}`}
+                            onClick={() => setSelectedTheme(worldSummitTheme.name)}>
+                            <p className={`text-md lowercase whitespace-nowrap font-equinox hover:text-[#3297b3a8] ${worldSummitTheme.name === selectedTheme ? 'uppercase tracking-widest ' : ''}`}>{worldSummitTheme.name}</p>
+                        </div>
+                    </div>
+                    )}
+                </div>
+            </>
+    }
 
     return (
         <SummitThemeContext.Provider value={selectedTheme}>
             {shouldRender ? !isDesktop ? <div className='insights-layout'>
-                <div className='theme-selector'>med</div>
-                <div className='main'>red</div>
-                <div className='stat-boxes'>roadie</div>
-                <div className='regional-selector-and-chart'>Header</div>
-                <div className='hidden '>Header</div>
-
+                <div className='theme-selector w-[88%] md:w-[80%]'>
+                    {<ThemeSelectorSection />}
+                </div>
+                <div className='stat-boxes'><StatBoxes /></div>
+                <div className='regional-selector-and-chart'>Regional Selector and Chart</div>
+                <div className='main'>Map</div>
             </div> :
                 <div className='insights-layout-lg'>
-                    <div className='theme-selector-lg'>dom</div>
+                    <div className='theme-selector-lg'>
+                        {<ThemeSelectorSection />}
+                    </div>
                     <div className="left">goaf</div>
                     <div className='main-lg'>red</div>
                 </div> : <p>loading</p>}

@@ -23,16 +23,15 @@ h1 {
 }
 
 .insights-layout {
-	height: 120vh;
+	height: 110vh;
 	display: grid;
-	grid-template-rows: 15% 20% 30% 35%;
+	grid-template-rows: minmax(150px, auto) 15% 35% 40%;
 	grid-template-columns: 1fr;
 	grid-template-areas:
 		"theme-selector"
 		"stat-boxes"
 		"regional-selector-and-chart"
 		"main";
-	background-color: red;
 }
 
 .insights-layout-lg {
@@ -43,7 +42,6 @@ h1 {
 	grid-template-areas:
 		"theme-selector theme-selector"
 		"left main";
-	background-color: yellowgreen;
 }
 
 .left {
@@ -58,17 +56,49 @@ h1 {
 
 .theme-selector-lg {
 	grid-area: theme-selector;
-	background-color: aquamarine;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 4px;
 }
 
+/* flex 
+flex-col 
+pt-1 
+px-1 
+border-solid 
+border-l-4 
+border-r-4 
+border-b-4  
+border-[#0c354e] 
+w-[85%] md:w-[80%] 
+backdrop-blur-lg 
+gap-3 
+top-0 
+z-10 
+items-center */
 .theme-selector {
 	grid-area: theme-selector;
-	background-color: aquamarine;
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	border: 4px solid #0c354e;
+	border-top: 0;
+	backdrop-filter: blur(16px);
+	gap: 0.4rem;
+	z-index: 10;
+	padding: 0.25rem 0.25rem;
 }
 
 .stat-boxes {
 	grid-area: stat-boxes;
-	background-color: #ff4da6;
 }
 
 .regional-selector-and-chart {
