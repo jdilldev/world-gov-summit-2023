@@ -114,6 +114,11 @@ h1 {
 
 .main {
 	grid-area: main;
+	border: 0.3rem solid #143f59;
+	border-radius: 0.125rem;
+	-webkit-box-shadow: 0 0 10px #165c87;
+	-moz-box-shadow: 0 0 10px #0c354e;
+	box-shadow: 0 0 10px #457b9d;
 }
 
 .tooltip {

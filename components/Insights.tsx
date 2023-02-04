@@ -116,7 +116,7 @@ const Insights = () => {
                         }</ParentSize>
                     </div>
                 </div>
-                <div className='main h-full'><Map /></div>
+                <div className='main'><Map /></div>
             </div> :
                 <div className='insights-layout-lg'>
                     <div className='theme-selector-lg'>
