@@ -28,8 +28,8 @@ const renderChartBasedOnTheme = (selectedTheme: string, width: number, height: n
 export const ChartI = ({ width, height }: { width: number, height: number }) => {
     const selectedTheme = useContext(SummitThemeContext)
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    {/* 
+        // @ts-ignore */}
     return <FrameCorners
         showContentLines
         cornerLength={50}

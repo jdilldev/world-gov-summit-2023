@@ -30,11 +30,11 @@ const renderChartBasedOnTheme = (selectedTheme: string, width: number, height: n
     }
 }
 
-export const ChartII = ({ width, height }: ChartDimensions) => {
+export const ChartII = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
     const selectedTheme = useContext(SummitThemeContext)
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    {/* 
+        // @ts-ignore */}
     return <FrameCorners
         showContentLines
         cornerLength={50}
@@ -43,6 +43,6 @@ export const ChartII = ({ width, height }: ChartDimensions) => {
         animator={{ animate: false }}
         className='bg-cyan-700 bg-opacity-20'
     >
-        {renderChartBasedOnTheme(selectedTheme, width, height - 10)}
+        {renderChartBasedOnTheme(selectedTheme, width, height)}
     </FrameCorners>
 }

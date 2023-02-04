@@ -1,11 +1,11 @@
 'use client';
 import React, { useState, useEffect, useRef, useContext, createContext, useLayoutEffect } from 'react'
 import { FrameCorners, FrameHexagon } from '@arwes/core';
-import Map from "react-map-gl";
 import { ParentSize } from '@visx/responsive';
 import { StatBoxes } from '../components/StatBoxes';
 import { HexagonFrame as RegionalInfo } from '../components/RegionalStats';
 import { useDesktop } from '../app/hooks/hooks';
+import Map from './Map'
 
 // assets
 import Economy from '../public/icons/global-economy.svg'
@@ -71,9 +71,9 @@ const Insights = () => {
     const ThemeSelectorSection = () => {
         return !isDesktop ?
             <>
-                <p className='tracking-[.3em] md:tracking-[.7em] text-slate-300 text-xl md:text-2xl uppercase font-equinox'>{`The Present Future`}</p>
-                <div className='tracking-[.5em] text-xl white uppercase font-dreamscape text-[#72a4b5]'>
-                    <p className={`${isThemeSelected ? 'tracking-normal text-sm md:text-lg md:tracking-widest md:lowercase font-body md:font-agelast text-center' : ''}`}>{selectedTheme}
+                <p className='whitespace-nowrap tracking-[.3em] md:tracking-[.7em] text-slate-300 text-base md:text-xl uppercase font-equinox'>{`The Present Future`}</p>
+                <div className='tracking-[.5em] xs:text-sm text-xl white uppercase font-dreamscape text-[#72a4b5]'>
+                    <p className={`${isThemeSelected ? 'tracking-normal xs:text-xs text-sm md:text-lg md:tracking-widest md:lowercase font-body md:font-agelast text-center' : ''}`}>{selectedTheme}
                         {!isThemeSelected && <span className='text-sm normal-case font-thin tracking-normal font-body'>{'(Click to select)'}</span>}
                     </p>
                 </div>
@@ -108,8 +108,15 @@ const Insights = () => {
                     {<ThemeSelectorSection />}
                 </div>
                 <div className='stat-boxes'><StatBoxes /></div>
-                <div className='regional-selector-and-chart'>Regional Selector and Chart</div>
-                <div className='main'>Map</div>
+                <div className='regional-selector-and-chart'>
+                    <RegionalInfo isThemeSelected={isThemeSelected} />
+                    <div className='w-2/3'>
+                        <ParentSize debounceTime={10}>{({ width, height }) =>
+                            <ChartII dimensions={{ width, height }} />
+                        }</ParentSize>
+                    </div>
+                </div>
+                <div className='main h-full'><Map /></div>
             </div> :
                 <div className='insights-layout-lg'>
                     <div className='theme-selector-lg'>

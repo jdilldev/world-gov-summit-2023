@@ -34,13 +34,13 @@ const defaultStatBoxes: DefaultStatItem[] = [
 const StatBox = ({ item, index, source }: { item: DefaultStatItem, index: number, source?: string }) => {
     const selectedTheme = useContext(SummitThemeContext)
 
-    return <div style={{ backgroundImage: `url(${item.bgImage ? item.bgImage : ''})`, }} className='w-[24%] h-full bg-cover bg-top'>
-        <ParentSize className={`backdrop-blur-[0px]  backdrop-invert-0 backdrop-contrast-125  backdrop-brightness-150 backdrop-saturate-100 bg-black/40 `} debounceTime={10}>{({ width, height }) =>
+    return <div style={{ backgroundImage: `url(${item.bgImage ? item.bgImage : ''})`, }} className='basis-[49%] md:basis-[24%] h-1/2 md:h-full bg-cover bg-top'>
+        <ParentSize className={`backdrop-blur-[0px]  backdrop-invert-0 `} debounceTime={10}>{({ width, height }) =>
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             <FrameLines
                 hover
-                style={{ width: width, height: height, }}
+                style={{ width: width - 2, height: height, }}
                 palette='secondary'
                 animator={{ animate: false }}
                 largeLineWidth={2}
@@ -174,7 +174,7 @@ export const StatBoxes = () => {
     retrieveData({ aggregator: "world", metrics: ['2017_HDI'], }, "hierarchical");
     //console.log(getWorldAvg('2018_unemployment'))
     const selectedTheme = useContext(SummitThemeContext)
-    return <div className='flex justify-between h-full'>
+    return <div className='flex flex-wrap gap-y-2 justify-evenly w-full mb-2 md:flex-nowrap'>
         {defaultStatBoxes.map((item, index) =>
             <StatBox key={'statBox' + index} item={item} index={index} source={checkForSource(selectedTheme, index)} />
         )}

@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 body {
+	padding: 5px;
 	--color-background: rgb(51, 51, 51);
 	--color-on-background: #fff;
 
@@ -25,13 +26,29 @@ h1 {
 .insights-layout {
 	height: 110vh;
 	display: grid;
-	grid-template-rows: minmax(150px, auto) 15% 35% 40%;
-	grid-template-columns: 1fr;
+	gap: 0.7rem;
+	grid-template-rows: minmax(140px, auto) 30% 35% 35%;
+	grid-template-columns: 100%;
 	grid-template-areas:
 		"theme-selector"
 		"stat-boxes"
 		"regional-selector-and-chart"
 		"main";
+}
+
+@media (min-width: 750px) {
+	.insights-layout {
+		height: 110vh;
+		display: grid;
+		gap: 0.7rem;
+		grid-template-rows: minmax(150px, auto) 20% 35% 35%;
+		grid-template-columns: 100%;
+		grid-template-areas:
+			"theme-selector"
+			"stat-boxes"
+			"regional-selector-and-chart"
+			"main";
+	}
 }
 
 .insights-layout-lg {
@@ -63,21 +80,6 @@ h1 {
 	gap: 4px;
 }
 
-/* flex 
-flex-col 
-pt-1 
-px-1 
-border-solid 
-border-l-4 
-border-r-4 
-border-b-4  
-border-[#0c354e] 
-w-[85%] md:w-[80%] 
-backdrop-blur-lg 
-gap-3 
-top-0 
-z-10 
-items-center */
 .theme-selector {
 	grid-area: theme-selector;
 	position: absolute;
@@ -99,16 +101,19 @@ items-center */
 
 .stat-boxes {
 	grid-area: stat-boxes;
+	display: flex;
 }
 
 .regional-selector-and-chart {
 	grid-area: regional-selector-and-chart;
-	background-color: blueviolet;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	gap: 0.8rem;
 }
 
 .main {
 	grid-area: main;
-	background-color: orange;
 }
 
 .tooltip {
