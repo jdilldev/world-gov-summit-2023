@@ -180,7 +180,7 @@ export const StatBoxes = () => {
     retrieveData({ aggregator: "world", metrics: ['2017_HDI'], }, "hierarchical");
     //console.log(getWorldAvg('2018_unemployment'))
     const selectedTheme = useContext(SummitThemeContext)
-    return <div className='flex flex-wrap gap-y-2 justify-evenly w-full mb-2 md:flex-nowrap'>
+    return <div className='flex flex-wrap gap-y-2 justify-evenly h-full w-full mb-2 md:flex-nowrap'>
         {defaultStatBoxes.map((item, index) =>
             <StatBox key={'statBox' + index} item={item} index={index} source={checkForSource(selectedTheme, index)} />
         )}

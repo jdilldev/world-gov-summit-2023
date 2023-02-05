@@ -54,9 +54,9 @@ h1 {
 .insights-layout-lg {
 	height: 100%;
 	display: grid;
-	gap: 0.6rem;
-	grid-template-rows: 20% 1fr;
-	grid-template-columns: 0.5fr 1fr;
+	gap: 0.675rem;
+	grid-template-rows: minmax(17%, auto) 1fr;
+	grid-template-columns: 33% 66%;
 	grid-template-areas:
 		"theme-selector theme-selector"
 		"left main";
@@ -66,11 +66,22 @@ h1 {
 	grid-area: left;
 	display: flex;
 	flex-direction: column;
+	gap: 0.7rem;
 }
 
 .main-lg {
-	background-color: rgba(0, 255, 119, 0.856);
 	grid-area: main;
+	display: flex;
+	flex-direction: column;
+	gap: 0.7rem;
+}
+
+.map {
+	border: 0.3rem solid #143f59;
+	border-radius: 0.125rem;
+	-webkit-box-shadow: 0 0 10px #165c87;
+	-moz-box-shadow: 0 0 10px #0c354e;
+	box-shadow: 0 0 10px #457b9d;
 }
 
 .theme-selector-lg {
@@ -111,15 +122,11 @@ h1 {
 	flex-direction: row;
 	justify-content: space-between;
 	gap: 0.5rem;
+	margin-top: 0.3em;
 }
 
 .main {
 	grid-area: main;
-	border: 0.3rem solid #143f59;
-	border-radius: 0.125rem;
-	-webkit-box-shadow: 0 0 10px #165c87;
-	-moz-box-shadow: 0 0 10px #0c354e;
-	box-shadow: 0 0 10px #457b9d;
 }
 
 .tooltip {

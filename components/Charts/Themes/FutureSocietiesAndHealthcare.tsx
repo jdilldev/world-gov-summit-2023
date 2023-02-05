@@ -135,11 +135,11 @@ export const LifeExpectancy = ({ dimensions: { width, height } }: { dimensions: 
 export const HealthExpenditureOfGDPDelta = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
     const three_year_health_data = retrieveData({ metrics: ['2017_health_gdp', '2018_health_gdp', '2019_health_gdp'], aggregator: 'multiRegions' }, 'linear') as LinearData[]
 
-    return <div className='font-equinox flex flex-col'>
-        <p className='text-center lowercase'>Percent GDP Spent on Healthcare (by region)</p>
-        <p className='font-body text-center text-white text-sm'>2017 - 2018 - 2019<br />We can get an idea of which regions prioritize and offer more health services. However this number is also driven signficantly by population. Quantity does not equal quality. </p>
-        <LineChart tooltipContent={({ p: { serieId, data: { xFormatted, yFormatted } } }: { p: Point }) => `${serieId} spent ${yFormatted}% of  their GDP on Healthcare in ${xFormatted}`} data={three_year_health_data} dimensions={{ width: width - 10, height: height - 60 }} />
-    </div>
+    return <LineChart
+        tooltipContent={({ p: { serieId, data: { xFormatted, yFormatted } } }: { p: Point }) => `${serieId} spent ${yFormatted}% of  their GDP on Healthcare in ${xFormatted}`}
+        data={three_year_health_data}
+        dimensions={{ width: width, height: height - 110 }} />
+
 
 
 }

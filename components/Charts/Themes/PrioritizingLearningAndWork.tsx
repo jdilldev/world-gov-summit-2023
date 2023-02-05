@@ -57,14 +57,7 @@ export const UnemploymentAndAccessToElectricity = ({ dimensions: { width, height
         }
     ]
 
-    return <div className='font-equinox flex flex-col'>
-        <p className='text-center lowercase'>Access to Electricity and Unemployment</p>
-        <p className='font-body text-white text-sm'>Education and ability to acquire new skills is directly related to being able to use the Internet. Learning and working can be done remotely. Citizens of countries and regions with access to the internet are more likely to upskill, and therefore be more employable.</p>
-        <FunnelChart data={funnelData} dimensions={{ width, height: height - 15 }} />
-
-    </div>
-
-
+    return <FunnelChart data={funnelData} dimensions={{ width, height: height - 135 }} />
 }
 
 export const Stability = ({ dimensions }: { dimensions: ChartDimensions }) => {

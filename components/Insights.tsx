@@ -15,10 +15,9 @@ import Education from '../public/icons/global-education.svg'
 import Exploring from '../public/icons/global-connectivity.svg'
 import Development from '../public/icons/009-overpopulation.svg'
 import { ButtonGroup } from '../components/Shared';
-import { ChartI } from '../components/ChartI';
-import { ChartII } from '../components/ChartII';
 import SummitLogo from '../public/WGS-summit-logo.svg'
 import { DEFAULT_THEME_PROMPT, SummitThemeContext } from '../app/constants';
+import { renderChartBasedOnTheme } from './ChartII';
 
 const bag2 = 'https://api.mapbox.com/styles/v1/jdilldev/clcmbx409004c14qrslh0z9la/static/[-94.0749,-64.3648,117.0407,75.2404]/1150x1100?access_token=pk.eyJ1IjoiamRpbGxkZXYiLCJhIjoiY2xjbHR0MXNtOXE3ZTN2cGx1YWwxYmE4cyJ9.UKQMbbf2Q4revc3Nz9ws3g'
 
@@ -59,7 +58,7 @@ const Insights = () => {
 
     useEffect(() => {
         const checkIsDesktop = () => {
-            setDesktop(window.innerWidth >= 1243)
+            setDesktop(window.innerWidth >= 1240)
         }
 
         checkIsDesktop()
@@ -109,14 +108,16 @@ const Insights = () => {
                 </div>
                 <div className='stat-boxes'><StatBoxes /></div>
                 <div className='regional-selector-and-chart mb-3'>
-                    <RegionalInfo isThemeSelected={isThemeSelected} />
+                    <div className='w-1/3'>
+                        <RegionalInfo isThemeSelected={isThemeSelected} />
+                    </div>
                     <div className='w-2/3'>
                         <ParentSize debounceTime={10}>{({ width, height }) =>
-                            <ChartII dimensions={{ width, height }} />
+                            renderChartBasedOnTheme(selectedTheme, { width, height })
                         }</ParentSize>
                     </div>
                 </div>
-                <div className='main'>Map</div>
+                <div className='main map'>Map</div>
             </div> :
                 <div className='insights-layout-lg'>
                     <div className='theme-selector-lg'>
@@ -124,11 +125,15 @@ const Insights = () => {
                     </div>
                     <div className="left">
                         <RegionalInfo isThemeSelected={isThemeSelected} />
+
                         <ParentSize debounceTime={10}>{({ width, height }) =>
-                            <ChartII dimensions={{ width, height }} />
+                            renderChartBasedOnTheme(selectedTheme, { width, height })
                         }</ParentSize>
                     </div>
-                    <div className='main-lg'>red</div>
+                    <div className='main-lg'>
+                        <div className='h-1/3 min-w-[1/3] max-w-[1/3]'><StatBoxes /></div>
+                        <div className='map h-2/3'>Map</div>
+                    </div>
                 </div> : <p>loading</p>}
         </SummitThemeContext.Provider >
     )

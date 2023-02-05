@@ -19,7 +19,7 @@ export const ShareOfElectricityFromRenewables = ({ dimensions: { width, height }
         <LineChart
 
             tooltipContent={({ p: { serieId, data: { xFormatted, yFormatted } } }: { p: Point }) => `In ${xFormatted}, ${yFormatted}% of ${serieId}'s energy was renewable`}
-            data={renewableEnergyTrends} dimensions={{ width, height: height - 5 }} />
+            data={renewableEnergyTrends} dimensions={{ width, height: height - 40 }} />
     </div>
 }
 

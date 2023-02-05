@@ -1,6 +1,6 @@
 import { FrameCorners } from '@arwes/core';
 import { DefaultPlaceholder } from './Shared';
-import { useContext } from 'react';
+import { ReactNode, useContext } from 'react';
 import { ChartDimensions } from '../app/data/types';
 import { GovernmentHealthBullet } from './Charts/Themes/AcceleratingGov';
 import { SummitThemeContext } from '../app/constants';
@@ -11,28 +11,58 @@ import { GII } from './Charts/Themes/ExploringtheFrontier';
 import { SEDA } from './Charts/Themes/EconomicResillience';
 
 
-const renderChartBasedOnTheme = (selectedTheme: string, width: number, height: number) => {
+export const renderChartBasedOnTheme = (selectedTheme: string, { width, height }: { width: number, height: number }) => {
+    let year = ''
+    let description = ''
+    let title = ''
+    let RenderChart = <></>
+    const smallerHeight = height - 50
     switch (selectedTheme) {
         case 'Accelerating Development and Governance':
-            return <GovernmentHealthBullet width={width} height={height} />
+            title = 'GDP Percentage Spent on Healthcare'
+            year = '2017 - 2018 - 2019'
+            description = 'We can get an idea of which regions prioritize and offer more health services. However this number is also driven signficantly by population. Quantity does not equal quality.'
+            RenderChart = <GovernmentHealthBullet dimensions={{ width, height }} />
+            break;
         case 'Global City Design and Sustainability':
-            return <CorrelationBetweenCO2EmissionsAndRenewables dimensions={{ width, height }} />
+            return RenderChart = <CorrelationBetweenCO2EmissionsAndRenewables dimensions={{ width, height }} />
         case 'Exploring the Frontiers':
-            return <GII dimensions={{ width, height }} />
+            return RenderChart = <GII dimensions={{ width, height }} />
         case 'Governing Economic Resilience and Connectivity':
-            return <SEDA dimensions={{ width, height }} />
+            return RenderChart = <SEDA dimensions={{ width, height }} />
         case 'Future of Societies and Healthcare':
-            return <HealthExpenditureOfGDPDelta dimensions={{ width, height }} />
+            title = 'GDP Percentage Spent on Healthcare'
+            year = '2017 - 2018 - 2019'
+            description = 'We can get an idea of which regions prioritize and offer more health services. However this number is also driven signficantly by population. Quantity does not equal quality.'
+            RenderChart = <HealthExpenditureOfGDPDelta dimensions={{ width, height }} />
+            break;
         case 'Prioritizing Learning and Work':
-            return <UnemploymentAndAccessToElectricity dimensions={{ width, height }} />
-        default: return <DefaultPlaceholder placeholderLocation='two' height={height} />
-
+            year = '2019'
+            title = 'Access to Electricity and Unemployment'
+            description = 'Education and ability to acquire new skills is directly related to being able to use the Internet. Learning and working can be done remotely. Citizens of countries and regions with access to the internet are more likely to upskill, and therefore be more employable.'
+            RenderChart = <UnemploymentAndAccessToElectricity dimensions={{ width, height }} />
+            break
+        default: RenderChart = <DefaultPlaceholder placeholderLocation='two' height={height} />
     }
+
+    return <ChartII
+        year={year}
+        description={description}
+        title={title}
+        dimensions={{ width, height: height }}
+        Chart={RenderChart}
+    />
 }
 
-export const ChartII = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
-    const selectedTheme = useContext(SummitThemeContext)
+type ChartProps = {
+    title: string;
+    year: string;
+    description: string;
+    dimensions: ChartDimensions
+    Chart: ReactNode;
+}
 
+const ChartII = ({ Chart, title, year, description, dimensions: { width, height } }: ChartProps) => {
     {/* 
         // @ts-ignore */}
     return <FrameCorners
@@ -41,8 +71,16 @@ export const ChartII = ({ dimensions: { width, height } }: { dimensions: ChartDi
         cornerWidth={3}
         style={{ width: width, height: height, }}
         animator={{ animate: false }}
-        className='bg-cyan-700 bg-opacity-20'
+        className='bg-cyan-700 bg-opacity-20 font-equinox'
     >
-        {renderChartBasedOnTheme(selectedTheme, width, height)}
+        <span className='absolute -top-4 right-0 text-xs md:text-base text-white'>{year}</span>
+        <div className='flex flex-col mt-2 text-center justify-between items-center'>
+            <p className='text-xs md:text-base lowercase flex flex-wrap gap-1'>
+                {title}
+            </p>
+            <p className='font-body text-stone-200 text-xs md:text-sm max-h-[80px] md:max-h-fit pt-2 md:pt-0 overflow-scroll'>{description}</p>
+            {Chart}
+        </div>
+
     </FrameCorners>
 }

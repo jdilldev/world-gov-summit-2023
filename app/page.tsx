@@ -24,7 +24,7 @@ const Home = () => {
         {tab}
       </h1>)}
     </div>
-    <div className='p-2 pt-0 h-full w-full overflow-y-scroll overflow-x-hidden md:border-solid md:border-[#9fd0dcb1]  md:border-2'>
+    <div className='p-2 pt-0 h-full w-full overflow-y-scroll overflow-x-hidden lg:overflow-hidden md:border-solid md:border-[#9fd0dcb1]  md:border-2'>
       {active === 'Global Insights' ? <Insights /> : <Explore />}
     </div>
   </div>
