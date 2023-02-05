@@ -15,7 +15,7 @@ import { DEFAULT_THEME_PROMPT, PRE_CONTENT_ICON_SIZE, SummitThemeContext } from 
 import { AstronautsAndSatellites, CryptoStats, GDPStats, SpaceAgencies } from './Charts/Themes/ExploringtheFrontier';
 import { EconomicGrowthDelta, GINI, InflationChanges, WarningAboutInterdependentEconomies } from './Charts/Themes/EconomicResillience';
 import { string } from 'prop-types';
-import { EmergentDiseases, HealthRadialChart, SuicideDeaths, Top10CausesOfDeath } from './Charts/Themes/FutureSocietiesAndHealthcare';
+import { EmergentDiseases, LifeExpectancy, SuicideDeaths, Top10CausesOfDeath } from './Charts/Themes/FutureSocietiesAndHealthcare';
 import { EducatedCountries, EducationPercentOfGDP, KidsOutOfSchool, Stability } from './Charts/Themes/PrioritizingLearningAndWork';
 
 type DefaultStatItem = {
@@ -124,7 +124,7 @@ const getContentForTheme = (width: number, height: number, theme: string, positi
                 case 2:
                     return <EmergentDiseases dimensions={{ width, height }} />
                 case 3:
-                    return <HealthRadialChart dimensions={{ width, height }} />
+                    return <LifeExpectancy dimensions={{ width, height }} />
             }
             break;
         case 'Prioritizing Learning and Work':
@@ -157,11 +157,15 @@ const sourceMap: { [key: string]: { [key: number]: string } } = {
         2: 'https://www.civitas-stl.com/civ1819/Government-space-agencies.pdf',
         3: "https://www.civitas-stl.com/civ1819/Government-space-agencies.pdf",
     },
-    'Governing Economic Resilience and Connectivity': {},
+    'Governing Economic Resilience and Connectivity': {
+        0: 'https://www.imf.org/external/datamapper/PCPIPCH@WEO/OEMDC',
+        2: 'https://www.emerald.com/insight/content/doi/10.1108/REPS-10-2018-010/full/html'
+    },
     'Future of Societies and Healthcare': {
         0: 'https://ourworldindata.org/causes-of-death#:~:text=Cardiovascular%20diseases%20are%20the%20leading,second%20biggest%20cause%20are%20cancers.',
         1: 'https://www.who.int/news-room/fact-sheets/detail/suicide',
-        2: 'https://www.bcm.edu/departments/molecular-virology-and-microbiology/emerging-infections-and-biodefense/emerging-infectious-diseases'
+        2: 'https://www.bcm.edu/departments/molecular-virology-and-microbiology/emerging-infections-and-biodefense/emerging-infectious-diseases',
+        3: 'https://data.worldbank.org/indicator/SP.DYN.LE00.IN'
     },
     'Prioritizing Learning and Work': {
         2: 'https://worldpopulationreview.com/country-rankings/most-educated-countries'

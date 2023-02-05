@@ -7,16 +7,18 @@ import { PRE_CONTENT_ICON_SIZE } from "../../../app/constants"
 import { useState } from "react"
 import PieChart from "../PieChart"
 import BarChart from "../BarChart"
+import InflationIcon from '../../../public/icons/inflation.svg'
+import InequalityIcon from '../../../public/icons/balance.svg'
 
 export const InflationChanges = ({ dimensions }: { dimensions: ChartDimensions }) => {
     //https://www.imf.org/external/datamapper/PCPIPCH@WEO/OEMDC
-    const PreContent = () => <p className='font-equinox text-center text-sm md:text-base lg:text-lg default-font-color'>Global Inflation 2022</p>
-    // const globalInflation = getWorldAvg('inflation').toFixed(1) + '%'
     const worldDelta = 8.8 - 4.7
     return <StatCard
+        icon={<InflationIcon className={PRE_CONTENT_ICON_SIZE + ' fill-rose-500'} />}
         metric="inflation"
-        year='2022'
+        year='From 2021'
         stat={'8.8%'}
+        text={'Average Inflation Worldwide 2022'}
         delta={worldDelta}
         dimensions={dimensions}
     />
@@ -24,16 +26,28 @@ export const InflationChanges = ({ dimensions }: { dimensions: ChartDimensions }
 
 export const GINI = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
     const Content = () => {
-        const { country: minCountry, value: minValue } = getMin('gini', 'world')
-        const { country: maxCountry, value: maxValue } = getMax('gini', 'world')
+        const worldAvg = getWorldAvg('gini')
+        const min = getMin('gini', 'world')
+        const max = getMax('gini', 'world')
 
-        return <div style={{ width, height }} className='flex flex-col font-bold w-full h-full gap-1 lg:gap-2 text-2xl text-center font-equinox justify-center items-center'>
-            <p className='font-equinox flex flex-row items-center gap-1 default-text-color tracking-widest'>{'GINI '}
-                <CustomTooltip text={<p>GINI measures inequality amongst households within a country. The lower the index, the better.<br /><br />The years for which this data is available varies greatly per country.</p>} /></p>
-            <hr className="mx-4" />
-            <p className='text-xs md:text-base text-amber-400'><span >#1 - </span> {minCountry} {minValue}</p>
-            <p className='text-xs md:text-base text-rose-400'><span >Last - </span> {maxCountry} {maxValue}</p>
-        </div>
+        return <StatCard
+            icon={<InequalityIcon className={PRE_CONTENT_ICON_SIZE + ' fill-stone-400'} />}
+            stat={<div className='flex flex-row gap-1 items-center'>
+                {worldAvg.toFixed(1) + ' Avg'}
+                <CustomTooltip
+                    text={<p>GINI measures inequality amongst households within a country. The lower the index, the better.<br /><br />The year of the data for each country is different. The scores used are the most recent for each country.</p>} />
+            </div>
+            }
+            dimensions={{
+                width,
+                height
+            }}
+            metric={'GINI'}
+            text='Lower is better'
+            year={'Year varies'}
+            topCountry={min}
+            bottomCountry={max}
+        />
     }
 
     return <StatCardCustom content={<Content />} dimensions={{ width, height }} />
@@ -75,7 +89,7 @@ export const EconomicGrowthDelta = ({ dimensions: { width, height } }: { dimensi
 export const WarningAboutInterdependentEconomies = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
     const Warning = () => {
         return <div style={{ width, height }} className='flex flex-col text-xs md:text-sm lg:text-base gap-1 place-content-center items-center font-equinox lowercase default-text-color text-center'>
-            <EconomicCrisisIcon className={'h-10 w-10 lg:h-16 lg:w-16 mb-2 fill-[#35a7c3c5]'} />
+            <EconomicCrisisIcon className={PRE_CONTENT_ICON_SIZE + ' fill-[#35a7c3c5]'} />
             <p>Economic Interdependence is something to be conscientious of</p>
         </div>
     }

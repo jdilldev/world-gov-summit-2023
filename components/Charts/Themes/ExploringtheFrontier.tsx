@@ -1,6 +1,6 @@
 import { getWorldAvg, retrieveData } from "../../../app/data/generateData"
 import { ChartDimensions, HierarchicalData } from "../../../app/data/types"
-import { StatCard, StatCardCustom } from "../../Shared"
+import { CustomTooltip, StatCard, StatCardCustom } from "../../Shared"
 import GdpIcon from '../../../public/icons/gdp.svg'
 import SpaceIcon from '../../../public/icons/solar-system.svg'
 import AstronautIcon from '../../../public/icons/astronaut.svg'
@@ -19,10 +19,12 @@ export const CryptoStats = ({ dimensions: { width, height } }: { dimensions: Cha
         <p className={`flex flex-row gap-1 md:text-lg md:tracking-widest ${color}`}><span >{stat}</span>{text}</p>
     )
     const Content = () => (
-        <div style={{ width, height }} className='flex flex-col h-full w-full place-items-center justify-evenly'>
+        <div style={{ width, height }} className='flex flex-col h-full w-full font-equinox lowercase place-items-center justify-evenly'>
+            <span className="absolute top-0 right-0 text-white">2022</span>
+            <span className="absolute top-0 left-0">Crypto</span>
             <BitcoinIcon className={PRE_CONTENT_ICON_SIZE + ' fill-green-yellow-500'} />
-            <div className='capitalize md:font-equinox md:lowercase'>
-                <StatLine color='text-green-400' stat={legal} text={'Legal'} />
+            <div>
+                <StatLine color='text-green-400' stat={legal} text={'Legal Tender'} />
                 <StatLine color='text-yellow-400' stat={regulated} text={'Regulated'} />
                 <StatLine color='text-red-400' stat={banned} text={'Banned'} />
             </div>
@@ -36,9 +38,17 @@ export const GDPStats = ({ dimensions }: { dimensions: ChartDimensions }) => {
     const worldGdpAvg_2021 = getWorldAvg('2021_economic_growth')
     const worldGdpAvg_2018 = getWorldAvg('2018_economic_growth')
     return <StatCard
-        metric="gdp"
+        icon={<GdpIcon className={PRE_CONTENT_ICON_SIZE + ' fill-green-400'} />}
+        metric="gdp growth"
         year="2018 to 2021"
-        stat={worldGdpAvg_2021.toFixed(1) + ' %'}
+        text={'Avg GDP Growth in 2021'}
+        stat={<p className='flex flex-row items-center gap-1'>{worldGdpAvg_2021.toFixed(1) + ' %'}
+            <CustomTooltip placement="bottom"
+                text={
+                    <p>Funding is a critical resource for exploring the unknown. Exploratory research and development will be more achievable for countries with growing GDPs. Surplus funds can be reallocated to new initiatives.
+                    </p>}
+            />
+        </p>}
         delta={worldGdpAvg_2021 - worldGdpAvg_2018}
         dimensions={dimensions} />
 }

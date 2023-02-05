@@ -6,17 +6,20 @@ import BarChart from "../BarChart"
 import CoupIcon from '../../../public/icons/removal.svg'
 import { ScatterPlot } from "@nivo/scatterplot"
 import FunnelChart from "../FunnelChart"
+import AbcIcon from '../../../public/icons/cubes.svg'
+import ElectionIcon from '../../../public/icons/politics.svg'
 
 export const KidsOutOfSchool = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
     const avg_2018 = getWorldAvg('2018_primary_school_aged_kids_out')
     const avg_2021 = getWorldAvg('2021_primary_school_aged_kids_out')
 
     return <StatCard
-        preContent={<p className="font-equinox">In 2021</p>}
+        icon={<AbcIcon className={PRE_CONTENT_ICON_SIZE + ' fill-cyan-200'} />}
         stat={avg_2021.toFixed(1) + '% Avg'}
         delta={parseFloat((avg_2021 - avg_2018).toFixed(1))}
-        text={'kids out of school'}
-        secondaryText={'since 2018'}
+        metric={'Working Youth'}
+        text={'Primary-school dropouts'}
+        year={'since 2018'}
         dimensions={{
             width,
             height
@@ -69,14 +72,16 @@ export const Stability = ({ dimensions }: { dimensions: ChartDimensions }) => {
     const avg_2017 = getWorldAvg('2017_political_instability')
 
     return <StatCard
-        preContent={<CoupIcon className={PRE_CONTENT_ICON_SIZE + ' fill-teal-400'} />}
+        icon={<ElectionIcon className={PRE_CONTENT_ICON_SIZE + " stroke-cyan-700"} />}
         stat={<p className='flex flex-row items-center gap-1'>{avg_2021.toFixed(2)}
             <CustomTooltip placement="bottom"
                 text={
                     <p>This may seem like a strange statistic for learning and working, but for nations and regions where there are high levels of political instability, education is unlikely to be a primary concern. <br /><br />These areas are disadvanatged in that they are trying to meet basic  needs, whereas having the opportunity to pursue education can be seen as a luxury.</p>}
             /></p>}
-        text={'Political Instability'}
-        // secondaryText={'Change 2017 - 2021'} delta={avg_2021 - avg_2017}
+        metric={'Political Instability'}
+        delta={Math.abs(avg_2021 - avg_2017)}
+        year={'2017 to 2021'}
+        text={'Global Avg 2021'}
         dimensions={dimensions} />
 }
 

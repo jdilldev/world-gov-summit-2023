@@ -19,7 +19,7 @@ body {
 
 h1 {
 	font-family: equinox;
-	font-size: 1.3em;
+	font-size: 1.1em;
 	text-transform: lowercase;
 }
 
@@ -41,7 +41,7 @@ h1 {
 		height: 110vh;
 		display: grid;
 		gap: 0.2rem;
-		grid-template-rows: minmax(150px, auto) 20% 35% 35%;
+		grid-template-rows: minmax(110px, auto) 20% 30% 35%;
 		grid-template-columns: 100%;
 		grid-template-areas:
 			"theme-selector"
@@ -63,8 +63,9 @@ h1 {
 }
 
 .left {
-	background-color: rgba(0, 255, 255, 0.838);
 	grid-area: left;
+	display: flex;
+	flex-direction: column;
 }
 
 .main-lg {

@@ -88,13 +88,13 @@ export const StatCard = ({ stat, text, icon, metric, year, delta, topCountry, bo
                         <span>{getDeltaIndicator(delta)}</span>
                         <span>{delta.toFixed(1) + '%'}</span>
                     </p>}
-                <p className={`${delta ? '-mt-1' : 'mt-0'} text-xs md:text-sm text-end default-font-color`}>{year}</p>
+                <p className={`${delta ? '-mt-1' : 'mt-0'} text-xs md:text-sm text-end text-white`}>{year}</p>
             </div>}
         </div>
         <div>{icon}</div>
         {/*         <p className='font-body text-sm text-center text-white'>In 2018 31 Nations had astronatus. lorem ipsuin is a thing to write i am just ritng text</p>*/}
-        <span className='mb-1.5 text-lg md:text-xl lg:text-3xl tracking-widest light-font-color underline underline-offset-4 decoration-2 decoration-solid decoration-[#78cce2]'>{stat}</span>
-        <p className='-mt-2 md:font-nebula text-stone-200 text-center text-xs md:text-sm  whitespace-nowrap md:whitespace-normal'>{text}</p>
+        <span className='mb-1.5 text-base md:text-xl lg:text-3xl tracking-widest light-font-color underline underline-offset-4 decoration-2 decoration-solid decoration-[#78cce2]'>{stat}</span>
+        <p className='-mt-2 md:font-nebula text-stone-200 text-center text-xs md:text-sm  md:whitespace-normal'>{text}</p>
         <div className='flex flex-row flex-wrap -ml-3 gap-1 justify-center '>
             {topCountry && <p className='-mt-1 text-xs md:text-sm text-lime-300'>{`${topCountry.country}: ${topCountry.value}`}</p>}
             {bottomCountry && <p className='-mt-1 text-xs md:text-sm text-rose-300'>{`${bottomCountry.country}: ${bottomCountry.value}`}</p>}
@@ -107,7 +107,7 @@ export const StatCardCustom = ({ content, dimensions: { width, height } }: { con
 }
 
 export const CustomTooltip = ({ text, placement, fill }: { text: string | ReactNode, placement?: TooltipPlacement, fill?: string }) =>
-    <Tooltip content={<div className='max-w-xs text-center'>{text}</div>} trigger="click" placement={placement ? placement : 'top'}>
+    <Tooltip content={<div className='min-w-[150px] max-w-[300px] text-center'>{text}</div>} trigger="click" placement={placement ? placement : 'top'}>
         <InfoIcon className='h-3 w-3 fill-[#1088a7bd]' />
     </Tooltip>
 

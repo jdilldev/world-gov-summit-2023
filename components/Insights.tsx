@@ -71,7 +71,7 @@ const Insights = () => {
     const ThemeSelectorSection = () => {
         return !isDesktop ?
             <>
-                <p className='whitespace-nowrap tracking-[.3em] md:tracking-[.7em] text-slate-300 text-base md:text-xl uppercase font-equinox'>{`The Present Future`}</p>
+                <p className='whitespace-nowrap tracking-[.2em] md:tracking-[.7em] text-slate-300 text-base md:text-xl uppercase font-equinox'>{`The Present Future | 2023`}</p>
                 <div className='tracking-[.5em] xs:text-sm text-xl white uppercase font-dreamscape text-[#72a4b5]'>
                     <p className={`${isThemeSelected ? 'tracking-normal xs:text-xs text-sm md:text-lg md:tracking-widest md:lowercase font-body md:font-agelast text-center' : ''}`}>{selectedTheme}
                         {!isThemeSelected && <span className='text-sm normal-case font-thin tracking-normal font-body'>{'(Click to select)'}</span>}
@@ -122,7 +122,12 @@ const Insights = () => {
                     <div className='theme-selector-lg'>
                         {<ThemeSelectorSection />}
                     </div>
-                    <div className="left">goaf</div>
+                    <div className="left">
+                        <RegionalInfo isThemeSelected={isThemeSelected} />
+                        <ParentSize debounceTime={10}>{({ width, height }) =>
+                            <ChartII dimensions={{ width, height }} />
+                        }</ParentSize>
+                    </div>
                     <div className='main-lg'>red</div>
                 </div> : <p>loading</p>}
         </SummitThemeContext.Provider >

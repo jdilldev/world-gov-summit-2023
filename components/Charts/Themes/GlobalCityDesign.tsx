@@ -15,7 +15,7 @@ export const ShareOfElectricityFromRenewables = ({ dimensions: { width, height }
     const { value: max } = getMax('2015_electricity_from_renewables', 'world')
 
     return <div className='flex flex-col  place-items-center'>
-        <p className='text-xs lg:text-base text-center text-white font-equinox '>Use of renewable energy<br /></p>
+        <p className='text-xs lg:text-base text-center text-white font-equinox '>Use of renewable energy<br />in 2015 and 2020</p>
         <LineChart
 
             tooltipContent={({ p: { serieId, data: { xFormatted, yFormatted } } }: { p: Point }) => `In ${xFormatted}, ${yFormatted}% of ${serieId}'s energy was renewable`}
@@ -124,9 +124,10 @@ export const HappyPlanetIndex = ({ dimensions: { width, height } }: { dimensions
 export const AvgGlobalTempChangePerDecade = ({ dimensions }: { dimensions: ChartDimensions }) => {
     // https://www.climate.gov/news-features/understanding-climate/climate-change-global-temperature#:~:text=Earth's%20temperature%20has%20risen%20by,0.18%C2%B0%20C)%20per%20decade.
     return <StatCard
-        preContent={<GlobalWarmingIcon className={PRE_CONTENT_ICON_SIZE + ' fill-red-500'} />}
+        icon={<GlobalWarmingIcon className={PRE_CONTENT_ICON_SIZE + ' fill-red-500'} />}
+        metric={'climate change'}
         stat={'~ .18 ºC'}
-        text={'increase per decade'}
-        secondaryText={'Since 1981'}
+        text={'increase in global temp per decade'}
+        year={'Since 1981'}
         dimensions={dimensions} />
 }

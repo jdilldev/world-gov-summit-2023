@@ -128,7 +128,6 @@ export const GovernmentHDIDifferenceChart = ({ width, height }: ChartDimensions)
         stat={hdi_2.toFixed(1)}
         dimensions={{ width, height }}
         text={'2017 to 2021'}
-        secondaryText={'Change in HDI'}
         delta={hdi_2 - hdi}
     />
 }
@@ -145,7 +144,6 @@ export const GovernmentIncreaseDecreaseChart = ({ width, height }: ChartDimensio
             height: height
         }}
         text={'Range is from -2.5 to 2.5'}
-        secondaryText={'2021'}
 
     />
 
