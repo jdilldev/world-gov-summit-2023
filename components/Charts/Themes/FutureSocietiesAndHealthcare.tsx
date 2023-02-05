@@ -7,6 +7,7 @@ import { getWorldAvg, retrieveData } from "../../../app/data/generateData"
 import LineChart from "../LineChart"
 import { HeatMap } from "@nivo/heatmap"
 import { Point } from "@nivo/line"
+import MentalHealthIcon from '../../../public/icons/mental-health.svg'
 
 
 export const Top10CausesOfDeath = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
@@ -75,15 +76,17 @@ export const SuicideDeaths = ({ dimensions }: { dimensions: ChartDimensions }) =
     // Suicide is the fourth leading cause of death among 15-29 year-olds globally in 2019.
     const SuicideText = () => <p className="text-center text-sm font-equinox default-font-color">4th cause of death<br /> <span>15 - 29 year-olds</span></p>
     return <StatCard
-        preContent={<SuicideText />}
+        icon={<MentalHealthIcon className={PRE_CONTENT_ICON_SIZE + ' fill-rose-400'} />}
         stat={<p className='flex flex-row items-center gap-1'>suicide <CustomTooltip text={<p>Death by suicide was the 4th leading cause of death globally. This statistic underscores the importance of mental health.<br /><br />15 to 29 year-olds are a key demographic for building a strong future society.</p>} /></p>}
-        text={'2019'}
+        year={'2019'}
+        metric={'Mental Health'}
+        text={'4th Cause of Death, 15-29 years old'}
         dimensions={dimensions} />
 }
 
 export const EmergentDiseases = ({ dimensions }: { dimensions: ChartDimensions }) => {
     return <StatCard
-        preContent={<DiseaseIcon className={PRE_CONTENT_ICON_SIZE + ' !fill-[#78cce2] !important;'} />
+        icon={<DiseaseIcon className={PRE_CONTENT_ICON_SIZE} />
         }
         stat={<p className='flex flex-row items-center gap-1'>{'+ 40'}
             <CustomTooltip placement="bottom"
@@ -105,8 +108,8 @@ export const EmergentDiseases = ({ dimensions }: { dimensions: ChartDimensions }
                     </p>}
             />
         </p>}
-        text={'Infectious Diseases'}
-        secondaryText={'Since 1970'}
+        text={'Infectious Diseases since 1970'}
+        metric={'epidemiology'}
         dimensions={dimensions} />
 }
 

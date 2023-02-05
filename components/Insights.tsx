@@ -108,7 +108,7 @@ const Insights = () => {
                     {<ThemeSelectorSection />}
                 </div>
                 <div className='stat-boxes'><StatBoxes /></div>
-                <div className='regional-selector-and-chart'>
+                <div className='regional-selector-and-chart mb-3'>
                     <RegionalInfo isThemeSelected={isThemeSelected} />
                     <div className='w-2/3'>
                         <ParentSize debounceTime={10}>{({ width, height }) =>
@@ -116,7 +116,7 @@ const Insights = () => {
                         }</ParentSize>
                     </div>
                 </div>
-                <div className='main'><Map /></div>
+                <div className='main'>Map</div>
             </div> :
                 <div className='insights-layout-lg'>
                     <div className='theme-selector-lg'>

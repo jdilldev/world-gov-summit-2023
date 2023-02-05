@@ -14,7 +14,8 @@ export const InflationChanges = ({ dimensions }: { dimensions: ChartDimensions }
     // const globalInflation = getWorldAvg('inflation').toFixed(1) + '%'
     const worldDelta = 8.8 - 4.7
     return <StatCard
-        preContent={<PreContent />}
+        metric="inflation"
+        year='2022'
         stat={'8.8%'}
         delta={worldDelta}
         dimensions={dimensions}

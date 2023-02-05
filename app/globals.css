@@ -27,7 +27,7 @@ h1 {
 	height: 110vh;
 	display: grid;
 	gap: 0.7rem;
-	grid-template-rows: minmax(140px, auto) 30% 35% 35%;
+	grid-template-rows: minmax(115px, auto) 35% 30% 25%;
 	grid-template-columns: 100%;
 	grid-template-areas:
 		"theme-selector"
@@ -40,7 +40,7 @@ h1 {
 	.insights-layout {
 		height: 110vh;
 		display: grid;
-		gap: 0.7rem;
+		gap: 0.2rem;
 		grid-template-rows: minmax(150px, auto) 20% 35% 35%;
 		grid-template-columns: 100%;
 		grid-template-areas:
@@ -54,6 +54,7 @@ h1 {
 .insights-layout-lg {
 	height: 100%;
 	display: grid;
+	gap: 0.6rem;
 	grid-template-rows: 20% 1fr;
 	grid-template-columns: 0.5fr 1fr;
 	grid-template-areas:
@@ -96,7 +97,6 @@ h1 {
 	backdrop-filter: blur(16px);
 	gap: 0.4rem;
 	z-index: 10;
-	padding: 0.25rem 0.25rem;
 }
 
 .stat-boxes {
@@ -109,7 +109,7 @@ h1 {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	gap: 0.8rem;
+	gap: 0.5rem;
 }
 
 .main {

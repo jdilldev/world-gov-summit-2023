@@ -123,7 +123,8 @@ export const GovernmentHDIDifferenceChart = ({ width, height }: ChartDimensions)
     const hdi = getWorldAvg('2017_HDI')
     const hdi_2 = getWorldAvg('2021_HDI')
     return <StatCard
-        preContent={<p className="font-equinox lowercase default-font-color">Human Development Index</p>}
+        metric="HDI"
+        year="Since 2017"
         stat={hdi_2.toFixed(1)}
         dimensions={{ width, height }}
         text={'2017 to 2021'}
@@ -136,10 +137,13 @@ export const GovernmentIncreaseDecreaseChart = ({ width, height }: ChartDimensio
 
     const globalAvg = getWorldAvg('2021_government_effectiveness')
 
-    return <StatCard stat={globalAvg.toFixed(1) + ' Efficacy Score'} dimensions={{
-        width: width,
-        height: height
-    }}
+    return <StatCard
+        metric="Gov Efficacy"
+        year="2021"
+        stat={globalAvg.toFixed(1) + ' Efficacy Score'} dimensions={{
+            width: width,
+            height: height
+        }}
         text={'Range is from -2.5 to 2.5'}
         secondaryText={'2021'}
 

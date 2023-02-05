@@ -1,5 +1,5 @@
 import { Grid, } from '@nextui-org/react';
-import { FrameLines } from '@arwes/core';
+import { FrameBox, FrameCorners, FrameLines, FrameUnderline } from '@arwes/core';
 import InsightIcon from '../public/icons/brain.svg'
 import SourceIcon from '../public/icons/source.svg'
 import { ReactNode, useContext } from 'react';
@@ -34,21 +34,23 @@ const defaultStatBoxes: DefaultStatItem[] = [
 const StatBox = ({ item, index, source }: { item: DefaultStatItem, index: number, source?: string }) => {
     const selectedTheme = useContext(SummitThemeContext)
 
-    return <div style={{ backgroundImage: `url(${item.bgImage ? item.bgImage : ''})`, }} className='basis-[49%] md:basis-[24%] h-1/2 md:h-full bg-cover bg-top'>
-        <ParentSize className={`backdrop-blur-[0px]  backdrop-invert-0 `} debounceTime={10}>{({ width, height }) =>
+    return <div style={{ backgroundImage: `url(nw.jp)`, }} className='basis-[49%] md:basis-[24%] h-1/2 md:h-full bg-cover bg-top'>
+        <ParentSize className={`backdrop-blur-[0px] -mr-1 backdrop-invert-0 backdrop-contrast-125 backdrop-brightness-125 backdrop-saturate-125 bg-black/30`} debounceTime={10}>{({ width, height }) =>
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             <FrameLines
                 hover
-                style={{ width: width - 2, height: height, }}
+                invert
+                style={{ width: width, height: height, }}
                 palette='secondary'
                 animator={{ animate: false }}
+                squareSize={35}
                 largeLineWidth={2}
                 smallLineWidth={4}
-                smallLineLength={20}>
+                smallLineLength={40}>
                 {/* <MagnifyIcon className='absolute right-0 place-self-end hover:fill-yellow-400 w-4 h-4 fill-[#78cce2]' onClick={() => console.log('yoyo')} />*/}
                 {selectedTheme === DEFAULT_THEME_PROMPT ? <DefaultStatBox item={item} /> : getContentForTheme(width - 5, height - 20, selectedTheme, index)}
-                {source && <a href={source} target="_blank" rel="noreferrer"><SourceIcon className='absolute right-0 bottom-0 default-font-color h-3 w-3' /></a>}
+                {source && <a href={source} target="_blank" rel="noreferrer"><SourceIcon className='absolute -right-2 -bottom-1 default-font-color h-3 w-3' /></a>}
             </FrameLines>
         }
         </ParentSize>

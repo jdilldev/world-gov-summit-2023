@@ -6,8 +6,7 @@ export const DEFAULT_THEME_PROMPT = "Themes";
 
 export const SummitThemeContext = createContext(DEFAULT_THEME_PROMPT);
 
-export const PRE_CONTENT_ICON_SIZE =
-	"self-start md:self-center basis-1/3 lg:basis-1/2 mb-2";
+export const PRE_CONTENT_ICON_SIZE = "self-center w-10 h-10 md:w-14 md:h-14";
 
 export const LIGHT_COLOR = "#78cce2";
 

@@ -55,9 +55,9 @@ export const GdpPercentagesRadialBarChart = ({ dimensions: { width, height }, re
 }
 const getDeltaIndicator = (delta: number) => {
 
-    const indicatorClass = 'w-2 h-2 md:w-4 md:h-4 lg:w-4 lg:h-4 '
+    const indicatorClass = 'w-2 h-2 lg:w-4 lg:h-4 '
     if (Math.abs(delta).toFixed(1) === '0.0') {
-        return <NeutralIndicator className={indicatorClass + 'fill-[gold]'} />
+        return <NeutralIndicator className={indicatorClass + 'fill-[#fcd706]'} />
     } else if (delta > 0) {
         return <IncreaseIndicator className={indicatorClass + 'fill-green-400'} />
     } else if (delta < 0) {
@@ -68,27 +68,37 @@ const getDeltaIndicator = (delta: number) => {
 type StatCardProps = {
     stat: string | ReactNode,
     dimensions: ChartDimensions
+    toggleYear?: boolean;
+    year?: string;
+    icon?: ReactNode;
     text?: string,
-    preContent?: ReactNode,
-    secondaryText?: string,
-    delta?: number
+    metric?: string;
+    delta?: number;
+    topCountry?: { country: string, value: number };
+    bottomCountry?: { country: string, value: number };
 }
 
-export const StatCard = ({ stat, text, preContent, secondaryText, delta, dimensions: { width, height } }: StatCardProps) => {
-    return <div style={{ width: width - 5, height, }} className={`div flex flex-col w-full md:place-content-center md:items-center justify-evenly lg:justify-around text-white`}>
-        {preContent && preContent}
-        <span className='text-bae font-equinox md:text-2xl lg:text-3xl mb-2 lowercase tracking-widest underline underline-offset-8 decoration-2 decoration-solid decoration-[#78cce2]'>{stat}</span>
-        {text && <span className='text-xs md:text-sm lg:text-base lg:tracking-normal font-nebula md:whitespace-nowrap'>{text}</span>}
-        {delta &&
-            <p className='flex flex-row items-center gap-1 md:gap-2 m-0'>
-                <span>{getDeltaIndicator(delta)}</span>
-                <p className='text-xs md:text-base lg:text-xl text-center'>
-                    <span className='font-equinox'>{delta.toFixed(1)}</span>
-                    <span className='font-body text-[.75em] md:text-xs'>{'%  '}</span>
-                    <span className='md:font-equinox md:lowercase'>{secondaryText}</span>
-                </p>
-            </p>}
-        {!delta && secondaryText && <span className='text-xs text-center font-nebula'>{secondaryText}</span>}
+export const StatCard = ({ stat, text, icon, metric, year, delta, topCountry, bottomCountry, dimensions: { width, height } }: StatCardProps) => {
+    return <div style={{ width: width, height, }} className={`pr-2 flex flex-col justify-around md:gap-1 w-full h-full font-equinox lowercase items-center lg:justify-around default-font-color`}>
+        <div className='flex flex-row w-full'>
+            {metric && <p className='w-full text-xs md:text-sm tracking-widest lowercase default-font-color'>{metric}</p>}
+            {<div className='flex flex-col w-full'>
+                {delta &&
+                    <p className='self-end flex flex-row items-center gap-1 text-white text-sm font-equinox lowercase'>
+                        <span>{getDeltaIndicator(delta)}</span>
+                        <span>{delta.toFixed(1) + '%'}</span>
+                    </p>}
+                <p className={`${delta ? '-mt-1' : 'mt-0'} text-xs md:text-sm text-end default-font-color`}>{year}</p>
+            </div>}
+        </div>
+        <div>{icon}</div>
+        {/*         <p className='font-body text-sm text-center text-white'>In 2018 31 Nations had astronatus. lorem ipsuin is a thing to write i am just ritng text</p>*/}
+        <span className='mb-1.5 text-lg md:text-xl lg:text-3xl tracking-widest light-font-color underline underline-offset-4 decoration-2 decoration-solid decoration-[#78cce2]'>{stat}</span>
+        <p className='-mt-2 md:font-nebula text-stone-200 text-center text-xs md:text-sm  whitespace-nowrap md:whitespace-normal'>{text}</p>
+        <div className='flex flex-row flex-wrap -ml-3 gap-1 justify-center '>
+            {topCountry && <p className='-mt-1 text-xs md:text-sm text-lime-300'>{`${topCountry.country}: ${topCountry.value}`}</p>}
+            {bottomCountry && <p className='-mt-1 text-xs md:text-sm text-rose-300'>{`${bottomCountry.country}: ${bottomCountry.value}`}</p>}
+        </div>
     </div>
 }
 

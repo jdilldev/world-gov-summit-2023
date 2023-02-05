@@ -35,7 +35,12 @@ export const CryptoStats = ({ dimensions: { width, height } }: { dimensions: Cha
 export const GDPStats = ({ dimensions }: { dimensions: ChartDimensions }) => {
     const worldGdpAvg_2021 = getWorldAvg('2021_economic_growth')
     const worldGdpAvg_2018 = getWorldAvg('2018_economic_growth')
-    return <StatCard preContent={<GdpIcon className={PRE_CONTENT_ICON_SIZE + ' fill-green-400'} />} stat={worldGdpAvg_2021.toFixed(1) + ' %'} secondaryText={'GDP Growth'} delta={worldGdpAvg_2021 - worldGdpAvg_2018} dimensions={dimensions} />
+    return <StatCard
+        metric="gdp"
+        year="2018 to 2021"
+        stat={worldGdpAvg_2021.toFixed(1) + ' %'}
+        delta={worldGdpAvg_2021 - worldGdpAvg_2018}
+        dimensions={dimensions} />
 }
 
 export const SpaceAgencies = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
@@ -43,15 +48,18 @@ export const SpaceAgencies = ({ dimensions: { width, height } }: { dimensions: C
     // 72 countries involved, 14 launch ability
 
     const SplitSpaceStats = () => {
-        return <div style={{ width: width - 20, height }} className='w-full flex flex-col place-items-center'>
+        return <div style={{ width: width - 20, height }} className='font-equinox w-full h-full flex flex-col items-center justify-center'>
             {/*             <p className="text-center font-dreamscape text-xs md:text-base lg:text-lg">Across the Globe</p>*/}
+            <span className='absolute top-0 right-0'>2018</span>
+            <span className='absolute top-0 left-0'>Space</span>
             <SpaceIcon className={PRE_CONTENT_ICON_SIZE + ' fill-[#78cce2]'} />
             <div className="flex flex-row w-full text-white justify-evenly">
-                <p className="flex flex-col items-center font-equinox"><span className='text-lg lg:text-2xl'>72</span><span className='text-xs md:text-sm lg:text-base text-center text-[#78cce2]'>Space Agencies</span></p>
+                <p className="flex flex-col items-center"><span className='text-lg lg:text-2xl'>72</span><span className='text-xs md:text-sm lg:text-base text-center text-[#78cce2]'>Space Agencies</span></p>
                 <div className="border-l-2 border-neutral-300 mt-2 -mb-1 lg:mb-2 mx-2" />
-                <p className="flex flex-col items-center font-equinox"><span className='text-lg lg:text-2xl'>14</span><span className='text-xs md:text-sm lg:text-base text-center text-[#78cce2]'>Launch Ability</span></p>
+                <p className="flex flex-col items-center"><span className='text-lg lg:text-2xl'>14</span><span className='text-xs md:text-sm lg:text-base text-center text-[#78cce2]'>Launch Ability</span></p>
             </div>
-        </div>
+            {/*             <p className='mt-3 text-cyan-100 text-center text-sm'>Worldwide as of 2018</p>
+ */}        </div>
 
     }
 
@@ -62,9 +70,11 @@ export const AstronautsAndSatellites = ({ dimensions }: { dimensions: ChartDimen
     //https://www.civitas-stl.com/civ1819/Government-space-agencies.pdf (2018)
     //31 astronauts
     return <StatCard
-        preContent={<AstronautIcon className={PRE_CONTENT_ICON_SIZE + ' fill-stone-400'} />}
-        stat={'31 Nations'}
-        text={'Have Astronauts'}
+        icon={<AstronautIcon className={PRE_CONTENT_ICON_SIZE + ' fill-stone-400'} />}
+        metric="Exploration"
+        stat={'31'}
+        year='2018'
+        text={'Nations w/ Astronauts'}
         dimensions={dimensions} />
 }
 
@@ -74,7 +84,7 @@ export const GII = ({ dimensions: { width, height } }: { dimensions: ChartDimens
     return <div className='font-equinox flex flex-col'>
         <p className='text-center lowercase'>Most Innovative Subregions</p>
         <p className='font-body text-white text-sm text-center'>GII is a Global Innovation Index that ranks countries on their innovative ability and endevaors. Circle color correlates to value. Similarly colored circles have similar values. Click the link to view the most innovative countries.</p>
-        <a className="text-xs" href='src'>https://www.globalinnovationindex.org/analysis-indicator</a>
+        <a className="text-xs" href='https://www.globalinnovationindex.org/analysis-indicator' target="_blank" rel="noreferrer">https://www.globalinnovationindex.org/analysis-indicator</a>
         <CirclePackingChart hasColors={true} dimensions={{ width, height: height - 80 }} data={data} />
     </div>
 
