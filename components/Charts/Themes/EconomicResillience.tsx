@@ -18,7 +18,7 @@ export const InflationChanges = ({ dimensions }: { dimensions: ChartDimensions }
         metric="inflation"
         year='From 2021'
         stat={'8.8%'}
-        text={'Average Inflation Worldwide 2022'}
+        text={'2022 Average Inflation Worldwide'}
         delta={worldDelta}
         dimensions={dimensions}
     />
@@ -88,7 +88,7 @@ export const EconomicGrowthDelta = ({ dimensions: { width, height } }: { dimensi
 
 export const WarningAboutInterdependentEconomies = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
     const Warning = () => {
-        return <div style={{ width, height }} className='flex flex-col text-xs md:text-sm lg:text-base gap-1 place-content-center items-center font-equinox lowercase default-text-color text-center'>
+        return <div style={{ width, height }} className='flex flex-col pr-2 text-xs md:text-sm lg:text-base gap-1 place-content-center items-center font-equinox lowercase default-text-color text-center'>
             <EconomicCrisisIcon className={PRE_CONTENT_ICON_SIZE + ' fill-[#35a7c3c5]'} />
             <p>Economic Interdependence is something to be conscientious of</p>
         </div>

@@ -1,5 +1,5 @@
 import { Funnel } from '@nivo/funnel'
-import { NIVO_THEME } from '../../app/constants';
+import { CHART_MARGINS, NIVO_THEME } from '../../app/constants';
 import { ChartDimensions, LinearData, PercentileData } from '../../app/data/types'
 import { ChartTooltip } from '../Shared';
 
@@ -19,7 +19,7 @@ const FunnelChart = ({ data, dimensions: { width, height } }: { data: Percentile
         width={width}
         colors={['#29788e', '#78cce2', '#a5dfe4']}
         theme={NIVO_THEME}
-        margin={{ top: 15, right: 20, bottom: 10, left: 20 }}
+        margin={CHART_MARGINS}
         valueFormat=">-.2s"
         borderOpacity={.4}
         borderWidth={20}

@@ -16,18 +16,21 @@ export const renderChartBasedOnTheme = (selectedTheme: string, { width, height }
     let description = ''
     let title = ''
     let RenderChart = <></>
-    const smallerHeight = height - 50
     switch (selectedTheme) {
         case 'Accelerating Development and Governance':
-            title = 'GDP Percentage Spent on Healthcare'
-            year = '2017 - 2018 - 2019'
-            description = 'We can get an idea of which regions prioritize and offer more health services. However this number is also driven signficantly by population. Quantity does not equal quality.'
+            title = 'Human Development Index'
+            year = '2017 - 2021'
+            description = 'Measures blah blah'
             RenderChart = <GovernmentHealthBullet dimensions={{ width, height }} />
             break;
         case 'Global City Design and Sustainability':
+            description = 'todo'
+            year = '2019'
             return RenderChart = <CorrelationBetweenCO2EmissionsAndRenewables dimensions={{ width, height }} />
         case 'Exploring the Frontiers':
-            return RenderChart = <GII dimensions={{ width, height }} />
+            title = 'Global Innovation Index'
+            RenderChart = <GII dimensions={{ width, height }} />
+            break;
         case 'Governing Economic Resilience and Connectivity':
             return RenderChart = <SEDA dimensions={{ width, height }} />
         case 'Future of Societies and Healthcare':
@@ -49,7 +52,7 @@ export const renderChartBasedOnTheme = (selectedTheme: string, { width, height }
         year={year}
         description={description}
         title={title}
-        dimensions={{ width, height: height }}
+        dimensions={{ width, height }}
         Chart={RenderChart}
     />
 }
@@ -69,7 +72,7 @@ const ChartII = ({ Chart, title, year, description, dimensions: { width, height 
         showContentLines
         cornerLength={50}
         cornerWidth={3}
-        style={{ width: width, height: height, }}
+        style={{ width: width, height: height - 2 }}
         animator={{ animate: false }}
         className='bg-cyan-700 bg-opacity-20 font-equinox'
     >

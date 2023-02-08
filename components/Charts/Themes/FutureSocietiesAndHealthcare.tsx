@@ -67,7 +67,7 @@ export const Top10CausesOfDeath = ({ dimensions: { width, height } }: { dimensio
 
     return <div className="flex flex-col text-xs md:text-sm font-equinox place-items-center">
         <p>Top 10 Causes of death</p>
-        <p>Worldwide - 2019</p>
+        <p className="text-white">Worldwide - 2019</p>
         <CirclePackingChart data={data} dimensions={{ width, height: height - 40 }} />
     </div>
 }
@@ -135,10 +135,11 @@ export const LifeExpectancy = ({ dimensions: { width, height } }: { dimensions: 
 export const HealthExpenditureOfGDPDelta = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
     const three_year_health_data = retrieveData({ metrics: ['2017_health_gdp', '2018_health_gdp', '2019_health_gdp'], aggregator: 'multiRegions' }, 'linear') as LinearData[]
 
+    //healthcare spend per person correlated with life expectancy
     return <LineChart
         tooltipContent={({ p: { serieId, data: { xFormatted, yFormatted } } }: { p: Point }) => `${serieId} spent ${yFormatted}% of  their GDP on Healthcare in ${xFormatted}`}
         data={three_year_health_data}
-        dimensions={{ width: width, height: height - 110 }} />
+        dimensions={{ width: width, height: height - 120 }} />
 
 
 

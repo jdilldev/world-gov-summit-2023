@@ -1,5 +1,5 @@
 import { HeatMap } from '@nivo/heatmap'
-import { NIVO_THEME } from '../../app/constants';
+import { CHART_MARGINS, NIVO_THEME } from '../../app/constants';
 import { ChartDimensions, LinearData } from '../../app/data/types'
 import { ChartTooltip } from '../Shared';
 
@@ -14,7 +14,7 @@ const HeatmapChart = ({ data, dimensions: { width, height } }: { data: LinearDat
         height={height}
         width={width}
         theme={NIVO_THEME}
-        margin={{ top: 0, right: 10, bottom: 0, left: 20 }}
+        margin={CHART_MARGINS}
         valueFormat=">-.2s"
         enableLabels={false}
         forceSquare={true}
@@ -36,7 +36,7 @@ const HeatmapChart = ({ data, dimensions: { width, height } }: { data: LinearDat
         legends={[
             {
                 anchor: 'bottom',
-                translateX: 0,
+                translateX: 20,
                 translateY: 10,
                 length: 400,
                 thickness: 8,

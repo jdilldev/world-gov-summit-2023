@@ -27,7 +27,7 @@ h1 {
 	height: 110vh;
 	display: grid;
 	gap: 0.7rem;
-	grid-template-rows: minmax(115px, auto) 35% 30% 25%;
+	grid-template-rows: minmax(120px, auto) 35% 30% 25%;
 	grid-template-columns: 100%;
 	grid-template-areas:
 		"theme-selector"
@@ -36,12 +36,12 @@ h1 {
 		"main";
 }
 
-@media (min-width: 750px) {
+@media (min-width: 800px) {
 	.insights-layout {
 		height: 110vh;
 		display: grid;
-		gap: 0.2rem;
-		grid-template-rows: minmax(110px, auto) 20% 30% 35%;
+		gap: 0.9rem;
+		grid-template-rows: minmax(125px, auto) 20% 30% 33%;
 		grid-template-columns: 100%;
 		grid-template-areas:
 			"theme-selector"
@@ -53,9 +53,10 @@ h1 {
 
 .insights-layout-lg {
 	height: 100%;
+	overflow: hidden;
 	display: grid;
 	gap: 0.675rem;
-	grid-template-rows: minmax(17%, auto) 1fr;
+	grid-template-rows: minmax(150px, auto) 1fr;
 	grid-template-columns: 33% 66%;
 	grid-template-areas:
 		"theme-selector theme-selector"
@@ -74,6 +75,7 @@ h1 {
 	display: flex;
 	flex-direction: column;
 	gap: 0.7rem;
+	height: 100%;
 }
 
 .map {
@@ -90,7 +92,7 @@ h1 {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	gap: 4px;
+	gap: 2px;
 }
 
 .theme-selector {

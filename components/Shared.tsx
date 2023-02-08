@@ -68,7 +68,7 @@ const getDeltaIndicator = (delta: number) => {
 type StatCardProps = {
     stat: string | ReactNode,
     dimensions: ChartDimensions
-    toggleYear?: boolean;
+    percentage?: boolean;
     year?: string;
     icon?: ReactNode;
     text?: string,
@@ -78,28 +78,30 @@ type StatCardProps = {
     bottomCountry?: { country: string, value: number };
 }
 
-export const StatCard = ({ stat, text, icon, metric, year, delta, topCountry, bottomCountry, dimensions: { width, height } }: StatCardProps) => {
-    return <div style={{ width: width, height, }} className={`pr-2 flex flex-col justify-around md:gap-1 w-full h-full font-equinox lowercase items-center lg:justify-around default-font-color`}>
-        <div className='flex flex-row w-full'>
+export const StatCard = ({ stat, text, icon, metric, year, delta, percentage = true, topCountry, bottomCountry, dimensions: { width, height } }: StatCardProps) => {
+    return <div style={{ width: width, height, }} className={`pr-2 flex flex-col justify-between w-full h-full font-equinox lowercase items-center lg:justify-evenly default-font-color`}>
+        <div className='flex flex-row w-full basis-1/4'>
             {metric && <p className='w-full text-xs md:text-sm tracking-widest lowercase default-font-color'>{metric}</p>}
             {<div className='flex flex-col w-full'>
                 {delta &&
                     <p className='self-end flex flex-row items-center gap-1 text-white text-sm font-equinox lowercase'>
                         <span>{getDeltaIndicator(delta)}</span>
-                        <span>{delta.toFixed(1) + '%'}</span>
+                        <span>{delta.toFixed(1)} {percentage ? '%' : ''}</span>
                     </p>}
                 <p className={`${delta ? '-mt-1' : 'mt-0'} text-xs md:text-sm text-end text-white`}>{year}</p>
             </div>}
         </div>
-        <div>{icon}</div>
-        {/*         <p className='font-body text-sm text-center text-white'>In 2018 31 Nations had astronatus. lorem ipsuin is a thing to write i am just ritng text</p>*/}
-        <span className='mb-1.5 text-base md:text-xl lg:text-3xl tracking-widest light-font-color underline underline-offset-4 decoration-2 decoration-solid decoration-[#78cce2]'>{stat}</span>
-        <p className='-mt-2 md:font-nebula text-stone-200 text-center text-xs md:text-sm  md:whitespace-normal'>{text}</p>
-        <div className='flex flex-row flex-wrap -ml-3 gap-1 justify-center '>
-            {topCountry && <p className='-mt-1 text-xs md:text-sm text-lime-300'>{`${topCountry.country}: ${topCountry.value}`}</p>}
-            {bottomCountry && <p className='-mt-1 text-xs md:text-sm text-rose-300'>{`${bottomCountry.country}: ${bottomCountry.value}`}</p>}
+        <div className='flex flex-col items-center basis-3/4 gap-2 justify-between'>
+            {icon}
+            {/*         <p className='font-body text-sm text-center text-white'>In 2018 31 Nations had astronatus. lorem ipsuin is a thing to write i am just ritng text</p>*/}
+            <span className='mb-1.5 -mt-2 text-base md:text-xl lg:text-3xl tracking-widest light-font-color underline underline-offset-4 decoration-2 decoration-solid decoration-[#78cce2]'>{stat}</span>
+            <p className='-mt-2 md:font-nebula text-stone-200 text-center text-xs md:text-sm  md:whitespace-normal'>{text}</p>
+            <div className='flex flex-row flex-wrap -ml-3 gap-1 justify-center '>
+                {topCountry && <p className='-mt-1 text-xs md:text-sm text-lime-300'>{`${topCountry.country}: ${topCountry.value}`}</p>}
+                {bottomCountry && <p className='-mt-1 text-xs md:text-sm text-rose-300'>{`${bottomCountry.country}: ${bottomCountry.value}`}</p>}
+            </div>
         </div>
-    </div>
+    </div >
 }
 
 export const StatCardCustom = ({ content, dimensions: { width, height } }: { content: ReactNode, dimensions: ChartDimensions }) => {
@@ -111,4 +113,4 @@ export const CustomTooltip = ({ text, placement, fill }: { text: string | ReactN
         <InfoIcon className='h-3 w-3 fill-[#1088a7bd]' />
     </Tooltip>
 
-export const ChartTooltip = ({ content }: { content: string }) => <div className='text-xs text-center text-white p-2 bg-[#073956] rounded-sm opacity-90'>{content}</div>
+export const ChartTooltip = ({ content }: { content: string | ReactNode }) => <div className='text-xs  font-body text-center text-white p-2 bg-[#073956] rounded-sm opacity-90'>{content}</div>

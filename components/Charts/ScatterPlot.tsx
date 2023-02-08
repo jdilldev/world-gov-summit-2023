@@ -1,5 +1,5 @@
 import { ScatterPlot } from '@nivo/scatterplot'
-import { NIVO_THEME } from '../../app/constants'
+import { CHART_MARGINS, NIVO_THEME } from '../../app/constants'
 import { ChartDimensions, LinearData } from '../../app/data/types'
 
 // make sure parent container have a defined height when using
@@ -13,7 +13,7 @@ const ScatterPlotChart = ({ data, dimensions: { width, height } }: { data: Linea
         height={height}
         width={width}
         theme={NIVO_THEME}
-        margin={{ top: 60, right: 140, bottom: 70, left: 90 }}
+        margin={CHART_MARGINS}
         xScale={{ type: 'linear', min: 0, max: 'auto' }}
         xFormat=">-.2f"
         yScale={{ type: 'linear', min: 0, max: 'auto' }}

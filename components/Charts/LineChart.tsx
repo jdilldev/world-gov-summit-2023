@@ -1,5 +1,5 @@
 import { Line, Point, Serie } from '@nivo/line'
-import { NIVO_THEME } from '../../app/constants'
+import { CHART_MARGINS, NIVO_THEME } from '../../app/constants'
 import { ChartDimensions, LinearData } from '../../app/data/types'
 import { ChartTooltip } from '../Shared';
 
@@ -13,7 +13,7 @@ const LineChart = ({ data, tooltipContent, dimensions: { width, height }, max, m
         lineWidth={2}
         enableSlices={false}
         colors={{ scheme: 'yellow_green_blue' }}
-        margin={{ top: 10, right: 20, bottom: 0, left: 40 }}
+        margin={CHART_MARGINS}
         xScale={{ type: 'point' }}
         yScale={{
             type: 'linear',

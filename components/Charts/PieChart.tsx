@@ -1,5 +1,5 @@
 import { Pie } from '@nivo/pie'
-import { NIVO_THEME } from '../../app/constants';
+import { CHART_MARGINS, NIVO_THEME } from '../../app/constants';
 import { PercentileData } from '../../app/data/types'
 
 const colors = ['#b3f5ffb9', '#00b1ccd9', '#047898e3']
@@ -11,7 +11,7 @@ const PieChart = ({ data, width, height, softMargins }: { softMargins?: boolean,
         theme={NIVO_THEME}
         data={data}
         valueFormat=" >-.2f"
-        margin={softMargins ? { top: 20, right: 0, bottom: 15, left: 0 } : { top: 40, right: 120, bottom: 20, left: 50 }}
+        margin={CHART_MARGINS}
         innerRadius={0.6}
         padAngle={3}
         cornerRadius={1}

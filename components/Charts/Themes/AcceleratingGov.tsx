@@ -9,7 +9,7 @@ export const GovernmentStabilityRadar = ({ width, height }: ChartDimensions) => 
     const data = [
         {
             "metric": "Government Effectiveness",
-            "Score": -getWorldAvg('2021_government_effectiveness')
+            "Score": Math.abs(getWorldAvg('2021_government_effectiveness'))
         },
         {
             "metric": "Rule of Law",
@@ -30,7 +30,7 @@ export const GovernmentStabilityRadar = ({ width, height }: ChartDimensions) => 
     ]
 
     return < RadarChart
-        dimensions={{ width, height: height }}
+        dimensions={{ width: width, height: height }}
         data={data}
         indexBy={'metric'}
         keys={['Score']} />
@@ -98,7 +98,7 @@ export const GovernmentHealthBullet = ({ dimensions: { width, height } }: { dime
 
     const data2 = retrieveData({ metrics: ['2017_HDI', '2021_HDI'], aggregator: 'multiRegions' }, 'linear') as LinearData[]
 
-    return <BumpChart data={data2} dimensions={{ width, height: height }} />
+    return <BumpChart data={data2} dimensions={{ width, height: height - 60 }} />
 
 
 

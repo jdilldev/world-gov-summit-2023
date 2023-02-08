@@ -2,7 +2,7 @@
 
 import { Radar } from '@nivo/radar'
 import { CategoricalData, ChartDimensions, CountryMetrics } from '../../app/data/types'
-import { NIVO_THEME } from '../../app/constants'
+import { CHART_MARGINS, NIVO_THEME } from '../../app/constants'
 import { GridLabelComponent } from '@nivo/radar'
 import { ChartTooltip } from '../Shared';
 // make sure parent container have a defined height when using
@@ -20,7 +20,7 @@ const RadarChart = ({ data, indexBy, keys, dimensions: { width, height } }: { da
         enableDots={true}
         indexBy={indexBy}
         valueFormat=">-.2f"
-        margin={{ top: 20, right: 20, bottom: 30, left: 20 }}
+        margin={CHART_MARGINS}
         borderColor={'#78cce2'}
         borderWidth={2}
         gridLabelOffset={10}

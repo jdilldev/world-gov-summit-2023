@@ -60,7 +60,7 @@ export const SpaceAgencies = ({ dimensions: { width, height } }: { dimensions: C
     const SplitSpaceStats = () => {
         return <div style={{ width: width - 20, height }} className='font-equinox w-full h-full flex flex-col items-center justify-center'>
             {/*             <p className="text-center font-dreamscape text-xs md:text-base lg:text-lg">Across the Globe</p>*/}
-            <span className='absolute top-0 right-0'>2018</span>
+            <span className='absolute top-0 right-0 text-white'>2018</span>
             <span className='absolute top-0 left-0'>Space</span>
             <SpaceIcon className={PRE_CONTENT_ICON_SIZE + ' fill-[#78cce2]'} />
             <div className="flex flex-row w-full text-white justify-evenly">
@@ -91,11 +91,5 @@ export const AstronautsAndSatellites = ({ dimensions }: { dimensions: ChartDimen
 export const GII = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
     const data = retrieveData({ metrics: ['gii'], aggregator: 'multiRegions' }, 'hierarchical') as HierarchicalData
 
-    return <div className='font-equinox flex flex-col'>
-        <p className='text-center lowercase'>Most Innovative Subregions</p>
-        <p className='font-body text-white text-sm text-center'>GII is a Global Innovation Index that ranks countries on their innovative ability and endevaors. Circle color correlates to value. Similarly colored circles have similar values. Click the link to view the most innovative countries.</p>
-        <a className="text-xs" href='https://www.globalinnovationindex.org/analysis-indicator' target="_blank" rel="noreferrer">https://www.globalinnovationindex.org/analysis-indicator</a>
-        <CirclePackingChart hasColors={true} dimensions={{ width, height: height - 80 }} data={data} />
-    </div>
-
+    return <CirclePackingChart hasColors={true} dimensions={{ width, height: height - 40 }} data={data} />
 }

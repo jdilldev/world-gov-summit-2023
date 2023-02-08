@@ -1,5 +1,5 @@
 import { Bar } from '@nivo/bar'
-import { NIVO_THEME } from '../../app/constants'
+import { CHART_MARGINS, NIVO_THEME } from '../../app/constants'
 import { CategoricalData, ChartDimensions } from '../../app/data/types'
 
 
@@ -12,7 +12,7 @@ const BarChart = ({ data, index, keys, dimensions: { width, height } }: { data: 
         keys={keys}
         layout='horizontal'
         indexBy={index}
-        margin={{ top: 5, right: 30, bottom: 0, left: 80 }}
+        margin={CHART_MARGINS}
         padding={0.3}
         colors={['#78cde2b5']}
         borderColor={{

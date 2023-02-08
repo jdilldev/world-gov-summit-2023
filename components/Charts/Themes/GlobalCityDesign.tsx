@@ -1,6 +1,6 @@
-import { getMax, getMin, retrieveData } from "../../../app/data/generateData"
+import { getMax, getMin, getWorldAvg, retrieveData } from "../../../app/data/generateData"
 import { ChartDimensions, LinearData, PercentileData } from "../../../app/data/types"
-import GlobalWarmingIcon from '../../../public/icons/global-warming.svg'
+import GlobalWarmingIcon from '../../../public/icons/global-melting.svg'
 import { CustomTooltip, StatCard, StatCardCustom } from "../../Shared"
 import { PRE_CONTENT_ICON_SIZE } from "../../../app/constants"
 import HeatmapChart from "../HeatmapChart"
@@ -106,16 +106,24 @@ export const CorrelationBetweenCO2EmissionsAndRenewables = ({ dimensions: { widt
 
 export const HappyPlanetIndex = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
     const Content = () => {
-        const { country: minCountry, value: minValue } = getMin('2019_happy_planet_index', 'world')
-        const { country: maxCountry, value: maxValue } = getMax('2019_happy_planet_index', 'world')
-
-        return <div style={{ width, height }} className='flex flex-col font-bold w-full h-full gap-1 lg:gap-2 text-2xl text-center font-equinox justify-center items-center'>
-            <p className='text-sm'>2019</p>
-            <p className='font-equinox flex flex-row items-center gap-1 default-text-color tracking-widest'>{'HPI '}
-                <CustomTooltip placement="bottomEnd" text={<p className='min-w-[200px]'>HPI (Happy Planet Index) measures sustainability based on a nation's environment and people. The higher the index, the better.<br /><br />This ranking is from 2019.</p>} /></p>
-            <p className='text-xs md:text-base text-amber-400'><span >#1 - </span> {maxCountry} {maxValue.toFixed(1)}</p>
-            <p className='text-xs md:text-base text-rose-400'><span >Last - </span> {minCountry} {minValue}</p>
-        </div >
+        const bottomCountry = getMin('2019_happy_planet_index', 'world')
+        const topCountry = getMax('2019_happy_planet_index', 'world')
+        const avg_2019 = getWorldAvg('2019_happy_planet_index')
+        const avg_2016 = getWorldAvg('2016_happy_planet_index')
+        return <StatCard
+            metric="HPI"
+            stat={avg_2019.toFixed(1)}
+            text={'HPI global avg in 2019'}
+            percentage={false}
+            year='Since 2016'
+            delta={(avg_2019 - avg_2016)}
+            dimensions={{
+                width,
+                height,
+            }}
+            topCountry={topCountry}
+            bottomCountry={bottomCountry}
+        />
     }
 
     return <StatCardCustom content={<Content />} dimensions={{ width, height }} />
@@ -124,7 +132,7 @@ export const HappyPlanetIndex = ({ dimensions: { width, height } }: { dimensions
 export const AvgGlobalTempChangePerDecade = ({ dimensions }: { dimensions: ChartDimensions }) => {
     // https://www.climate.gov/news-features/understanding-climate/climate-change-global-temperature#:~:text=Earth's%20temperature%20has%20risen%20by,0.18%C2%B0%20C)%20per%20decade.
     return <StatCard
-        icon={<GlobalWarmingIcon className={PRE_CONTENT_ICON_SIZE + ' fill-red-500'} />}
+        icon={<GlobalWarmingIcon className={PRE_CONTENT_ICON_SIZE + ' fill-red-600'} />}
         metric={'climate change'}
         stat={'~ .18 ºC'}
         text={'increase in global temp per decade'}

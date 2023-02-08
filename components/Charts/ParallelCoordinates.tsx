@@ -1,5 +1,5 @@
 import { ParallelCoordinates } from '@nivo/parallel-coordinates'
-import { NIVO_THEME } from '../../app/constants'
+import { CHART_MARGINS, NIVO_THEME } from '../../app/constants'
 import { CategoricalData, ChartDimensions } from '../../app/data/types'
 
 const ParallelCoordinatesChart = ({ data, dimensions: { width, height } }: { data: CategoricalData[], dimensions: ChartDimensions }) => (
@@ -8,7 +8,7 @@ const ParallelCoordinatesChart = ({ data, dimensions: { width, height } }: { dat
         width={width - 10}
         height={height}
         theme={NIVO_THEME}
-        margin={{ top: 10, right: 40, bottom: 10, left: 30 }}
+        margin={CHART_MARGINS}
         layout='horizontal'
         variables={[
             {

@@ -1,5 +1,5 @@
 import { Bullet } from '@nivo/bullet'
-import { NIVO_THEME } from '../../app/constants'
+import { CHART_MARGINS, NIVO_THEME } from '../../app/constants'
 
 type BulletData = {
     id: string,
@@ -17,7 +17,7 @@ const BulletChart = ({ data, width, height }: { data: BulletData[], width: numbe
         width={width}
         height={height - 10}
         data={data}
-        margin={{ top: 10, right: 40, bottom: 90, left: 90 }}
+        margin={CHART_MARGINS}
         spacing={height < 250 ? 30 : 65}
         markerSize={1}
         measureSize={.2}

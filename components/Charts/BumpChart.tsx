@@ -1,6 +1,7 @@
 import { Bump } from '@nivo/bump'
-import { NIVO_THEME } from '../../app/constants'
+import { CHART_MARGINS, NIVO_THEME } from '../../app/constants'
 import { ChartDimensions, LinearData } from '../../app/data/types'
+import { ChartTooltip } from '../Shared'
 
 const BumpChart = ({ data, dimensions: { width, height } }: { data: LinearData[], dimensions: ChartDimensions }) => (
     <Bump
@@ -15,6 +16,7 @@ const BumpChart = ({ data, dimensions: { width, height } }: { data: LinearData[]
         inactiveOpacity={0.15}
         pointSize={2}
         activePointSize={8}
+
         inactivePointSize={0}
         pointColor={{ theme: 'background' }}
         pointBorderWidth={3}
@@ -24,11 +26,31 @@ const BumpChart = ({ data, dimensions: { width, height } }: { data: LinearData[]
         enableGridX={false}
         enableGridY={false}
         axisTop={null}
-        axisBottom={null}
-        axisLeft={null}
-        margin={{ top: 10, right: 40, bottom: 50, left: 30 }}
+        axisBottom={{
+            tickValues: 2,
+            renderTick: ({ value }) => <span>{value}</span>
+        }}
+        axisLeft={{
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: 0,
+            legend: 'ranking',
+            legendPosition: 'middle',
+            legendOffset: -40,
+        }}
+        margin={CHART_MARGINS}
         axisRight={null}
         animate={false}
+        tooltip={({ serie: { data: { data, id } } }) => {
+            console.log(data)
+            return <ChartTooltip content={<p>
+                {id}
+                <br />
+                ({data[0].x.split('_')[0]}) {(data[0].y).toFixed(3)}
+                <br />
+                ({data[1].x.split('_')[0]}) {(data[1].y).toFixed(3)}
+            </p>} />
+        }}
     />
 )
 

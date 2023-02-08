@@ -1,14 +1,17 @@
 import { createContext } from "react";
 
-export const BRICS = ["Brazil", "Russia", "India", "China", "South Africa"];
-
 export const DEFAULT_THEME_PROMPT = "Themes";
 
 export const SummitThemeContext = createContext(DEFAULT_THEME_PROMPT);
 
-export const PRE_CONTENT_ICON_SIZE = "self-center w-10 h-10 md:w-14 md:h-14";
+export const CHART_MARGINS = { top: 15, right: 20, bottom: 10, left: 20 };
+
+export const PRE_CONTENT_ICON_SIZE =
+	"self-center w-8 h-8 md:w-14 md:h-14 lg:w-24 lg:h-24";
 
 export const LIGHT_COLOR = "#78cce2";
+
+export const BRICS = ["Brazil", "Russia", "India", "China", "South Africa"];
 
 export const UN_PERMANENT = [
 	"China",

@@ -17,7 +17,7 @@ export const KidsOutOfSchool = ({ dimensions: { width, height } }: { dimensions:
         icon={<AbcIcon className={PRE_CONTENT_ICON_SIZE + ' fill-cyan-200'} />}
         stat={avg_2021.toFixed(1) + '% Avg'}
         delta={parseFloat((avg_2021 - avg_2018).toFixed(1))}
-        metric={'Working Youth'}
+        metric={'Uneducated Youth'}
         text={'Primary-school dropouts'}
         year={'since 2018'}
         dimensions={{
@@ -54,6 +54,11 @@ export const UnemploymentAndAccessToElectricity = ({ dimensions: { width, height
             "id": "both",
             "value": both,
             "label": "Access to Electricity and Low Unemployment"
+        },
+        {
+            "id": "both",
+            "value": 13,
+            "label": "Placeholder"
         }
     ]
 
@@ -73,8 +78,9 @@ export const Stability = ({ dimensions }: { dimensions: ChartDimensions }) => {
             /></p>}
         metric={'Political Instability'}
         delta={Math.abs(avg_2021 - avg_2017)}
+        percentage={false}
         year={'2017 to 2021'}
-        text={'Global Avg 2021'}
+        text={'Global Avg 2021 Range -2.5 to 2.5'}
         dimensions={dimensions} />
 }
 

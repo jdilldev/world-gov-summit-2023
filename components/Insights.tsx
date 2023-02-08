@@ -103,15 +103,15 @@ const Insights = () => {
     return (
         <SummitThemeContext.Provider value={selectedTheme}>
             {shouldRender ? !isDesktop ? <div className='insights-layout'>
-                <div className='theme-selector w-[88%] md:w-[80%]'>
+                <div className='theme-selector w-[88%] md:w-[83%]'>
                     {<ThemeSelectorSection />}
                 </div>
                 <div className='stat-boxes'><StatBoxes /></div>
-                <div className='regional-selector-and-chart mb-3'>
-                    <div className='w-1/3'>
+                <div className='regional-selector-and-chart'>
+                    <div className='w-1/3 md:w-1/4'>
                         <RegionalInfo isThemeSelected={isThemeSelected} />
                     </div>
-                    <div className='w-2/3'>
+                    <div className='w-2/3 md:w-3/4'>
                         <ParentSize debounceTime={10}>{({ width, height }) =>
                             renderChartBasedOnTheme(selectedTheme, { width, height })
                         }</ParentSize>
@@ -124,14 +124,18 @@ const Insights = () => {
                         {<ThemeSelectorSection />}
                     </div>
                     <div className="left">
-                        <RegionalInfo isThemeSelected={isThemeSelected} />
+                        <div className='h-1/5'>
+                            <RegionalInfo isThemeSelected={isThemeSelected} />
+                        </div>
+                        <div className='h-4/5'>
+                            <ParentSize debounceTime={10}>{({ width, height }) =>
+                                renderChartBasedOnTheme(selectedTheme, { width, height })
+                            }</ParentSize>
+                        </div>
 
-                        <ParentSize debounceTime={10}>{({ width, height }) =>
-                            renderChartBasedOnTheme(selectedTheme, { width, height })
-                        }</ParentSize>
                     </div>
                     <div className='main-lg'>
-                        <div className='h-1/3 min-w-[1/3] max-w-[1/3]'><StatBoxes /></div>
+                        <div className='h-1/3'><StatBoxes /></div>
                         <div className='map h-2/3'>Map</div>
                     </div>
                 </div> : <p>loading</p>}
@@ -140,101 +144,3 @@ const Insights = () => {
 }
 
 export default Insights
-
-/**
- *    <div className='h-[120vh] lg:h-screen lg:pb-4 flex flex-col w-full gap-3'>
-                <div className='h-48 flex justify-center'>
-                    <div className='flex flex-col pt-2 px-1 border-solid border-l-4 border-r-4 border-b-4  border-[#0c354e] backdrop-blur-lg gap-3 top-0 z-10 items-center lg:w-full lg:gap-1 lg:border-none'>
-                        <p className='tracking-[.3em] md:tracking-[.7em] text-slate-300 text-md md:text-xl lg:text-3xl uppercase font-equinox'>{`The Present Future`}</p>
-                        <div className='tracking-[.5em] text-xl white uppercase font-dreamscape text-[#72a4b5]'>
-                            <p className={`${isThemeSelected ? 'tracking-normal text-sm md:tracking-widest font-body lg:font-dreamscape text-center' : ''}`}>{isDesktop ? 'Themes' : selectedTheme}
-                                {!isThemeSelected && <span className='text-sm normal-case font-thin tracking-normal font-body'>{'(Click to select)'}</span>}
-                            </p>
-                        </div>
-                        <div className='flex pb-1 md:pb-2 no-wrap justify-evenly w-full gap-4 lg:flex-wrap lg:justify-evenly lg:gap-4 2xl:gap-18'>
-                            {worldSummitThemes.map(worldSummitTheme => isDesktop ? <div
-                                className={`hidden lg:h-8 lg:inline  ${worldSummitTheme.name === selectedTheme ? 'box text-[#3297b3a8]' : 'text-slate-500'}`}
-                                onClick={() => setSelectedTheme(worldSummitTheme.name)}>
-                                <p className={`text-md lowercase min-w-fit max-w-full whitespace-nowrap font-equinox hover:text-[#3297b3a8] ${worldSummitTheme.name === selectedTheme ? 'uppercase tracking-widest ' : ''}`}>{worldSummitTheme.name}</p>
-                            </div> : <worldSummitTheme.icon
-                                onClick={() => setSelectedTheme(worldSummitTheme.name)}
-                                className={`w-[40px] h-[50px] md:w-[50px] mdLh-[55px]  stroke-2 fill-slate-400 hover:fill-[#3297b3a8] ${worldSummitTheme.name === selectedTheme ? 'fill-[#3297b3a8]' : ''}`} />
-                            )}
-                        </div>
-                    </div>
-                </div>
-                <div className='h-full'>
-                    <div className='flex gap-3 lg:flex lg:flex-row h-full'>
-                        <div className='flex flex-col gap-3 lg:flex lg:flex-row w-full h-full'>
-                            {!isDesktop && <StatBoxes />}
-                            <div className='flex flex-wrap flex-row gap-3 md:justify-between h-1/3 lg:h-full w-full lg:flex-nowrap lg:flex-col lg:w-1/3'>
-                                {isDesktop && <RegionalInfo isThemeSelected={isThemeSelected} />}
-                                <div className='flex flex-row gap-3 w-full h-full lg:h-3/4'>
-                                    {!isDesktop && <RegionalInfo isThemeSelected={isThemeSelected} />}
-                                    <div className='w-2/3 lg:w-full'>
-                                        <ParentSize debounceTime={10}>{({ width, height }) =>
-                                            <ChartII width={width - 1} height={height - 10} />
-                                        }
-                                        </ParentSize>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='gap-3 flex flex-col h-1/2 lg:h-full lg:w-2/3'>
-                                {isDesktop && <StatBoxes />}
-                                <div className='h-3/4 lg:h-3/5'>
-                                    <div ref={mapContainer} className={`border-solid border-3 border-cyan-500  h-full w-full`}>
-                                        <FrameCorners
-                                            showContentLines
-                                            className='h-full w-full flex bg-center bg-cover'
-                                            animator={{ animate: false }}
-                                            contentLineWidth={3}
-                                            cornerWidth={3}
-                                            cornerLength={50}
-                                        // style={{ backgroundImage: `url(${bag2})` }}
-                                        >
-                                            <ButtonGroup className='absolute top-0 right-0 z-10 font-normal' values={['Mercator', 'Globe']} controlValue={mapProjection} onChange={(value: string) => setMapProjection(value as 'mercator' | 'globe')} />
-                                            <Map
-                                                // trackResize
-                                                minZoom={1}
-                                                maxZoom={2.5}
-                                                mapboxAccessToken='pk.eyJ1IjoiamRpbGxkZXYiLCJhIjoiY2xjbHR0MXNtOXE3ZTN2cGx1YWwxYmE4cyJ9.UKQMbbf2Q4revc3Nz9ws3g'
-                                                initialViewState={{
-                                                    longitude: 15,
-                                                    latitude: 0,
-                                                    zoom: 1,
-                                                }}
-                                                pitch={mapProjection === 'mercator' ? 30 : 0}
-                                                projection={mapProjection}
-                                                attributionControl={false}
-                                                style={{ width: '100%', height: mapHeight - 30 + 'px' }}
-                                                mapStyle="mapbox://styles/jdilldev/cld37ljym000801o0ygnt71yu"
-                                                onRender={(event) => {
-                                                    if (mapContainer.current)
-                                                        setMapHeight(mapContainer.current.clientHeight)
-
-                                                    return event.target.resize()
-                                                }}
-                                            />
-                                        </FrameCorners>
-                                    </div>
-                                </div>
-                                <div className='h-1/4 lg:h-1/5'>
-                                    <FrameHexagon hover inverted palette='secondary' squareSize={40} lineWidth={3} animator={{ animate: false }} className='h-full w-full text-base lg:text-lg' >
-                                        {isThemeSelected ?
-                                            <div className='flex flex-col place-items-center w-full gap-1'>
-                                                <p>Created by Jasmine Dillard, 2023 | World Government Summit 2023</p>
-                                                <img className='w-[150px] h-[50px]' src={'./WGS-summit-logo-transparency.png'} />
-                                            </div>
-                                            : <>
-                                                <p className='text-sm md:text-base white text-center mb-2'>Feel free to toggle the orientation of the map.</p>
-                                                <p className='text-sm md:text-base text-center px-4'>If you zoom into the map, you can see country locations.<br /> The map is read-only and intends to orient you.</p>
-                                            </>}
-                                    </FrameHexagon>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div >
-            </div >
- * 
- */

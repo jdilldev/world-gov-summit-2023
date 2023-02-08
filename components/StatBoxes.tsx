@@ -35,7 +35,7 @@ const StatBox = ({ item, index, source }: { item: DefaultStatItem, index: number
     const selectedTheme = useContext(SummitThemeContext)
 
     return <div style={{ backgroundImage: `url(nw.jp)`, }} className='basis-[49%] md:basis-[24%] h-1/2 md:h-full bg-cover bg-top'>
-        <ParentSize className={`backdrop-blur-[0px] -mr-1 backdrop-invert-0 backdrop-contrast-125 backdrop-brightness-125 backdrop-saturate-125 bg-black/30`} debounceTime={10}>{({ width, height }) =>
+        <ParentSize className={`backdrop-blur-[0px] -mr-1 backdrop-invert-0 backdrop-contrast-125 backdrop-brightness-150 backdrop-saturate-100 bg-black/30`} debounceTime={10}>{({ width, height }) =>
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             <FrameLines
@@ -180,7 +180,7 @@ export const StatBoxes = () => {
     retrieveData({ aggregator: "world", metrics: ['2017_HDI'], }, "hierarchical");
     //console.log(getWorldAvg('2018_unemployment'))
     const selectedTheme = useContext(SummitThemeContext)
-    return <div className='flex flex-wrap gap-y-2 justify-evenly h-full w-full mb-2 md:flex-nowrap'>
+    return <div className='flex flex-wrap gap-y-2 justify-evenly h-full w-full md:flex-nowrap'>
         {defaultStatBoxes.map((item, index) =>
             <StatBox key={'statBox' + index} item={item} index={index} source={checkForSource(selectedTheme, index)} />
         )}
