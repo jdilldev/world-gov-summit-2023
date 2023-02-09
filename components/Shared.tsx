@@ -55,7 +55,7 @@ export const GdpPercentagesRadialBarChart = ({ dimensions: { width, height }, re
 }
 const getDeltaIndicator = (delta: number) => {
 
-    const indicatorClass = 'w-2 h-2 lg:w-4 lg:h-4 '
+    const indicatorClass = 'w-2 h-2 lg:w-3 lg:h-3 '
     if (Math.abs(delta).toFixed(1) === '0.0') {
         return <NeutralIndicator className={indicatorClass + 'fill-[#fcd706]'} />
     } else if (delta > 0) {
@@ -94,11 +94,11 @@ export const StatCard = ({ stat, text, icon, metric, year, delta, percentage = t
         <div className='flex flex-col items-center basis-3/4 gap-2 justify-between'>
             {icon}
             {/*         <p className='font-body text-sm text-center text-white'>In 2018 31 Nations had astronatus. lorem ipsuin is a thing to write i am just ritng text</p>*/}
-            <span className='mb-1.5 -mt-2 text-base md:text-xl lg:text-3xl tracking-widest light-font-color underline underline-offset-4 decoration-2 decoration-solid decoration-[#78cce2]'>{stat}</span>
+            <span className='mb-1.5 -mt-2 text-base md:text-xl lg:text-xl tracking-widest light-font-color underline underline-offset-4 decoration-2 decoration-solid decoration-[#78cce2]'>{stat}</span>
             <p className='-mt-2 md:font-nebula text-stone-200 text-center text-xs md:text-sm  md:whitespace-normal'>{text}</p>
             <div className='flex flex-row flex-wrap -ml-3 gap-1 justify-center '>
-                {topCountry && <p className='-mt-1 text-xs md:text-sm text-lime-300'>{`${topCountry.country}: ${topCountry.value}`}</p>}
-                {bottomCountry && <p className='-mt-1 text-xs md:text-sm text-rose-300'>{`${bottomCountry.country}: ${bottomCountry.value}`}</p>}
+                {topCountry && <p className='-mt-1 text-xs md:text-sm text-cyan-200'>{`${topCountry.country}: ${topCountry.value}`}</p>}
+                {bottomCountry && <p className='-mt-1 text-xs md:text-sm text-rose-400'>{`${bottomCountry.country}: ${bottomCountry.value}`}</p>}
             </div>
         </div>
     </div >
@@ -113,4 +113,4 @@ export const CustomTooltip = ({ text, placement, fill }: { text: string | ReactN
         <InfoIcon className='h-3 w-3 fill-[#1088a7bd]' />
     </Tooltip>
 
-export const ChartTooltip = ({ content }: { content: string | ReactNode }) => <div className='text-xs  font-body text-center text-white p-2 bg-[#073956] rounded-sm opacity-90'>{content}</div>
+export const ChartTooltip = ({ content }: { content: string | ReactNode }) => <div className='text-xs z-10  font-body text-center text-white p-2 bg-[#0d5680] rounded-sm'>{content}</div>

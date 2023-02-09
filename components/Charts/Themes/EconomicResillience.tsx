@@ -59,12 +59,7 @@ export const SEDA = ({ dimensions: { width, height } }: { dimensions: ChartDimen
     const { country, value: max } = getMax('seda', 'world')
     const { country: countryMin, value: min } = getMin('seda', 'world')
 
-    return <div style={{ width, height }} className='w-full h-full font-equinox flex flex-col justify-around text-xl default-font-color  text-center'>
-        <p className='text-center lowercase'>The average SEDA score: <br /><span className='text-white underline underline-offset-4'>{globalAvg}</span></p>
-        <p className='text-white font-body  text-base text-center'>SEDA is an assessment based on 40 indicators in sustainability, economics, & investments (higher = better)</p>
-        <p className="lowercase text-green-400">#1 {`${country}, ${max}`}</p>
-        <p className="lowercase text-red-400">Last {`${countryMin}, ${min}`}</p>
-    </div>
+    return <>Seda - todo</>
 }
 export const EconomicGrowthDelta = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
     const { increased: inc2018, decreased: dec2018 } = countNumberOfIncreaseAndDecrease('2018_economic_growth', 'world')
@@ -90,7 +85,7 @@ export const WarningAboutInterdependentEconomies = ({ dimensions: { width, heigh
     const Warning = () => {
         return <div style={{ width, height }} className='flex flex-col pr-2 text-xs md:text-sm lg:text-base gap-1 place-content-center items-center font-equinox lowercase default-text-color text-center'>
             <EconomicCrisisIcon className={PRE_CONTENT_ICON_SIZE + ' fill-[#35a7c3c5]'} />
-            <p>Economic Interdependence is something to be conscientious of</p>
+            <p>As economoic interdependence increases, beware of its pros and cons</p>
         </div>
     }
     //https://www.emerald.com/insight/content/doi/10.1108/REPS-10-2018-010/full/html

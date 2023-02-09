@@ -1,6 +1,7 @@
 import { getMax, getMin, getWorldAvg, retrieveData } from "../../../app/data/generateData"
 import { ChartDimensions, LinearData, PercentileData } from "../../../app/data/types"
 import GlobalWarmingIcon from '../../../public/icons/global-melting.svg'
+import HappyPlanetIcon from '../../../public/icons/earth.svg'
 import { CustomTooltip, StatCard, StatCardCustom } from "../../Shared"
 import { PRE_CONTENT_ICON_SIZE } from "../../../app/constants"
 import HeatmapChart from "../HeatmapChart"
@@ -14,12 +15,12 @@ export const ShareOfElectricityFromRenewables = ({ dimensions: { width, height }
     const { value: min } = getMin('2015_electricity_from_renewables', 'world')
     const { value: max } = getMax('2015_electricity_from_renewables', 'world')
 
-    return <div className='flex flex-col  place-items-center'>
-        <p className='text-xs lg:text-base text-center text-white font-equinox '>Use of renewable energy<br />in 2015 and 2020</p>
+    return <div className='flex flex-col place-items-center'>
+        <p className='text-sm text-center font-equinox '>Use of renewable energy<br /><span className="text-white">in 2015 and 2020</span></p>
         <LineChart
 
             tooltipContent={({ p: { serieId, data: { xFormatted, yFormatted } } }: { p: Point }) => `In ${xFormatted}, ${yFormatted}% of ${serieId}'s energy was renewable`}
-            data={renewableEnergyTrends} dimensions={{ width, height: height - 40 }} />
+            data={renewableEnergyTrends} dimensions={{ width, height: height - 50 }} />
     </div>
 }
 
@@ -84,9 +85,11 @@ export const WaterStressByRegion = ({ dimensions: { width, height } }: { dimensi
         },
     ]
     return <div className='flex flex-col place-items-center'>
-        <p className='text-sm lg:text-base text-center text-white font-equinox -mb-10'>Subregional Water Stress<br />
-            <span className='text-sm default-font-color font-body'>(the darker, the scarcer)</span></p>
-        <HeatmapChart data={data} dimensions={{ width: width - 40, height: height - 10 }} />
+        <p className='flex flex-col text-sm text-center default-font-color font-equinox -mb-10'>Subregional Water Stress<br />
+            <span className='font-body'>(the lighter, the scarcer)</span>
+            <span className='text-sm text-white font-body'>2019 </span>
+        </p>
+        <HeatmapChart data={data} dimensions={{ width: width, height: height }} />
     </div>
 }
 
@@ -94,13 +97,8 @@ export const CorrelationBetweenCO2EmissionsAndRenewables = ({ dimensions: { widt
 
     const data = retrieveData({ metrics: ['2019_CO2e_emissions_per_capita'], aggregator: 'multiRegions' }, 'percentile') as PercentileData[]
 
-    return <div style={{ width }} className='font-equinox flex flex-row w-full'>
-        <div className="flex flex-col max-w-[200px] text-center">
-            <p className=' text-center lowercase'>CO2E Emission (by Subregion)</p>
-            <p className='font-body text-white text-sm'>The burning of fossil fuels is seen as a major contributor to global warming. This chart shows a breakdown of which regions had the largest carbon footpritnt in 2019.</p>
-        </div>
-        <PieChart data={data} width={width - 150} height={height - 20} />
-    </div>
+    return <>todo</>
+
 }
 
 
@@ -111,9 +109,10 @@ export const HappyPlanetIndex = ({ dimensions: { width, height } }: { dimensions
         const avg_2019 = getWorldAvg('2019_happy_planet_index')
         const avg_2016 = getWorldAvg('2016_happy_planet_index')
         return <StatCard
+            icon={<HappyPlanetIcon className={PRE_CONTENT_ICON_SIZE + ' fill-[#78cce2'} />}
             metric="HPI"
-            stat={avg_2019.toFixed(1)}
-            text={'HPI global avg in 2019'}
+            stat={avg_2019.toFixed(1) + ' Avg 2019'}
+            text={'(higher is better)'}
             percentage={false}
             year='Since 2016'
             delta={(avg_2019 - avg_2016)}
@@ -134,7 +133,7 @@ export const AvgGlobalTempChangePerDecade = ({ dimensions }: { dimensions: Chart
     return <StatCard
         icon={<GlobalWarmingIcon className={PRE_CONTENT_ICON_SIZE + ' fill-red-600'} />}
         metric={'climate change'}
-        stat={'~ .18 ºC'}
+        stat={'.18 ºC'}
         text={'increase in global temp per decade'}
         year={'Since 1981'}
         dimensions={dimensions} />

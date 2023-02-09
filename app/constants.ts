@@ -7,7 +7,7 @@ export const SummitThemeContext = createContext(DEFAULT_THEME_PROMPT);
 export const CHART_MARGINS = { top: 15, right: 20, bottom: 10, left: 20 };
 
 export const PRE_CONTENT_ICON_SIZE =
-	"self-center w-8 h-8 md:w-14 md:h-14 lg:w-24 lg:h-24";
+	"self-center w-8 h-8 md:w-14 md:h-14 lg:w-18 lg:h-18";
 
 export const LIGHT_COLOR = "#78cce2";
 
@@ -30,7 +30,7 @@ export const NIVO_THEME = {
 		domain: {
 			line: {
 				stroke: "#777777",
-				strokeWidth: 1,
+				strokeWidth: 0,
 			},
 		},
 		legend: {
@@ -42,7 +42,7 @@ export const NIVO_THEME = {
 		ticks: {
 			line: {
 				stroke: "#777777",
-				strokeWidth: 1,
+				strokeWidth: 0,
 			},
 			text: {
 				fontSize: 11,
@@ -55,7 +55,7 @@ export const NIVO_THEME = {
 	grid: {
 		line: {
 			stroke: "rgb(163 163 163)",
-			strokeWidth: 1,
+			strokeWidth: 0,
 		},
 	},
 	annotations: {

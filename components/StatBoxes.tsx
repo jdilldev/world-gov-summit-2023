@@ -16,7 +16,7 @@ import { AstronautsAndSatellites, CryptoStats, GDPStats, SpaceAgencies } from '.
 import { EconomicGrowthDelta, GINI, InflationChanges, WarningAboutInterdependentEconomies } from './Charts/Themes/EconomicResillience';
 import { string } from 'prop-types';
 import { EmergentDiseases, LifeExpectancy, SuicideDeaths, Top10CausesOfDeath } from './Charts/Themes/FutureSocietiesAndHealthcare';
-import { EducatedCountries, EducationPercentOfGDP, KidsOutOfSchool, Stability } from './Charts/Themes/PrioritizingLearningAndWork';
+import { EducatedCountries, UnemploymentBins, KidsOutOfSchool, Stability } from './Charts/Themes/PrioritizingLearningAndWork';
 
 type DefaultStatItem = {
     numeric: string
@@ -139,7 +139,7 @@ const getContentForTheme = (width: number, height: number, theme: string, positi
                 case 2:
                     return <EducatedCountries dimensions={{ width, height }} />
                 case 3:
-                    return <EducationPercentOfGDP dimensions={{ width, height }} />
+                    return <UnemploymentBins dimensions={{ width, height }} />
             }
     }
 }

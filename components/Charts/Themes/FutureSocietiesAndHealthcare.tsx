@@ -108,7 +108,8 @@ export const EmergentDiseases = ({ dimensions }: { dimensions: ChartDimensions }
                     </p>}
             />
         </p>}
-        text={'Infectious Diseases since 1970'}
+        year={'Since 1970'}
+        text={'New Infectious Diseases'}
         metric={'epidemiology'}
         dimensions={dimensions} />
 }

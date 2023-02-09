@@ -91,5 +91,5 @@ export const AstronautsAndSatellites = ({ dimensions }: { dimensions: ChartDimen
 export const GII = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
     const data = retrieveData({ metrics: ['gii'], aggregator: 'multiRegions' }, 'hierarchical') as HierarchicalData
 
-    return <CirclePackingChart hasColors={true} dimensions={{ width, height: height - 40 }} data={data} />
+    return <>TODO</>
 }

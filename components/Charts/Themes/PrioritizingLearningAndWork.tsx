@@ -8,6 +8,11 @@ import { ScatterPlot } from "@nivo/scatterplot"
 import FunnelChart from "../FunnelChart"
 import AbcIcon from '../../../public/icons/cubes.svg'
 import ElectionIcon from '../../../public/icons/politics.svg'
+import WaffleChart from "../WaffleChart"
+import UpArrow from '../../../public/icons/up-arrow.svg'
+import DownArrow from '../../../public/icons/down-arrow.svg'
+import SquareIcon from '../../../public/icons/pattern.svg'
+import NeutralIcon from '../../../public/icons/neutral.svg'
 
 export const KidsOutOfSchool = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
     const avg_2018 = getWorldAvg('2018_primary_school_aged_kids_out')
@@ -18,7 +23,7 @@ export const KidsOutOfSchool = ({ dimensions: { width, height } }: { dimensions:
         stat={avg_2021.toFixed(1) + '% Avg'}
         delta={parseFloat((avg_2021 - avg_2018).toFixed(1))}
         metric={'Uneducated Youth'}
-        text={'Primary-school dropouts'}
+        text={'Kids 4-11 out of school'}
         year={'since 2018'}
         dimensions={{
             width,
@@ -56,7 +61,7 @@ export const UnemploymentAndAccessToElectricity = ({ dimensions: { width, height
             "label": "Access to Electricity and Low Unemployment"
         },
         {
-            "id": "both",
+            "id": "fourth",
             "value": 13,
             "label": "Placeholder"
         }
@@ -84,8 +89,71 @@ export const Stability = ({ dimensions }: { dimensions: ChartDimensions }) => {
         dimensions={dimensions} />
 }
 
-export const EducationPercentOfGDP = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
-    return <GdpPercentagesRadialBarChart dimensions={{ width, height }} relevantMetric='Education' />
+const DownUnemploymentLegend = ({ range, fill }: { range: string, fill: string }) => <p className='flex flex-row items-center text-xs'><SquareIcon className={`${fill}  w-3 h-3`} /><DownArrow className='w-3 h-3 fill-emerald-400' /> {range}</p>
+const UpUnemploymentLegend = ({ range, fill }: { range: string, fill: string }) => <p className='flex flex-row items-center text-xs'><SquareIcon className={`${fill}  w-3 h-3`} /><UpArrow className='w-3 h-3 fill-red-400' /> {range}</p>
+
+export const UnemploymentBins = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
+    const data = [
+
+        {
+            "id": "Canada",
+            "label": "Decreased 3% or more",
+            "value": 1,
+            "color": "#72ff9f"
+        },
+        {
+            "id": "USA",
+            "label": "Decreased 3% or more",
+            "value": 1,
+            "color": "#72ff9f"
+        },
+        {
+            "id": "UK",
+            "label": "Decreased 3% or more",
+            "value": 1,
+            "color": "#72ff9f"
+        },
+        {
+            "id": "Belgium",
+            "label": "Decreased 3% or more",
+            "value": 1,
+            "color": "#72ff9f"
+        },
+        {
+            "id": "Chad",
+            "label": "Increased 3% or more",
+            "value": 1,
+            "color": "#ba72ff"
+        },
+        {
+            "id": "Nigeria",
+            "label": "Increased 3% or more",
+            "value": 1,
+
+            "color": "#ba72ff"
+        },
+        {
+            "id": "Montana",
+            "label": "Increased 3% or more",
+            "value": 1,
+            "color": "#ba72ff"
+        },
+    ]
+    return <div style={{ height: height }} className='flex flex-col gap-2 text-xs lg:text-base'>
+        <p className="text-xs font-equinox lowercase">Unemployment<br />Changes</p>
+        <p className='text-xs text-white absolute top-0 right-0'>2018 to 2021</p>
+        <div style={{ height: height - 60 }} className="flex flex-row w-full justify-between items-center">
+            <div className="flex flex-col gap-1 font-body text-xs min-w-[65px]">
+                <UpUnemploymentLegend range={'3%+'} fill={'fill-green-200'} />
+                <UpUnemploymentLegend range={'1-3%'} fill={'fill-emerald-500'} />
+                <p className="flex flex-row gap-1 items-center"><SquareIcon className='fill-cyan-600 w-3 h-3' />{'+/- 1%'}</p>
+                <DownUnemploymentLegend range={'1-3%'} fill={'fill-rose-300'} />
+                <DownUnemploymentLegend range={'3%+'} fill={'fill-rose-500'} />
+                <p className="flex flex-row gap-1 items-center"><SquareIcon className='fill-gray-300 w-3 h-3' />{'No Data'}</p>
+            </div>
+            <WaffleChart data={data} dimensions={{ width: width - 75, height: height }} />
+        </div>
+    </div>
 }
 
 export const EducatedCountries = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
@@ -133,8 +201,8 @@ export const EducatedCountries = ({ dimensions: { width, height } }: { dimension
             "percentage": 42.86
         },
     ]
-    return <div className='flex flex-col place-items-center'>
-        <p className='font-equinox lowercase text-sm lg:text-base'>10 Most Educated Nations</p>
-        <BarChart data={data} index={'country'} keys={['percentage']} dimensions={{ width, height: height - 20 }} />
+    return <div className='flex flex-col justify-center items-center'>
+        <p className='font-equinox lowercase text-center text-xs '>10 Most Educated Nations<br />(tertiary education)</p>
+        <BarChart data={data.reverse()} index={'country'} keys={['percentage']} dimensions={{ width, height: height - 35 }} />
     </div>
 }

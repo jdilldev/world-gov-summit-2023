@@ -17,14 +17,14 @@ const FunnelChart = ({ data, dimensions: { width, height } }: { data: Percentile
         labelColor={'white'}
         enableBeforeSeparators={false}
         width={width}
-        colors={['#29788e', '#78cce2', '#a5dfe4']}
+        colors={['#076984ca', '#29788e', '#78cce2', '#a5dfe4']}
         theme={NIVO_THEME}
         margin={CHART_MARGINS}
         valueFormat=">-.2s"
         borderOpacity={.4}
         borderWidth={20}
         fillOpacity={.8}
-        currentPartSizeExtension={16}
+        currentPartSizeExtension={10}
         currentBorderWidth={20}
         motionConfig="wobbly"
     //tooltip={({ cell: { value, data: { x } } }) => <ChartTooltip content={`As of 2019, ${x} are using ${value}% of their renewable water resources `} />}

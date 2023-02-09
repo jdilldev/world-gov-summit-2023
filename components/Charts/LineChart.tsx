@@ -13,7 +13,7 @@ const LineChart = ({ data, tooltipContent, dimensions: { width, height }, max, m
         lineWidth={2}
         enableSlices={false}
         colors={{ scheme: 'yellow_green_blue' }}
-        margin={CHART_MARGINS}
+        margin={{ ...CHART_MARGINS, left: 70 }}
         xScale={{ type: 'point' }}
         yScale={{
             type: 'linear',
@@ -31,9 +31,9 @@ const LineChart = ({ data, tooltipContent, dimensions: { width, height }, max, m
             tickSize: 5,
             tickPadding: 10,
             tickRotation: 0,
-            //legend: 'count',
+            legend: 'count',
             tickValues: 5,
-            legendOffset: 0,
+            legendOffset: -50,
             legendPosition: 'middle'
         }}
         pointSize={5}

@@ -1,9 +1,11 @@
 import { getMax, getMin, getWorldAvg, retrieveData } from "../../../app/data/generateData"
 import { ChartDimensions, LinearData } from "../../../app/data/types"
 import RadarChart from "../RadarChart"
-import { GdpPercentagesRadialBarChart, StatCard } from "../../Shared"
-import PieChart from "../PieChart"
 import BumpChart from "../BumpChart"
+import HdiIcon from '../../../public/icons/networking.svg'
+import EfficacyIcon from '../../../public/icons/team.svg'
+import { GdpPercentagesRadialBarChart, StatCard } from "../../Shared"
+import { PRE_CONTENT_ICON_SIZE } from "../../../app/constants"
 
 export const GovernmentStabilityRadar = ({ width, height }: ChartDimensions) => {
     const data = [
@@ -119,29 +121,44 @@ export const GovernmentHealthBullet = ({ dimensions: { width, height } }: { dime
 export const GovernmentHDIDifferenceChart = ({ width, height }: ChartDimensions) => {
     const hdi = getWorldAvg('2017_HDI')
     const hdi_2 = getWorldAvg('2021_HDI')
+
+    const topCountry = getMax('2021_HDI', 'world')
+    const bottomCountry = getMin('2021_HDI', 'world')
+
     return <StatCard
+        icon={<HdiIcon className={PRE_CONTENT_ICON_SIZE + ' fill-indigo-400'} />}
         metric="HDI"
         year="Since 2017"
-        stat={hdi_2.toFixed(1)}
+        stat={hdi_2.toFixed(3)}
         dimensions={{ width, height }}
-        text={'2017 to 2021'}
+        text={'2021 Global Avg'}
         delta={hdi_2 - hdi}
+        percentage={false}
+        topCountry={topCountry}
+        bottomCountry={bottomCountry}
     />
 }
 
 export const GovernmentIncreaseDecreaseChart = ({ width, height }: ChartDimensions) => {
+    const avg_2021 = getWorldAvg('2021_government_effectiveness')
+    const avg_2017 = getWorldAvg('2017_government_effectiveness')
 
-    const globalAvg = getWorldAvg('2021_government_effectiveness')
+    const topCountry = getMax('2021_government_effectiveness', 'world')
+    const bottomCountry = getMin('2021_government_effectiveness', 'world')
 
     return <StatCard
+        icon={<EfficacyIcon className={PRE_CONTENT_ICON_SIZE + ' fill-amber-500'} />}
         metric="Gov Efficacy"
         year="2021"
-        stat={globalAvg.toFixed(1) + ' Efficacy Score'} dimensions={{
+        stat={avg_2021.toFixed(1)}
+        // delta={avg_2021 - avg_2017}
+        dimensions={{
             width: width,
             height: height
         }}
-        text={'Range is from -2.5 to 2.5'}
-
+        text={'-2.5 to 2.5'}
+        topCountry={topCountry}
+        bottomCountry={bottomCountry}
     />
 
 }

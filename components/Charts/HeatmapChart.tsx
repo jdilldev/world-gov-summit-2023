@@ -14,7 +14,7 @@ const HeatmapChart = ({ data, dimensions: { width, height } }: { data: LinearDat
         height={height}
         width={width}
         theme={NIVO_THEME}
-        margin={CHART_MARGINS}
+        margin={{ ...CHART_MARGINS, left: 50, right: 10 }}
         valueFormat=">-.2s"
         enableLabels={false}
         forceSquare={true}
@@ -22,33 +22,34 @@ const HeatmapChart = ({ data, dimensions: { width, height } }: { data: LinearDat
         yInnerPadding={.2}
         axisRight={null}
         axisTop={null}
-        opacity={1}
+        opacity={.8}
+        inactiveOpacity={.1}
+        activeOpacity={1}
         hoverTarget={'cell'}
         axisLeft={null}
         colors={{
             type: 'sequential',
-            scheme: 'blues',
-            divergeAt: 0.6,
+            colors: ['#2b5e72', '#c5eef2'],
+            divergeAt: .6,
         }}
         emptyColor="#555555"
         tooltip={({ cell: { value, data: { x } } }) => <ChartTooltip content={`As of 2019, ${x} are using ${value}% of their renewable water resources `} />}
-
         legends={[
             {
-                anchor: 'bottom',
-                translateX: 20,
-                translateY: 10,
-                length: 400,
+                anchor: 'left',
+                translateX: -40,
+                translateY: 0,
+                length: 120,
                 thickness: 8,
-                direction: 'row',
+                direction: 'column',
                 tickPosition: 'after',
                 tickSize: 3,
                 tickSpacing: 4,
+                ticks: 5,
                 tickOverlap: false,
                 tickFormat: '>-.2s',
-                title: 'percentage',
                 titleAlign: 'middle',
-                titleOffset: -45
+                titleOffset: 0
             }
 
         ]} />

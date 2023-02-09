@@ -26,10 +26,9 @@ module.exports = {
       }
     },
     screens: {
-      xs: '250px',
-      sm: '300',
+      sm: '300px',
       'md': '800px',
-      'lg': '1240',
+      'lg': '1240px',
     }
   },
   plugins: [],
