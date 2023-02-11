@@ -4,7 +4,7 @@ import { ChartDimensions, LinearData } from "../../../app/data/types"
 import { CustomTooltip, GdpPercentagesRadialBarChart, StatCard } from "../../Shared"
 import BarChart from "../BarChart"
 import CoupIcon from '../../../public/icons/removal.svg'
-import { ScatterPlot } from "@nivo/scatterplot"
+import ScatterPlot from "../ScatterPlot"
 import FunnelChart from "../FunnelChart"
 import AbcIcon from '../../../public/icons/cubes.svg'
 import ElectionIcon from '../../../public/icons/politics.svg'
@@ -13,6 +13,9 @@ import UpArrow from '../../../public/icons/up-arrow.svg'
 import DownArrow from '../../../public/icons/down-arrow.svg'
 import SquareIcon from '../../../public/icons/pattern.svg'
 import NeutralIcon from '../../../public/icons/neutral.svg'
+import { useEffect, useState } from "react"
+import { useSSR } from "@nextui-org/react"
+import SwarmPlot from "../SwarmPlot"
 
 export const KidsOutOfSchool = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
     const avg_2018 = getWorldAvg('2018_primary_school_aged_kids_out')
@@ -32,42 +35,184 @@ export const KidsOutOfSchool = ({ dimensions: { width, height } }: { dimensions:
 }
 
 export const UnemploymentAndAccessToElectricity = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
-    const data = retrieveData({ metrics: ['2021_unemployment', 'access_to_electricity'], aggregator: 'world' }, 'linear') as LinearData[]
-    //91 = 100
-    let electricity = 0
-    let unemployment = 0
-    let both = 0
+    const [windowSize, setWindowSize] = useState(0)
+    useEffect(() => {
+        const updateWindowSize = () => setWindowSize(window.innerWidth)
+        window.addEventListener("resize", updateWindowSize);
+        return () => window.removeEventListener("resize", updateWindowSize);
+    }, [])
 
-    Object.values(data).forEach(item => {
-        if (item.data[0] && item.data[0].y < 5) unemployment++
-        if (item.data[1] && item.data[1].y > 99) electricity++
-        if (item.data[0] && item.data[1] && item.data[1].y > 99 && item.data[0].y < 5) both++
-    })
 
-    const funnelData = [
-        {
-            "id": "electricity",
-            "value": electricity,
-            "label": "Access to Electricity"
-        },
-        {
-            "id": "unemployment",
-            "value": unemployment,
-            "label": "Low Unemployment"
-        },
-        {
-            "id": "both",
-            "value": both,
-            "label": "Access to Electricity and Low Unemployment"
-        },
-        {
-            "id": "fourth",
-            "value": 13,
-            "label": "Placeholder"
+    const rawData = retrieveData({ aggregator: 'world', metrics: ['2021_unemployment', 'access_to_electricity'], }, 'linear') as LinearData[]
+
+    const data = rawData.reduce((acc, curr) => {
+        if (curr.data.length === 2) {
+            acc.push({
+                id: curr.id,
+                data: [{ x: (curr.data[1].y).toString(), y: (curr.data[0].y) }]
+            })
         }
-    ]
+        return acc
+    }, [] as LinearData[])
 
-    return <FunnelChart data={funnelData} dimensions={{ width, height: height - 135 }} />
+    // console.log(data)
+
+    const tdata = [
+        {
+            "id": "0.0",
+            "group": "group A",
+            "price": 293,
+            "volume": 19
+        },
+        {
+            "id": "0.1",
+            "group": "group A",
+            "price": 223,
+            "volume": 17
+        },
+        {
+            "id": "0.2",
+            "group": "group A",
+            "price": 364,
+            "volume": 11
+        },
+        {
+            "id": "0.3",
+            "group": "group A",
+            "price": 87,
+            "volume": 13
+        },
+        {
+            "id": "0.4",
+            "group": "group A",
+            "price": 263,
+            "volume": 16
+        },
+        {
+            "id": "0.5",
+            "group": "group A",
+            "price": 81,
+            "volume": 17
+        },
+        {
+            "id": "0.6",
+            "group": "group A",
+            "price": 458,
+            "volume": 13
+        },
+        {
+            "id": "0.7",
+            "group": "group A",
+            "price": 390,
+            "volume": 20
+        },
+        {
+            "id": "0.8",
+            "group": "group A",
+            "price": 269,
+            "volume": 16
+        },
+        {
+            "id": "0.9",
+            "group": "group A",
+            "price": 477,
+            "volume": 9
+        },
+        {
+            "id": "0.10",
+            "group": "group A",
+            "price": 231,
+            "volume": 6
+        },
+        {
+            "id": "0.11",
+            "group": "group A",
+            "price": 243,
+            "volume": 12
+        },
+        {
+            "id": "0.12",
+            "group": "group A",
+            "price": 30,
+            "volume": 15
+        },
+        {
+            "id": "0.13",
+            "group": "group A",
+            "price": 8,
+            "volume": 9
+        },
+        {
+            "id": "0.14",
+            "group": "group A",
+            "price": 473,
+            "volume": 12
+        },
+        {
+            "id": "0.15",
+            "group": "group A",
+            "price": 336,
+            "volume": 10
+        },
+        {
+            "id": "0.16",
+            "group": "group A",
+            "price": 345,
+            "volume": 20
+        },
+        {
+            "id": "0.17",
+            "group": "group A",
+            "price": 281,
+            "volume": 10
+        },
+        {
+            "id": "0.18",
+            "group": "group A",
+            "price": 276,
+            "volume": 16
+        },
+        {
+            "id": "0.19",
+            "group": "group A",
+            "price": 498,
+            "volume": 5
+        },
+        {
+            "id": "0.20",
+            "group": "group A",
+            "price": 440,
+            "volume": 5
+        },
+        {
+            "id": "0.21",
+            "group": "group A",
+            "price": 162,
+            "volume": 19
+        },
+        {
+            "id": "0.22",
+            "group": "group A",
+            "price": 51,
+            "volume": 15
+        },
+        {
+            "id": "0.23",
+            "group": "group A",
+            "price": 244,
+            "volume": 10
+        },
+        {
+            "id": "0.24",
+            "group": "group A",
+            "price": 220,
+            "volume": 8
+        }]
+
+    return <SwarmPlot data={tdata} dimensions={{
+        width,
+        height: height - 40
+    }} />
 }
 
 export const Stability = ({ dimensions }: { dimensions: ChartDimensions }) => {

@@ -41,7 +41,7 @@ const StatBox = ({ item, index, source }: { item: DefaultStatItem, index: number
             <FrameLines
                 hover
                 invert
-                style={{ width: width, height: height, }}
+                style={{ width: width, height: height }}
                 palette='secondary'
                 animator={{ animate: false }}
                 squareSize={35}
@@ -50,7 +50,7 @@ const StatBox = ({ item, index, source }: { item: DefaultStatItem, index: number
                 smallLineLength={40}>
                 {/* <MagnifyIcon className='absolute right-0 place-self-end hover:fill-yellow-400 w-4 h-4 fill-[#78cce2]' onClick={() => console.log('yoyo')} />*/}
                 {selectedTheme === DEFAULT_THEME_PROMPT ? <DefaultStatBox item={item} /> : getContentForTheme(width - 5, height - 20, selectedTheme, index)}
-                {source && <a href={source} target="_blank" rel="noreferrer"><SourceIcon className='absolute -right-2 -bottom-1 default-font-color h-3 w-3' /></a>}
+                {source && <a href={source} target="_blank" rel="noreferrer"><SourceIcon className='fixed right-1 bottom-2 default-font-color h-3 w-3' /></a>}
             </FrameLines>
         }
         </ParentSize>

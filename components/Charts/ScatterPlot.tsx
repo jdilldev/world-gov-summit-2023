@@ -13,53 +13,33 @@ const ScatterPlotChart = ({ data, dimensions: { width, height } }: { data: Linea
         height={height}
         width={width}
         theme={NIVO_THEME}
-        margin={CHART_MARGINS}
+        colors={['#39b8c7',]}
+        margin={{ ...CHART_MARGINS, left: 50, bottom: 45 }}
         xScale={{ type: 'linear', min: 0, max: 'auto' }}
         xFormat=">-.2f"
         yScale={{ type: 'linear', min: 0, max: 'auto' }}
         yFormat=">-.2f"
-        blendMode="multiply"
+        blendMode="hard-light"
         axisTop={null}
         axisRight={null}
         axisBottom={{
+            tickValues: 5,
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: 'weight',
+            legend: '% of Electricity from Renewables',
             legendPosition: 'middle',
-            legendOffset: 46
+            legendOffset: 35
         }}
         axisLeft={{
+            tickValues: 5,
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: 'size',
-            legendPosition: 'middle',
-            legendOffset: -60
+            legend: 'CO2e Emissions p/ Capita',
+            legendPosition: 'start',
+            legendOffset: -35,
         }}
-        legends={[
-            {
-                anchor: 'bottom-right',
-                direction: 'column',
-                justify: false,
-                translateX: 130,
-                translateY: 0,
-                itemWidth: 100,
-                itemHeight: 12,
-                itemsSpacing: 5,
-                itemDirection: 'left-to-right',
-                symbolSize: 12,
-                symbolShape: 'circle',
-                effects: [
-                    {
-                        on: 'hover',
-                        style: {
-                            itemOpacity: 1
-                        }
-                    }
-                ]
-            }
-        ]}
     />
 )
 

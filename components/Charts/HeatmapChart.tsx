@@ -14,7 +14,7 @@ const HeatmapChart = ({ data, dimensions: { width, height } }: { data: LinearDat
         height={height}
         width={width}
         theme={NIVO_THEME}
-        margin={{ ...CHART_MARGINS, left: 50, right: 10 }}
+        margin={{ ...CHART_MARGINS, left: 40, right: 30, }}
         valueFormat=">-.2s"
         enableLabels={false}
         forceSquare={true}
@@ -39,11 +39,10 @@ const HeatmapChart = ({ data, dimensions: { width, height } }: { data: LinearDat
                 anchor: 'left',
                 translateX: -40,
                 translateY: 0,
-                length: 120,
+                length: 60,
                 thickness: 8,
                 direction: 'column',
                 tickPosition: 'after',
-                tickSize: 3,
                 tickSpacing: 4,
                 ticks: 5,
                 tickOverlap: false,

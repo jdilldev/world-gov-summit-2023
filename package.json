@@ -29,6 +29,7 @@
     "@nivo/radar": "^0.80.0",
     "@nivo/radial-bar": "^0.80.0",
     "@nivo/scatterplot": "^0.80.0",
+    "@nivo/swarmplot": "^0.80.0",
     "@nivo/waffle": "^0.80.0",
     "@types/animejs": "3",
     "@types/howler": "2.2",

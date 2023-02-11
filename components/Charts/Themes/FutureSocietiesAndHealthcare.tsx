@@ -10,6 +10,7 @@ import { Point } from "@nivo/line"
 import MentalHealthIcon from '../../../public/icons/mental-health.svg'
 import { ST } from "next/dist/shared/lib/utils"
 import HealthyIcon from '../../../public/icons/medical-symbol.svg'
+import FunnelChart from "../FunnelChart"
 
 export const Top10CausesOfDeath = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
     //https://ourworldindata.org/causes-of-death#:~:text=Cardiovascular%20diseases%20are%20the%20leading,second%20biggest%20cause%20are%20cancers.
@@ -134,15 +135,42 @@ export const LifeExpectancy = ({ dimensions: { width, height } }: { dimensions: 
 }
 
 export const HealthExpenditureOfGDPDelta = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
-    const three_year_health_data = retrieveData({ metrics: ['2017_health_gdp', '2018_health_gdp', '2019_health_gdp'], aggregator: 'multiRegions' }, 'linear') as LinearData[]
+    const data = retrieveData({ metrics: ['2021_unemployment', 'access_to_electricity'], aggregator: 'world' }, 'linear') as LinearData[]
+    //91 = 100
+    let electricity = 0
+    let unemployment = 0
+    let both = 0
 
-    //healthcare spend per person correlated with life expectancy
-    return <LineChart
-        tooltipContent={({ p: { serieId, data: { xFormatted, yFormatted } } }: { p: Point }) => `${serieId} spent ${yFormatted}% of  their GDP on Healthcare in ${xFormatted}`}
-        data={three_year_health_data}
-        dimensions={{ width: width, height: height - 120 }} />
+    Object.values(data).forEach(item => {
+        if (item.data[0] && item.data[0].y < 5) unemployment++
+        if (item.data[1] && item.data[1].y > 99) electricity++
+        if (item.data[0] && item.data[1] && item.data[1].y > 99 && item.data[0].y < 5) both++
+    })
 
+    const funnelData = [
+        {
+            "id": "electricity",
+            "value": electricity,
+            "label": "Access to Electricity"
+        },
+        {
+            "id": "unemployment",
+            "value": unemployment,
+            "label": "Low Unemployment"
+        },
+        {
+            "id": "both",
+            "value": both,
+            "label": "Access to Electricity and Low Unemployment"
+        },
+        {
+            "id": "fourth",
+            "value": 13,
+            "label": "Placeholder"
+        }
+    ]
 
+    return <FunnelChart data={funnelData} dimensions={{ width, height: height - 30 }} />
 
 }
 //55

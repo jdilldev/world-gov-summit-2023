@@ -79,7 +79,7 @@ type StatCardProps = {
 }
 
 export const StatCard = ({ stat, text, icon, metric, year, delta, percentage = true, topCountry, bottomCountry, dimensions: { width, height } }: StatCardProps) => {
-    return <div style={{ width: width, height, }} className={`pr-2 flex flex-col justify-between w-full h-full font-equinox lowercase items-center lg:justify-evenly default-font-color`}>
+    return <div style={{ width: width, height, }} className={`pr-2 flex flex-col justify-between w-full h-full font-equinox lowercase items-center lg:justify-center default-font-color`}>
         <div className='flex flex-row w-full basis-1/4'>
             {metric && <p className='w-full text-xs md:text-sm tracking-widest lowercase default-font-color'>{metric}</p>}
             {<div className='flex flex-col w-full'>
@@ -91,7 +91,7 @@ export const StatCard = ({ stat, text, icon, metric, year, delta, percentage = t
                 <p className={`${delta ? '-mt-1' : 'mt-0'} text-xs md:text-sm text-end text-white`}>{year}</p>
             </div>}
         </div>
-        <div className='flex flex-col items-center basis-3/4 gap-2 justify-between'>
+        <div className='flex flex-col items-center basis-3/4 gap-2 justify-between lg:justify-center'>
             {icon}
             {/*         <p className='font-body text-sm text-center text-white'>In 2018 31 Nations had astronatus. lorem ipsuin is a thing to write i am just ritng text</p>*/}
             <span className='mb-1.5 -mt-2 text-base md:text-xl lg:text-xl tracking-widest light-font-color underline underline-offset-4 decoration-2 decoration-solid decoration-[#78cce2]'>{stat}</span>
@@ -113,4 +113,4 @@ export const CustomTooltip = ({ text, placement, fill }: { text: string | ReactN
         <InfoIcon className='h-3 w-3 fill-[#1088a7bd]' />
     </Tooltip>
 
-export const ChartTooltip = ({ content }: { content: string | ReactNode }) => <div className='text-xs z-10  font-body text-center text-white p-2 bg-[#0d5680] rounded-sm'>{content}</div>
+export const ChartTooltip = ({ content }: { content: string | ReactNode }) => <div className='z-100  text-xs font-body text-center text-white p-2 bg-[#0d5680] rounded-sm'>{content}</div>

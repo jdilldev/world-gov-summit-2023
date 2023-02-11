@@ -36,7 +36,7 @@ h1 {
 		"main";
 }
 
-@media (min-width: 800px) {
+@media (min-width: 825px) {
 	.insights-layout {
 		height: 110vh;
 		display: grid;

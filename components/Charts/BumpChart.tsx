@@ -9,6 +9,7 @@ const BumpChart = ({ data, dimensions: { width, height } }: { data: LinearData[]
         width={width}
         height={height}
         theme={NIVO_THEME}
+        margin={{ ...CHART_MARGINS, left: 40, bottom: 55 }}
         colors={{ scheme: 'blues' }}
         lineWidth={3}
         activeLineWidth={6}
@@ -16,7 +17,6 @@ const BumpChart = ({ data, dimensions: { width, height } }: { data: LinearData[]
         inactiveOpacity={0.15}
         pointSize={2}
         activePointSize={8}
-
         inactivePointSize={0}
         pointColor={{ theme: 'background' }}
         pointBorderWidth={3}
@@ -38,7 +38,6 @@ const BumpChart = ({ data, dimensions: { width, height } }: { data: LinearData[]
             legendPosition: 'middle',
             legendOffset: -40,
         }}
-        margin={CHART_MARGINS}
         axisRight={null}
         animate={false}
         tooltip={({ serie: { data: { data, id } } }) => {

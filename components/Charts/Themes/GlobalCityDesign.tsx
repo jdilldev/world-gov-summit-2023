@@ -9,6 +9,8 @@ import BumpChart from "../BumpChart"
 import LineChart from "../LineChart"
 import { Point } from "@nivo/line"
 import PieChart from "../PieChart"
+import ScatterPlot from "../ScatterPlot"
+import { useState, useEffect } from "react"
 
 export const ShareOfElectricityFromRenewables = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
     const renewableEnergyTrends = retrieveData({ aggregator: 'multiRegions', metrics: ['2015_electricity_from_renewables', '2020_electricity_from_renewables'], }, 'linear') as LinearData[]
@@ -84,20 +86,39 @@ export const WaterStressByRegion = ({ dimensions: { width, height } }: { dimensi
             ]
         },
     ]
-    return <div className='flex flex-col place-items-center'>
-        <p className='flex flex-col text-sm text-center default-font-color font-equinox -mb-10'>Subregional Water Stress<br />
-            <span className='font-body'>(the lighter, the scarcer)</span>
+    return <div className=''>
+        <p className='flex flex-col text-sm text-center default-font-color font-equinox'>Subregional Water Stress<br />
+            < span className='font-body text-xs' > (the lighter, the scarcer)</span >
             <span className='text-sm text-white font-body'>2019 </span>
-        </p>
-        <HeatmapChart data={data} dimensions={{ width: width, height: height }} />
-    </div>
+        </p >
+        <HeatmapChart data={data} dimensions={{ width: width, height: height - 50 }} />
+    </div >
 }
 
 export const CorrelationBetweenCO2EmissionsAndRenewables = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
+    const [windowSize, setWindowSize] = useState(0)
+    useEffect(() => {
+        const updateWindowSize = () => setWindowSize(window.innerWidth)
+        window.addEventListener("resize", updateWindowSize);
+        return () => window.removeEventListener("resize", updateWindowSize);
+    }, [])
 
-    const data = retrieveData({ metrics: ['2019_CO2e_emissions_per_capita'], aggregator: 'multiRegions' }, 'percentile') as PercentileData[]
+    const rawData = retrieveData({ metrics: ['2019_CO2e_emissions_per_capita', '2020_electricity_from_renewables'], aggregator: 'world' }, 'linear') as LinearData[]
 
-    return <>todo</>
+    const data = rawData.reduce((acc, curr) => {
+        if (curr.data.length === 2) {
+            acc.push({
+                id: curr.id,
+                data: [{ x: (curr.data[1].y).toString(), y: (curr.data[0].y) }]
+            })
+        }
+        return acc
+    }, [] as LinearData[])
+
+    return <ScatterPlot data={data} dimensions={{
+        width,
+        height: height - 30
+    }} />
 
 }
 
