@@ -94,7 +94,7 @@ const ChartII = ({ Chart, title, year, description, dimensions: { width, height 
             <p className='text-xs md:text-base lowercase flex flex-wrap gap-1'>
                 {title}
             </p>
-            <div className='flex flex-col gap-1 md:gap-3 justify-center items-center md:flex-row lg:flex-col'>
+            <div className='flex flex-col gap-1 md:gap-3 justify-center items-center md:items-start lg:items-center md:flex-row lg:flex-col'>
                 <p className='w-[90%] font-body text-stone-200 text-xs md:text-sm max-h-[80px] md:max-h-fit pt-2 md:pt-0 overflow-scroll'>{description}</p>
                 {Chart}
             </div>

@@ -13,7 +13,7 @@ const ScatterPlotChart = ({ data, dimensions: { width, height } }: { data: Linea
         height={height}
         width={width}
         theme={NIVO_THEME}
-        colors={['#39b8c7',]}
+        colors={['#a5babd',]}
         margin={{ ...CHART_MARGINS, left: 50, bottom: 45 }}
         xScale={{ type: 'linear', min: 0, max: 'auto' }}
         xFormat=">-.2f"
@@ -36,8 +36,8 @@ const ScatterPlotChart = ({ data, dimensions: { width, height } }: { data: Linea
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: 'CO2e Emissions p/ Capita',
-            legendPosition: 'start',
+            legend: 'CO2e p/ Capita',
+            legendPosition: 'middle',
             legendOffset: -35,
         }}
     />

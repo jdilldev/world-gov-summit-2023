@@ -1,6 +1,6 @@
 import { PRE_CONTENT_ICON_SIZE } from "../../../app/constants"
 import { getMax, getWorldAvg, retrieveData } from "../../../app/data/generateData"
-import { ChartDimensions, LinearData } from "../../../app/data/types"
+import { CategoricalData, ChartDimensions, LinearData } from "../../../app/data/types"
 import { CustomTooltip, GdpPercentagesRadialBarChart, StatCard } from "../../Shared"
 import BarChart from "../BarChart"
 import CoupIcon from '../../../public/icons/removal.svg'
@@ -237,66 +237,62 @@ export const Stability = ({ dimensions }: { dimensions: ChartDimensions }) => {
 const DownUnemploymentLegend = ({ range, fill }: { range: string, fill: string }) => <p className='flex flex-row items-center text-xs'><SquareIcon className={`${fill}  w-3 h-3`} /><DownArrow className='w-3 h-3 fill-emerald-400' /> {range}</p>
 const UpUnemploymentLegend = ({ range, fill }: { range: string, fill: string }) => <p className='flex flex-row items-center text-xs'><SquareIcon className={`${fill}  w-3 h-3`} /><UpArrow className='w-3 h-3 fill-red-400' /> {range}</p>
 
+const getUnemploymentBin = (delta: number): { label: string, color: string } => {
+    const difference = isNaN(delta) ? 'no data' : delta
+
+    if (difference > 3) {
+        return { label: 'Increased more than 3%', color: '#f43f5e' }
+    } else if (difference > 1 && difference <= 3) {
+        return { label: 'Increased 1-3%', color: '#fecdd3' }
+    } else if (difference >= -1 && difference <= 1) {
+        return { label: 'Stayed within 1%', color: '#0891b2' }
+    } else if (difference < -1 && difference >= -3) {
+        return { label: 'Decreased 1-3%', color: '#a7f3d0' }
+    } else if (difference < -3) {
+        return { label: 'Decreased more than 3%', color: '#10b981' }
+    } else {
+        return { label: 'No data', color: '#9ca3af' }
+    }
+}
+
 export const UnemploymentBins = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
-    const data = [
+    let rawData = retrieveData({ aggregator: 'world', metrics: ['2018_unemployment', '2021_unemployment'] }, 'categorical') as CategoricalData[]
 
-        {
-            "id": "Canada",
-            "label": "Decreased 3% or more",
-            "value": 1,
-            "color": "#72ff9f"
-        },
-        {
-            "id": "USA",
-            "label": "Decreased 3% or more",
-            "value": 1,
-            "color": "#72ff9f"
-        },
-        {
-            "id": "UK",
-            "label": "Decreased 3% or more",
-            "value": 1,
-            "color": "#72ff9f"
-        },
-        {
-            "id": "Belgium",
-            "label": "Decreased 3% or more",
-            "value": 1,
-            "color": "#72ff9f"
-        },
-        {
-            "id": "Chad",
-            "label": "Increased 3% or more",
-            "value": 1,
-            "color": "#ba72ff"
-        },
-        {
-            "id": "Nigeria",
-            "label": "Increased 3% or more",
-            "value": 1,
+    rawData = rawData.reduce((acc, curr) => {
+        // 0 - 2018 unemployment
+        // 1 - 2021 unemployment
+        const unemployment_2018 = Number(curr['2018_unemployment'])
+        const unemployment_2021 = Number(curr['2021_unemployment'])
+        const difference = unemployment_2021 - unemployment_2018
+        const { label, color } = getUnemploymentBin(difference)
 
-            "color": "#ba72ff"
-        },
-        {
-            "id": "Montana",
-            "label": "Increased 3% or more",
-            "value": 1,
-            "color": "#ba72ff"
-        },
-    ]
+        acc.push({
+            id: curr.country,
+            value: difference,
+            label,
+            color,
+        })
+
+        return acc
+    }, [] as CategoricalData[])
+
+    rawData = rawData.sort(({ value: a }, { value: b }) => isNaN(Number(b)) ? -1 : Number(a) - Number(b))
+
+    const data = rawData.map((datum: CategoricalData) => { return { ...datum, value: 1 } })
+
     return <div style={{ height: height }} className='flex flex-col gap-2 text-xs lg:text-base'>
         <p className="text-xs font-equinox lowercase">Unemployment<br />Changes</p>
         <p className='text-xs text-white absolute top-0 right-0'>2018 to 2021</p>
         <div style={{ height: height - 60 }} className="flex flex-row w-full justify-between items-center">
             <div className="flex flex-col gap-1 font-body text-xs min-w-[65px]">
-                <UpUnemploymentLegend range={'3%+'} fill={'fill-green-200'} />
-                <UpUnemploymentLegend range={'1-3%'} fill={'fill-emerald-500'} />
-                <p className="flex flex-row gap-1 items-center"><SquareIcon className='fill-cyan-600 w-3 h-3' />{'+/- 1%'}</p>
-                <DownUnemploymentLegend range={'1-3%'} fill={'fill-rose-300'} />
-                <DownUnemploymentLegend range={'3%+'} fill={'fill-rose-500'} />
+                <UpUnemploymentLegend range={'3%+'} fill={'fill-rose-500'} />
+                <UpUnemploymentLegend range={'1-3%'} fill={'fill-rose-200'} />
+                <p className="flex flex-row gap-1 items-center"><SquareIcon className='fill-[#0891b2] w-3 h-3' />{'+/- 1%'}</p>
+                <DownUnemploymentLegend range={'1-3%'} fill={'fill-emerald-200'} />
+                <DownUnemploymentLegend range={'3%+'} fill={'fill-emerald-500'} />
                 <p className="flex flex-row gap-1 items-center"><SquareIcon className='fill-gray-300 w-3 h-3' />{'No Data'}</p>
             </div>
-            <WaffleChart data={data} dimensions={{ width: width - 75, height: height }} />
+            <WaffleChart rawData={rawData} data={data} dimensions={{ width: width - 75, height: height }} />
         </div>
     </div>
 }

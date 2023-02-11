@@ -8,7 +8,7 @@ const RadialBarChart = ({ data, width, height, relevantMetric }: { data: LinearD
     return <RadialBar
         maxValue={100}
         enableTracks={true}
-        tracksColor='#052f42d5' //005066
+        tracksColor='#063850e8' //005066
         width={width}
         height={height}
         data={data}

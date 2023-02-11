@@ -89,7 +89,7 @@ export const WaterStressByRegion = ({ dimensions: { width, height } }: { dimensi
     return <div className=''>
         <p className='flex flex-col text-sm text-center default-font-color font-equinox'>Subregional Water Stress<br />
             < span className='font-body text-xs' > (the lighter, the scarcer)</span >
-            <span className='text-sm text-white font-body'>2019 </span>
+            <span className='text-sm text-white'>2019 </span>
         </p >
         <HeatmapChart data={data} dimensions={{ width: width, height: height - 50 }} />
     </div >
