@@ -32,7 +32,7 @@ export const GovernmentStabilityRadar = ({ width, height }: ChartDimensions) => 
     ]
 
     return < RadarChart
-        dimensions={{ width: width, height: height }}
+        dimensions={{ width: width, height: height - 10 }}
         data={data}
         indexBy={'metric'}
         keys={['Score']} />
@@ -41,7 +41,7 @@ export const GovernmentStabilityRadar = ({ width, height }: ChartDimensions) => 
 
 export const GovernmentRadialBar = ({ width, height }: ChartDimensions) => <>
     {/*     <p className="text-xs text-center font-body " >% GDP Expenditure Across Sectors</p>
- */}    <GdpPercentagesRadialBarChart dimensions={{ width, height }} relevantMetric='Government' />
+ */}    <GdpPercentagesRadialBarChart dimensions={{ width, height: height - 10 }} relevantMetric='Government' />
 </>
 
 export const GovernmentHealthBullet = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
@@ -126,11 +126,11 @@ export const GovernmentHDIDifferenceChart = ({ width, height }: ChartDimensions)
     const bottomCountry = getMin('2021_HDI', 'world')
 
     return <StatCard
-        icon={<HdiIcon className={PRE_CONTENT_ICON_SIZE + ' fill-indigo-400'} />}
+        // icon={<HdiIcon className={PRE_CONTENT_ICON_SIZE + ' fill-indigo-400'} />}
         metric="HDI"
         year="Since 2017"
         stat={hdi_2.toFixed(3)}
-        dimensions={{ width, height }}
+        dimensions={{ width, height: height - 10 }}
         text={'2021 Global Avg'}
         delta={hdi_2 - hdi}
         percentage={false}
@@ -147,7 +147,7 @@ export const GovernmentIncreaseDecreaseChart = ({ width, height }: ChartDimensio
     const bottomCountry = getMin('2021_government_effectiveness', 'world')
 
     return <StatCard
-        icon={<EfficacyIcon className={PRE_CONTENT_ICON_SIZE + ' fill-amber-500'} />}
+        // icon={<EfficacyIcon className={PRE_CONTENT_ICON_SIZE + ' fill-amber-500'} />}
         metric="Gov Efficacy"
         year="2021"
         stat={avg_2021.toFixed(1)}

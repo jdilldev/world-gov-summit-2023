@@ -21,8 +21,10 @@ const RadarChart = ({ data, indexBy, keys, dimensions: { width, height } }: { da
         indexBy={indexBy}
         valueFormat=">-.2f"
         margin={CHART_MARGINS}
+        //theme={NIVO_THEME}
         borderColor={'#78cce2'}
         borderWidth={2}
+        gridLabel={() => null}
         gridLabelOffset={10}
         //dotSize={3}
         dotColor={{ theme: 'background' }}

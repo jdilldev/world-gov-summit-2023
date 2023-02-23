@@ -1,6 +1,6 @@
 import { FrameCorners } from '@arwes/core';
 import { DefaultPlaceholder } from './Shared';
-import { ReactNode, useContext } from 'react';
+import { ReactNode, useContext, useEffect, useState } from 'react';
 import { ChartDimensions } from '../app/data/types';
 import { GovernmentHealthBullet } from './Charts/Themes/AcceleratingGov';
 import { SummitThemeContext } from '../app/constants';
@@ -58,7 +58,7 @@ export const renderChartBasedOnTheme = (selectedTheme: string, { width, height }
             description = 'Education and ability to acquire new skills is directly related to being able to use the Internet. Learning and working can be done remotely. Citizens of countries and regions with access to the internet are more likely to upskill, and therefore be more employable.'
             RenderChart = <UnemploymentAndAccessToElectricity dimensions={{ width: chartResponsiveWidth, height: chartResponsiveHeight }} />
             break
-        default: RenderChart = <DefaultPlaceholder placeholderLocation='two' height={height} />
+        default: RenderChart = <DefaultPlaceholder placeholderLocation='two' height={chartResponsiveHeight} />
     }
 
     return <ChartII
@@ -79,6 +79,21 @@ type ChartProps = {
 }
 
 const ChartII = ({ Chart, title, year, description, dimensions: { width, height } }: ChartProps) => {
+    console.count('Chart II')
+
+    const [windowSize, setWindowSize] = useState(0)
+
+    useEffect(() => {
+        const updateWindowSize = () => {
+            setWindowSize(window.innerWidth)
+        }
+
+        updateWindowSize()
+        window.addEventListener("resize", updateWindowSize);
+        return () => window.removeEventListener("resize", updateWindowSize);
+    }, [])
+
+
     {/* 
         // @ts-ignore */}
     return <FrameCorners
@@ -89,14 +104,16 @@ const ChartII = ({ Chart, title, year, description, dimensions: { width, height 
         animator={{ animate: false }}
         className='bg-cyan-700 bg-opacity-20 font-equinox'
     >
-        <span className='absolute -top-2 right-0 text-xs md:text-base text-white'>{year}</span>
-        <div className='flex flex-col mt-2 md:mt-3 lg:mt-4 gap-1 md:gap-2 lg:gap-3 text-center justify-between h-full items-center'>
-            <p className='text-xs md:text-base lowercase flex flex-wrap gap-1'>
-                {title}
-            </p>
-            <div className='flex flex-col gap-1 md:gap-3 justify-center items-center md:items-start lg:items-center md:flex-row lg:flex-col'>
-                <p className='w-[90%] font-body text-stone-200 text-xs md:text-sm max-h-[80px] md:max-h-fit pt-2 md:pt-0 overflow-scroll'>{description}</p>
-                {Chart}
+        <div className='h-full'>
+            <span className='absolute -top-2 right-0 text-xs md:text-base text-white'>{year}</span>
+            <div className='flex flex-col mt-2 md:mt-3 lg:mt-4 gap-1 md:gap-2 lg:gap-3 text-center justify-between items-center'>
+                <p className='text-xs md:text-base lowercase flex flex-wrap gap-1'>
+                    {title}
+                </p>
+                <div className='flex flex-col gap-1 md:gap-3 justify-center items-center md:items-start lg:items-center md:flex-row lg:flex-col'>
+                    <p style={windowSize < 825 || windowSize > 1240 ? { height: '80%' } : { height: height - 60 }} className={`px-2 font-body text-stone-200 text-xs max-h-[80%] md:text-sm pt-2 md:pt-0 overflow-scroll`}>{description}</p>
+                    {Chart}
+                </div>
             </div>
         </div>
     </FrameCorners>

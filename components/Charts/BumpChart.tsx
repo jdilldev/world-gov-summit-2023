@@ -39,7 +39,7 @@ const BumpChart = ({ data, dimensions: { width, height } }: { data: LinearData[]
             legendOffset: -40,
         }}
         axisRight={null}
-        animate={false}
+        animate={true}
         tooltip={({ serie: { data: { data, id } } }) => {
             console.log(data)
             return <ChartTooltip content={<p>

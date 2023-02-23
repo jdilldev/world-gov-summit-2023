@@ -5,8 +5,7 @@ import { useRef, useState } from "react";
 
 const Map = () => {
     const mapContainer = useRef<HTMLDivElement | null>(null);
-    const [mapHeight, setMapHeight] = useState(0)
-    const [chart2height, setchartheight] = useState(0)
+    const [_, setMapHeight] = useState(0)
     const [mapProjection, setMapProjection] = useState<'mercator' | 'globe'>('mercator')
 
     return <div className={`relative flex flex-col h-full `}>
@@ -27,7 +26,7 @@ const Map = () => {
             projection={mapProjection}
             attributionControl={false}
             style={{ width: '100%', height: '100%' }}
-            mapStyle="mapbox://styles/jdilldev/cld37ljym000801o0ygnt71yu"
+            mapStyle="mapbox://styles/jdilldev/cle09vgbj001101l9rm902mdp"
             onRender={(event) => {
                 if (mapContainer.current)
                     setMapHeight(mapContainer.current.clientHeight)

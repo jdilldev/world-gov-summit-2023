@@ -285,11 +285,11 @@ export const UnemploymentBins = ({ dimensions: { width, height } }: { dimensions
         <p className='text-xs text-white absolute top-0 right-0'>2018 to 2021</p>
         <div style={{ height: height - 60 }} className="flex flex-row w-full justify-between items-center">
             <div className="flex flex-col gap-1 font-body text-xs min-w-[65px]">
-                <UpUnemploymentLegend range={'3%+'} fill={'fill-rose-500'} />
-                <UpUnemploymentLegend range={'1-3%'} fill={'fill-rose-200'} />
-                <p className="flex flex-row gap-1 items-center"><SquareIcon className='fill-[#0891b2] w-3 h-3' />{'+/- 1%'}</p>
-                <DownUnemploymentLegend range={'1-3%'} fill={'fill-emerald-200'} />
                 <DownUnemploymentLegend range={'3%+'} fill={'fill-emerald-500'} />
+                <DownUnemploymentLegend range={'1-3%'} fill={'fill-emerald-200'} />
+                <p className="flex flex-row gap-1 items-center"><SquareIcon className='fill-[#0891b2] w-3 h-3' />{'+/- 1%'}</p>
+                <UpUnemploymentLegend range={'1-3%'} fill={'fill-rose-200'} />
+                <UpUnemploymentLegend range={'3%+'} fill={'fill-rose-500'} />
                 <p className="flex flex-row gap-1 items-center"><SquareIcon className='fill-gray-300 w-3 h-3' />{'No Data'}</p>
             </div>
             <WaffleChart rawData={rawData} data={data} dimensions={{ width: width - 75, height: height }} />

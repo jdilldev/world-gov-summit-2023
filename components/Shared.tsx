@@ -33,7 +33,7 @@ export const ButtonGroup = ({ values, className, controlValue, onChange }: { val
 
 export const DefaultPlaceholder = ({ height, placeholderLocation }: DefaultPlaceholderProps) => {
     const chartIconClassName = 'w-16 h-16 md:w-28 md:h-28'
-    return <div style={{ height: height }} className='flex flex-col gap-4 justify-center items-center'>
+    return <div style={{ height: height }} className='flex flex-col sjustify-center items-center'>
         {placeholderLocation === 'one' ? <PieChartIcon className={chartIconClassName} /> : <LineChartIcon className={chartIconClassName} />}
         <p className='font-agelast uppercase tracking-widest text-xl md:text-2xl'>Select a theme</p>
     </div>
@@ -79,7 +79,7 @@ type StatCardProps = {
 }
 
 export const StatCard = ({ stat, text, icon, metric, year, delta, percentage = true, topCountry, bottomCountry, dimensions: { width, height } }: StatCardProps) => {
-    return <div style={{ width: width, height, }} className={`pr-2 flex flex-col justify-between w-full h-full font-equinox lowercase items-center lg:justify-center default-font-color`}>
+    return <div style={{ width: width, height }} className={`pr-2 flex flex-col justify-between w-full h-full font-equinox lowercase items-center lg:justify-center default-font-color`}>
         <div className='flex flex-row w-full basis-1/4'>
             {metric && <p className='w-full text-xs md:text-sm tracking-widest lowercase default-font-color'>{metric}</p>}
             {<div className='flex flex-col w-full'>
@@ -91,7 +91,7 @@ export const StatCard = ({ stat, text, icon, metric, year, delta, percentage = t
                 <p className={`${delta ? '-mt-1' : 'mt-0'} text-xs md:text-sm text-end text-white`}>{year}</p>
             </div>}
         </div>
-        <div className='flex flex-col items-center basis-3/4 gap-2 justify-between lg:justify-center'>
+        <div className='flex flex-col items-center basis-3/4 gap-2 lg:justify-center'>
             {icon}
             {/*         <p className='font-body text-sm text-center text-white'>In 2018 31 Nations had astronatus. lorem ipsuin is a thing to write i am just ritng text</p>*/}
             <span className='mb-1.5 -mt-2 text-base md:text-xl lg:text-xl tracking-widest light-font-color underline underline-offset-4 decoration-2 decoration-solid decoration-[#78cce2]'>{stat}</span>

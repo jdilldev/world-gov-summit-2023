@@ -1,11 +1,8 @@
 'use client';
-import React, { useState, useEffect, useRef, useContext, createContext, useLayoutEffect } from 'react'
-import { FrameCorners, FrameHexagon } from '@arwes/core';
+import React, { useState, useEffect, } from 'react'
 import { ParentSize } from '@visx/responsive';
 import { StatBoxes } from '../components/StatBoxes';
 import { HexagonFrame as RegionalInfo } from '../components/RegionalStats';
-import { useDesktop } from '../app/hooks/hooks';
-import Map from './Map'
 
 // assets
 import Economy from '../public/icons/global-economy.svg'
@@ -14,12 +11,9 @@ import Health from '../public/icons/global-health.svg'
 import Education from '../public/icons/global-education.svg'
 import Exploring from '../public/icons/global-connectivity.svg'
 import Development from '../public/icons/009-overpopulation.svg'
-import { ButtonGroup } from '../components/Shared';
-import SummitLogo from '../public/WGS-summit-logo.svg'
 import { DEFAULT_THEME_PROMPT, SummitThemeContext } from '../app/constants';
 import { renderChartBasedOnTheme } from './ChartII';
-
-const bag2 = 'https://api.mapbox.com/styles/v1/jdilldev/clcmbx409004c14qrslh0z9la/static/[-94.0749,-64.3648,117.0407,75.2404]/1150x1100?access_token=pk.eyJ1IjoiamRpbGxkZXYiLCJhIjoiY2xjbHR0MXNtOXE3ZTN2cGx1YWwxYmE4cyJ9.UKQMbbf2Q4revc3Nz9ws3g'
+import Map from './Map';
 
 const worldSummitThemes: { name: string, icon: any }[] = [
     { name: 'Accelerating Development and Governance', icon: Development },
@@ -33,28 +27,12 @@ const worldSummitThemes: { name: string, icon: any }[] = [
 
 
 const Insights = () => {
-    const mapContainer = useRef<HTMLDivElement | null>(null);
-    const chartContainer = useRef<HTMLDivElement | null>(null);
-
-    //const map = useRef<Map | null>(null);
     const [shouldRender, setShouldRender] = useState(false)
     const [isDesktop, setDesktop] = useState(false)
-    const [mapHeight, setMapHeight] = useState(0)
-    const [chart2height, setchartheight] = useState(0)
-    const [mapProjection, setMapProjection] = useState<'mercator' | 'globe'>('mercator')
     const [selectedTheme, setSelectedTheme] = useState(DEFAULT_THEME_PROMPT)
 
     const isThemeSelected = selectedTheme !== DEFAULT_THEME_PROMPT
 
-    useEffect(() => {
-        if (mapContainer.current) {
-            setMapHeight(mapContainer.current.clientHeight)
-        }
-
-        if (chartContainer.current) {
-            setchartheight(chartContainer.current.clientHeight)
-        }
-    });
 
     useEffect(() => {
         const checkIsDesktop = () => {
@@ -66,7 +44,7 @@ const Insights = () => {
         window.addEventListener("resize", checkIsDesktop);
         return () => window.removeEventListener("resize", checkIsDesktop);
     }, [])
-
+    console.count('Insights')
     const ThemeSelectorSection = () => {
         return !isDesktop ?
             <>
@@ -136,7 +114,7 @@ const Insights = () => {
                     </div>
                     <div className='main-lg'>
                         <div className='h-1/3'><StatBoxes /></div>
-                        <div className='map h-2/3'>Map</div>
+                        <div className='map h-2/3'><Map /></div>
                     </div>
                 </div> : <p>loading</p>}
         </SummitThemeContext.Provider >

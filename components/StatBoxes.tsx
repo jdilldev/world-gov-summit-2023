@@ -2,7 +2,7 @@ import { Grid, } from '@nextui-org/react';
 import { FrameBox, FrameCorners, FrameLines, FrameUnderline } from '@arwes/core';
 import InsightIcon from '../public/icons/brain.svg'
 import SourceIcon from '../public/icons/source.svg'
-import { ReactNode, useContext } from 'react';
+import { ReactNode, useCallback, useContext } from 'react';
 import { getWorldAvg, retrieveData } from '../app/data/generateData';
 import RadarChart from './Charts/RadarChart';
 import RadialBarChart from './Charts/RadialBarChart';
@@ -14,9 +14,9 @@ import GlobalWarmingIcon from '../public/icons/global-warming.svg'
 import { DEFAULT_THEME_PROMPT, PRE_CONTENT_ICON_SIZE, SummitThemeContext } from '../app/constants';
 import { AstronautsAndSatellites, CryptoStats, GDPStats, SpaceAgencies } from './Charts/Themes/ExploringtheFrontier';
 import { EconomicGrowthDelta, GINI, InflationChanges, WarningAboutInterdependentEconomies } from './Charts/Themes/EconomicResillience';
-import { string } from 'prop-types';
 import { EmergentDiseases, LifeExpectancy, SuicideDeaths, Top10CausesOfDeath } from './Charts/Themes/FutureSocietiesAndHealthcare';
 import { EducatedCountries, UnemploymentBins, KidsOutOfSchool, Stability } from './Charts/Themes/PrioritizingLearningAndWork';
+import TableIcon from '../public/icons/table.svg'
 
 type DefaultStatItem = {
     numeric: string
@@ -41,7 +41,7 @@ const StatBox = ({ item, index, source }: { item: DefaultStatItem, index: number
             <FrameLines
                 hover
                 invert
-                style={{ width: width, height: height }}
+                style={{ width: width, height: height, }}
                 palette='secondary'
                 animator={{ animate: false }}
                 squareSize={35}
@@ -51,7 +51,8 @@ const StatBox = ({ item, index, source }: { item: DefaultStatItem, index: number
                 {/* <MagnifyIcon className='absolute right-0 place-self-end hover:fill-yellow-400 w-4 h-4 fill-[#78cce2]' onClick={() => console.log('yoyo')} />*/}
                 {selectedTheme === DEFAULT_THEME_PROMPT ? <DefaultStatBox item={item} /> : getContentForTheme(width - 5, height - 20, selectedTheme, index)}
                 {source && <a href={source} target="_blank" rel="noreferrer"><SourceIcon className='fixed right-1 bottom-2 default-font-color h-3 w-3' /></a>}
-            </FrameLines>
+                {/*                 <TableIcon className='fixed right-3 bottom-2 default-font-color h-3 w-3' />
+ */}            </FrameLines>
         }
         </ParentSize>
     </div>
@@ -177,12 +178,14 @@ const checkForSource = (selectedTheme: string, index: number) =>
 
 
 export const StatBoxes = () => {
-    retrieveData({ aggregator: "world", metrics: ['2017_HDI'], }, "hierarchical");
-    //console.log(getWorldAvg('2018_unemployment'))
+    console.count('StatBoxes')
     const selectedTheme = useContext(SummitThemeContext)
     return <div className='flex flex-wrap gap-y-2 justify-evenly h-full w-full md:flex-nowrap'>
-        {defaultStatBoxes.map((item, index) =>
-            <StatBox key={'statBox' + index} item={item} index={index} source={checkForSource(selectedTheme, index)} />
+        {defaultStatBoxes.map((item, index) => {
+            const getSource = useCallback(checkForSource, [selectedTheme, index])
+            const source = getSource(selectedTheme, index)
+            return <StatBox key={'statBox' + index} item={item} index={index} source={source} />
+        }
         )}
     </div>
 }
