@@ -1,8 +1,18 @@
 import { createContext } from "react";
+// assets
+import Economy from "../public/icons/global-economy.svg";
+import SustainableWorld from "../public/icons/global-sustainability.svg";
+import Health from "../public/icons/global-health.svg";
+import Education from "../public/icons/global-education.svg";
+import Exploring from "../public/icons/global-connectivity.svg";
+import Development from "../public/icons/009-overpopulation.svg";
 
 export const DEFAULT_THEME_PROMPT = "Themes";
 
-export const SummitThemeContext = createContext(DEFAULT_THEME_PROMPT);
+export const SummitThemeContext = createContext({
+	selectedTheme: DEFAULT_THEME_PROMPT,
+	setSelectedTheme: (_: string) => {},
+});
 
 export const CHART_MARGINS = { top: 15, right: 20, bottom: 10, left: 20 };
 
@@ -12,6 +22,15 @@ export const PRE_CONTENT_ICON_SIZE =
 export const LIGHT_COLOR = "#78cce2";
 
 export const BRICS = ["Brazil", "Russia", "India", "China", "South Africa"];
+
+export const WORLD_SUMMIT_THEMES: { name: string; icon: any }[] = [
+	{ name: "Accelerating Development and Governance", icon: Development },
+	{ name: "Global City Design and Sustainability", icon: SustainableWorld },
+	{ name: "Exploring the Frontiers", icon: Exploring },
+	{ name: "Governing Economic Resilience and Connectivity", icon: Economy },
+	{ name: "Future of Societies and Healthcare", icon: Health },
+	{ name: "Prioritizing Learning and Work", icon: Education },
+];
 
 export const UN_PERMANENT = [
 	"China",

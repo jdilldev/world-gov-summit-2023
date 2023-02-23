@@ -2,7 +2,7 @@ import { Grid, } from '@nextui-org/react';
 import { FrameBox, FrameCorners, FrameLines, FrameUnderline } from '@arwes/core';
 import InsightIcon from '../public/icons/brain.svg'
 import SourceIcon from '../public/icons/source.svg'
-import { ReactNode, useCallback, useContext } from 'react';
+import { ReactNode, useCallback, useContext, useMemo } from 'react';
 import { getWorldAvg, retrieveData } from '../app/data/generateData';
 import RadarChart from './Charts/RadarChart';
 import RadialBarChart from './Charts/RadialBarChart';
@@ -32,7 +32,7 @@ const defaultStatBoxes: DefaultStatItem[] = [
 ]
 
 const StatBox = ({ item, index, source }: { item: DefaultStatItem, index: number, source?: string }) => {
-    const selectedTheme = useContext(SummitThemeContext)
+    const { selectedTheme } = useContext(SummitThemeContext)
 
     return <div style={{ backgroundImage: `url(nw.jp)`, }} className='basis-[49%] md:basis-[24%] h-1/2 md:h-full bg-cover bg-top'>
         <ParentSize className={`backdrop-blur-[0px] -mr-1 backdrop-invert-0 backdrop-contrast-125 backdrop-brightness-150 backdrop-saturate-100 bg-black/30`} debounceTime={10}>{({ width, height }) =>
@@ -63,7 +63,7 @@ const DefaultStatBox = ({ item }: { item: DefaultStatItem }) => <>
     <p className='font-body font-white uppercase md:font-nebula whitespace-wrap text-xs md:text-xl'>{item.text}</p>
 </>
 
-const getContentForTheme = (width: number, height: number, theme: string, position: number) => {
+const getContentForTheme = (width: number, height: number, theme: string, position: number) => useMemo(() => {
     switch (theme) {
         case 'Accelerating Development and Governance':
             switch (position) {
@@ -143,7 +143,7 @@ const getContentForTheme = (width: number, height: number, theme: string, positi
                     return <UnemploymentBins dimensions={{ width, height }} />
             }
     }
-}
+}, [theme, position])
 
 const sourceMap: { [key: string]: { [key: number]: string } } = {
     'Accelerating Development and Governance': {
@@ -179,7 +179,7 @@ const checkForSource = (selectedTheme: string, index: number) =>
 
 export const StatBoxes = () => {
     console.count('StatBoxes')
-    const selectedTheme = useContext(SummitThemeContext)
+    const { selectedTheme } = useContext(SummitThemeContext)
     return <div className='flex flex-wrap gap-y-2 justify-evenly h-full w-full md:flex-nowrap'>
         {defaultStatBoxes.map((item, index) => {
             const getSource = useCallback(checkForSource, [selectedTheme, index])

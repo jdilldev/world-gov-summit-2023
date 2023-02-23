@@ -2,6 +2,22 @@
 
 import { useState, useEffect } from "react";
 
+export const useWindowSize = (): "MOBILE" | "TABLET" | "DESKTOP" => {
+	const [windowSize, setWindowSize] = useState(0);
+
+	useEffect(() => {
+		const updateWindowSize = () => {
+			setWindowSize(window.innerWidth);
+		};
+
+		updateWindowSize();
+		window.addEventListener("resize", updateWindowSize);
+		return () => window.removeEventListener("resize", updateWindowSize);
+	}, []);
+
+	return windowSize < 825 ? "MOBILE" : windowSize > 825 ? "DESKTOP" : "TABLET";
+};
+
 export const useDesktop = () => {
 	const [isDesktop, setDesktop] = useState(window.innerWidth >= 1243);
 
