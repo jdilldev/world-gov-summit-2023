@@ -1,6 +1,6 @@
 import { FrameCorners } from '@arwes/core';
 import { DefaultPlaceholder } from './Shared';
-import { ReactNode, useContext, useEffect, useState } from 'react';
+import { ReactNode, useContext, useEffect, useMemo, useState } from 'react';
 import { ChartDimensions } from '../app/data/types';
 import { GovernmentHealthBullet } from './Charts/Themes/AcceleratingGov';
 import { SummitThemeContext } from '../app/constants';
@@ -9,6 +9,7 @@ import { HealthExpenditureOfGDPDelta } from './Charts/Themes/FutureSocietiesAndH
 import { CorrelationBetweenCO2EmissionsAndRenewables } from './Charts/Themes/GlobalCityDesign';
 import { GII } from './Charts/Themes/ExploringtheFrontier';
 import { SEDA } from './Charts/Themes/EconomicResillience';
+import { useWindowSize } from '../app/hooks/hooks';
 
 
 export const renderChartBasedOnTheme = (selectedTheme: string, { width, height }: { width: number, height: number }) => {
@@ -80,19 +81,7 @@ type ChartProps = {
 
 const ChartII = ({ Chart, title, year, description, dimensions: { width, height } }: ChartProps) => {
     console.count('Chart II')
-
-    const [windowSize, setWindowSize] = useState(0)
-
-    useEffect(() => {
-        const updateWindowSize = () => {
-            setWindowSize(window.innerWidth)
-        }
-
-        updateWindowSize()
-        window.addEventListener("resize", updateWindowSize);
-        return () => window.removeEventListener("resize", updateWindowSize);
-    }, [])
-
+    const windowSize = useWindowSize()
 
     {/* 
         // @ts-ignore */}
@@ -111,7 +100,8 @@ const ChartII = ({ Chart, title, year, description, dimensions: { width, height 
                     {title}
                 </p>
                 <div className='flex flex-col gap-1 md:gap-3 justify-center items-center md:items-start lg:items-center md:flex-row lg:flex-col'>
-                    <p style={windowSize < 825 || windowSize > 1240 ? { height: '80%' } : { height: height - 60 }} className={`px-2 font-body text-stone-200 text-xs max-h-[80%] md:text-sm pt-2 md:pt-0 overflow-scroll`}>{description}</p>
+                    //Mobile and Desktop views both have column layouts, whereas Tablet view has a row loayout.
+                    <p style={windowSize === 'MOBILE' || 'DESKTOP' ? { height: '80%' } : { height: height - 60 }} className={`px-2 font-body text-stone-200 text-xs max-h-[80%] md:text-sm pt-2 md:pt-0 overflow-scroll`}>{description}</p>
                     {Chart}
                 </div>
             </div>

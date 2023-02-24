@@ -23,7 +23,7 @@ export const HexagonFrame = ({ isThemeSelected }: { isThemeSelected: boolean }) 
                             className='p-1'
                             selectionMode="single"
                             aria-label="Regions Actions">
-                            {allRegions.map((region, index) =>
+                            {allRegions.map((region) =>
                                 <Dropdown.Item
                                     withDivider={region === 'Northern Africa' || region === 'Northern America' || region === 'Central Asia' || region === 'Eastern Europe' || region === 'Australia and New Zealand'}
                                     className='text-sm hover:bg-[#4e788852] p-1'

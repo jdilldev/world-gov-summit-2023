@@ -1,22 +1,15 @@
-import { Grid, } from '@nextui-org/react';
-import { FrameBox, FrameCorners, FrameLines, FrameUnderline } from '@arwes/core';
 import InsightIcon from '../public/icons/brain.svg'
 import SourceIcon from '../public/icons/source.svg'
-import { ReactNode, useCallback, useContext, useMemo } from 'react';
-import { getWorldAvg, retrieveData } from '../app/data/generateData';
-import RadarChart from './Charts/RadarChart';
-import RadialBarChart from './Charts/RadialBarChart';
+import { memo, useCallback, useContext, useMemo } from 'react';
 import { ParentSize } from '@visx/responsive';
 import { GovernmentHDIDifferenceChart, GovernmentIncreaseDecreaseChart, GovernmentRadialBar, GovernmentStabilityRadar } from './Charts/Themes/AcceleratingGov';
-import { GdpPercentagesRadialBarChart, StatCard } from './Shared';
 import { AvgGlobalTempChangePerDecade, HappyPlanetIndex, ParisAgreementStatus, ShareOfElectricityFromRenewables, WaterStressByRegion } from './Charts/Themes/GlobalCityDesign';
-import GlobalWarmingIcon from '../public/icons/global-warming.svg'
-import { DEFAULT_THEME_PROMPT, PRE_CONTENT_ICON_SIZE, SummitThemeContext } from '../app/constants';
+import { DEFAULT_THEME_PROMPT, SummitThemeContext } from '../app/constants';
 import { AstronautsAndSatellites, CryptoStats, GDPStats, SpaceAgencies } from './Charts/Themes/ExploringtheFrontier';
 import { EconomicGrowthDelta, GINI, InflationChanges, WarningAboutInterdependentEconomies } from './Charts/Themes/EconomicResillience';
 import { EmergentDiseases, LifeExpectancy, SuicideDeaths, Top10CausesOfDeath } from './Charts/Themes/FutureSocietiesAndHealthcare';
 import { EducatedCountries, UnemploymentBins, KidsOutOfSchool, Stability } from './Charts/Themes/PrioritizingLearningAndWork';
-import TableIcon from '../public/icons/table.svg'
+import { FrameLines } from '@arwes/core';
 
 type DefaultStatItem = {
     numeric: string
@@ -31,9 +24,7 @@ const defaultStatBoxes: DefaultStatItem[] = [
     { numeric: '', text: 'Endless Insights', }
 ]
 
-const StatBox = ({ item, index, source }: { item: DefaultStatItem, index: number, source?: string }) => {
-    const { selectedTheme } = useContext(SummitThemeContext)
-
+const StatBox = ({ selectedTheme, item, index, source }: { selectedTheme: string, item: DefaultStatItem, index: number, source?: string }) => {
     return <div style={{ backgroundImage: `url(nw.jp)`, }} className='basis-[49%] md:basis-[24%] h-1/2 md:h-full bg-cover bg-top'>
         <ParentSize className={`backdrop-blur-[0px] -mr-1 backdrop-invert-0 backdrop-contrast-125 backdrop-brightness-150 backdrop-saturate-100 bg-black/30`} debounceTime={10}>{({ width, height }) =>
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -58,12 +49,15 @@ const StatBox = ({ item, index, source }: { item: DefaultStatItem, index: number
     </div>
 }
 
-const DefaultStatBox = ({ item }: { item: DefaultStatItem }) => <>
-    {item.numeric !== '' ? <p className='font-nebula text-3xl p-2'>{item.numeric}</p> : <InsightIcon className='w-16 h-12 fill-[#9fd0dcb1]' />}
-    <p className='font-body font-white uppercase md:font-nebula whitespace-wrap text-xs md:text-xl'>{item.text}</p>
-</>
-
+const DefaultStatBox = memo(({ item }: { item: DefaultStatItem }) => {
+    console.log(item)
+    return <>
+        {item.numeric !== '' ? <p className='font-nebula text-3xl p-2'>{item.numeric}</p> : <InsightIcon className='w-16 h-12 fill-[#9fd0dcb1]' />}
+        <p className='font-body font-white uppercase md:font-nebula whitespace-wrap text-xs md:text-xl'>{item.text}</p>
+    </>
+})
 const getContentForTheme = (width: number, height: number, theme: string, position: number) => useMemo(() => {
+    console.count('ace')
     switch (theme) {
         case 'Accelerating Development and Governance':
             switch (position) {
@@ -143,7 +137,7 @@ const getContentForTheme = (width: number, height: number, theme: string, positi
                     return <UnemploymentBins dimensions={{ width, height }} />
             }
     }
-}, [theme, position])
+}, [theme])
 
 const sourceMap: { [key: string]: { [key: number]: string } } = {
     'Accelerating Development and Governance': {
@@ -182,9 +176,9 @@ export const StatBoxes = () => {
     const { selectedTheme } = useContext(SummitThemeContext)
     return <div className='flex flex-wrap gap-y-2 justify-evenly h-full w-full md:flex-nowrap'>
         {defaultStatBoxes.map((item, index) => {
-            const getSource = useCallback(checkForSource, [selectedTheme, index])
-            const source = getSource(selectedTheme, index)
-            return <StatBox key={'statBox' + index} item={item} index={index} source={source} />
+            //  const getSource = useCallback(checkForSource, [selectedTheme, index])
+            // const source = getSource(selectedTheme, index)
+            return <StatBox key={'statBox-' + selectedTheme + index} selectedTheme={selectedTheme} item={item} index={index} source={''} />
         }
         )}
     </div>

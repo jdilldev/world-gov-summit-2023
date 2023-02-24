@@ -1,9 +1,13 @@
-import { useState, useContext, useEffect } from "react"
+'use-client'
+
+import { memo, useContext, useEffect, useRef } from "react"
 import { SummitThemeContext, DEFAULT_THEME_PROMPT, WORLD_SUMMIT_THEMES } from "../app/constants"
 import { useWindowSize } from "../app/hooks/hooks"
 
-const ThemeSelector = () => {
-    const [shouldRender, setShouldRender] = useState(false)
+
+const ThemeSelector = memo(() => {
+    console.count('Theme Selector')
+
     const windowSize = useWindowSize()
     const { selectedTheme, setSelectedTheme } = useContext(SummitThemeContext)
 
@@ -31,7 +35,7 @@ const ThemeSelector = () => {
                 </p>
             </div>
             <div className='flex flex-wrap w-full gap-x-16 gap-y-4 justify-center items-center'>
-                {WORLD_SUMMIT_THEMES.map(worldSummitTheme => <div className='h-8'>
+                {WORLD_SUMMIT_THEMES.map(worldSummitTheme => <div key={worldSummitTheme.name} className='h-8'>
                     <div className={`w-fit ${worldSummitTheme.name === selectedTheme ? 'box text-[#3297b3a8]' : 'text-slate-500'}`}
                         onClick={() => setSelectedTheme(worldSummitTheme.name)}>
                         <p className={`text-md lowercase whitespace-nowrap font-equinox hover:text-[#3297b3a8] ${worldSummitTheme.name === selectedTheme ? 'uppercase tracking-widest ' : ''}`}>{worldSummitTheme.name}</p>
@@ -40,6 +44,6 @@ const ThemeSelector = () => {
                 )}
             </div>
         </>
-}
+},)
 
 export default ThemeSelector

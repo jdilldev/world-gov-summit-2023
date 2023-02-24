@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useContext } from "react";
 import Insights from "../components/Insights";
-import { DEFAULT_THEME_PROMPT, SummitThemeContext, WORLD_SUMMIT_THEMES } from "./constants";
+import { DEFAULT_THEME_PROMPT, SummitThemeContext } from "./constants";
 
 
 const Home = () => {
@@ -14,8 +14,6 @@ const Home = () => {
     const [active, setActive] = useState(tabs[0]) */
 
   const [selectedTheme, setSelectedTheme] = useState(DEFAULT_THEME_PROMPT)
-  console.count('Insights')
-
 
   return <SummitThemeContext.Provider value={{ selectedTheme, setSelectedTheme }}>
     <div className='flex flex-col h-full overflow-y-scroll overflow-x-hidden lg:overflow-hidden'>
