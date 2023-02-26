@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 export const useWindowSize = (): "MOBILE" | "TABLET" | "DESKTOP" => {
 	const [windowSize, setWindowSize] = useState(0);
 
+	console.count("use window size");
 	useEffect(() => {
 		const updateWindowSize = () => {
 			setWindowSize(window.innerWidth);
@@ -15,7 +16,11 @@ export const useWindowSize = (): "MOBILE" | "TABLET" | "DESKTOP" => {
 		return () => window.removeEventListener("resize", updateWindowSize);
 	}, []);
 
-	return windowSize < 825 ? "MOBILE" : windowSize > 825 ? "DESKTOP" : "TABLET";
+	return windowSize <= 300
+		? "MOBILE"
+		: windowSize >= 1243
+		? "DESKTOP"
+		: "TABLET";
 };
 
 export const useDesktop = () => {

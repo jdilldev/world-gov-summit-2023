@@ -1,9 +1,8 @@
 import { FrameCorners } from '@arwes/core';
 import { DefaultPlaceholder } from './Shared';
-import { ReactNode, useContext, useEffect, useMemo, useState } from 'react';
+import { ReactNode } from 'react';
 import { ChartDimensions } from '../app/data/types';
 import { GovernmentHealthBullet } from './Charts/Themes/AcceleratingGov';
-import { SummitThemeContext } from '../app/constants';
 import { UnemploymentAndAccessToElectricity } from './Charts/Themes/PrioritizingLearningAndWork';
 import { HealthExpenditureOfGDPDelta } from './Charts/Themes/FutureSocietiesAndHealthcare';
 import { CorrelationBetweenCO2EmissionsAndRenewables } from './Charts/Themes/GlobalCityDesign';
@@ -100,7 +99,7 @@ const ChartII = ({ Chart, title, year, description, dimensions: { width, height 
                     {title}
                 </p>
                 <div className='flex flex-col gap-1 md:gap-3 justify-center items-center md:items-start lg:items-center md:flex-row lg:flex-col'>
-                    //Mobile and Desktop views both have column layouts, whereas Tablet view has a row loayout.
+                    {/* Mobile and Desktop views both have column layouts, whereas Tablet view has a row loayout.*/}
                     <p style={windowSize === 'MOBILE' || 'DESKTOP' ? { height: '80%' } : { height: height - 60 }} className={`px-2 font-body text-stone-200 text-xs max-h-[80%] md:text-sm pt-2 md:pt-0 overflow-scroll`}>{description}</p>
                     {Chart}
                 </div>

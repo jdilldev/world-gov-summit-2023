@@ -16,7 +16,7 @@ const Insights = () => {
     const isDesktop = useWindowSize() === 'DESKTOP'
     const [shouldRender, setShouldRender] = useState(false)
     const { selectedTheme } = useContext(SummitThemeContext)
-    const isThemeSelected = selectedTheme === DEFAULT_THEME_PROMPT
+    const isThemeSelected = selectedTheme !== DEFAULT_THEME_PROMPT
 
     console.count('Insights')
 
@@ -36,8 +36,8 @@ const Insights = () => {
             </div>
             <div className='w-2/3 md:w-3/4'>
                 <ParentSize debounceTime={10}>{({ width, height }) =>
-                    useMemo(() => <p>hi</p>, [])
-                    //  renderChartBasedOnTheme(selectedTheme, { width, height })
+                    renderChartBasedOnTheme(selectedTheme, { width, height })
+
                 }</ParentSize>
             </div>
         </div>
@@ -45,6 +45,7 @@ const Insights = () => {
     </div> :
         <div className='insights-layout-lg'>
             <div className='theme-selector-lg'>
+                <ThemeSelector />
             </div>
             <div className="left">
                 <div className='h-1/5'>
@@ -52,8 +53,7 @@ const Insights = () => {
                 </div>
                 <div className='h-4/5'>
                     <ParentSize debounceTime={10}>{({ width, height }) =>
-                        useMemo(() => <p>hi</p>, [])
-                        //  renderChartBasedOnTheme(selectedTheme, { width, height })
+                        renderChartBasedOnTheme(selectedTheme, { width, height })
                     }</ParentSize>
                 </div>
 

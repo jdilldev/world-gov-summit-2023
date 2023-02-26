@@ -56,8 +56,9 @@ const DefaultStatBox = memo(({ item }: { item: DefaultStatItem }) => {
         <p className='font-body font-white uppercase md:font-nebula whitespace-wrap text-xs md:text-xl'>{item.text}</p>
     </>
 })
-const getContentForTheme = (width: number, height: number, theme: string, position: number) => useMemo(() => {
-    console.count('ace')
+
+const getContentForTheme = (width: number, height: number, theme: string, position: number) => {
+    console.count('get content for theme ' + width)
     switch (theme) {
         case 'Accelerating Development and Governance':
             switch (position) {
@@ -137,7 +138,7 @@ const getContentForTheme = (width: number, height: number, theme: string, positi
                     return <UnemploymentBins dimensions={{ width, height }} />
             }
     }
-}, [theme])
+}
 
 const sourceMap: { [key: string]: { [key: number]: string } } = {
     'Accelerating Development and Governance': {
@@ -176,9 +177,9 @@ export const StatBoxes = () => {
     const { selectedTheme } = useContext(SummitThemeContext)
     return <div className='flex flex-wrap gap-y-2 justify-evenly h-full w-full md:flex-nowrap'>
         {defaultStatBoxes.map((item, index) => {
-            //  const getSource = useCallback(checkForSource, [selectedTheme, index])
-            // const source = getSource(selectedTheme, index)
-            return <StatBox key={'statBox-' + selectedTheme + index} selectedTheme={selectedTheme} item={item} index={index} source={''} />
+            const getSource = useCallback(checkForSource, [selectedTheme, index])
+            const source = getSource(selectedTheme, index)
+            return <StatBox key={'statBox-' + selectedTheme + index} selectedTheme={selectedTheme} item={item} index={index} source={source} />
         }
         )}
     </div>
