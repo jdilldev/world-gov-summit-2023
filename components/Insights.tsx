@@ -13,7 +13,8 @@ import ThemeSelector from './ThemeSelector';
 
 
 const Insights = () => {
-    const isDesktop = useWindowSize() === 'DESKTOP'
+    const [_, viewPort] = useWindowSize()
+    const isDesktop = viewPort === 'DESKTOP'
     const [shouldRender, setShouldRender] = useState(false)
     const { selectedTheme } = useContext(SummitThemeContext)
     const isThemeSelected = selectedTheme !== DEFAULT_THEME_PROMPT

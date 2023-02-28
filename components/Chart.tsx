@@ -80,7 +80,7 @@ type ChartProps = {
 
 const ChartII = ({ Chart, title, year, description, dimensions: { width, height } }: ChartProps) => {
     console.count('Chart II')
-    const windowSize = useWindowSize()
+    const [_, viewPort] = useWindowSize()
 
     {/* 
         // @ts-ignore */}
@@ -100,7 +100,7 @@ const ChartII = ({ Chart, title, year, description, dimensions: { width, height 
                 </p>
                 <div className='flex flex-col gap-1 md:gap-3 justify-center items-center md:items-start lg:items-center md:flex-row lg:flex-col'>
                     {/* Mobile and Desktop views both have column layouts, whereas Tablet view has a row loayout.*/}
-                    <p style={windowSize === 'MOBILE' || 'DESKTOP' ? { height: '80%' } : { height: height - 60 }} className={`px-2 font-body text-stone-200 text-xs max-h-[80%] md:text-sm pt-2 md:pt-0 overflow-scroll`}>{description}</p>
+                    <p style={viewPort === 'MOBILE' || 'DESKTOP' ? { height: '80%' } : { height: height - 60 }} className={`px-2 font-body text-stone-200 text-xs max-h-[80%] md:text-sm pt-2 md:pt-0 overflow-scroll`}>{description}</p>
                     {Chart}
                 </div>
             </div>

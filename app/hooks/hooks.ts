@@ -2,7 +2,10 @@
 
 import { useState, useEffect } from "react";
 
-export const useWindowSize = (): "MOBILE" | "TABLET" | "DESKTOP" => {
+export const useWindowSize = (): [
+	windowSize: number,
+	viewPort: "MOBILE" | "TABLET" | "DESKTOP"
+] => {
 	const [windowSize, setWindowSize] = useState(0);
 
 	console.count("use window size");
@@ -16,11 +19,10 @@ export const useWindowSize = (): "MOBILE" | "TABLET" | "DESKTOP" => {
 		return () => window.removeEventListener("resize", updateWindowSize);
 	}, []);
 
-	return windowSize <= 300
-		? "MOBILE"
-		: windowSize >= 1243
-		? "DESKTOP"
-		: "TABLET";
+	const viewPort =
+		windowSize <= 300 ? "MOBILE" : windowSize >= 1243 ? "DESKTOP" : "TABLET";
+
+	return [windowSize, viewPort];
 };
 
 export const useDesktop = () => {

@@ -8,13 +8,13 @@ import { useWindowSize } from "../app/hooks/hooks"
 const ThemeSelector = memo(() => {
     console.count('Theme Selector')
 
-    const windowSize = useWindowSize()
+    const [_, viewPort] = useWindowSize()
     const { selectedTheme, setSelectedTheme } = useContext(SummitThemeContext)
 
     const isThemeSelected = selectedTheme !== DEFAULT_THEME_PROMPT
 
 
-    return windowSize !== 'DESKTOP' ?
+    return viewPort !== 'DESKTOP' ?
         <>
             <p className='whitespace-nowrap tracking-[.2em] md:tracking-[.7em] text-slate-300 text-base md:text-xl uppercase font-equinox'>{`The Present Future | 2023`}</p>
             <div className='tracking-[.5em] xs:text-sm text-xl white uppercase font-dreamscape text-[#72a4b5]'>
