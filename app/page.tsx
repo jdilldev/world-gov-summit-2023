@@ -36,12 +36,12 @@ const Home = () => {
         <p>The Present Future Dashboard</p>
       </div>
       <div className="dashboard-left flex flex-col ml-3">
-        <div ref={themeRef} className="dashboard-card h-1/2">
-          <p className="font-agelast tracking-widest">Themes</p>
-          <div className="theme-container md:relative">
-            <div className='theme-text-center'>
+        <div ref={themeRef} className="dashboard-card  h-1/2 w-fit md:w-full">
+          <p className="font-agelast tracking-widest text-sm md:text-base">Themes</p>
+          <div className="flex flex-col items-center justify-around h-full md:relative">
+            <div className='hidden md:flex md:justify-center md:items-center theme-text-center'>
               <p
-                className="font-equinox text-sm lg:text-base lowercase text-center w-2/3"
+                className="hidden md:inline font-equinox md:text-xs lg:text-base lowercase text-center w-1/2"
               >{selectedTheme}</p>
             </div>
             {WORLD_SUMMIT_THEMES.map((theme, index) => {
@@ -51,7 +51,7 @@ const Home = () => {
               const theta = ((360 / WORLD_SUMMIT_THEMES.length) / 180) * index * Math.PI
               const x = Math.round(r * (Math.cos(theta)))
               const y = Math.round(r * (Math.sin(theta)))
-              const top = (themeContainerHeight * .45) - y
+              const top = (themeContainerHeight * .4) - y
               const left = ((themeContainerWidth - 60) / 2) + x
               return <>
                 <div className={`hidden md:inline absolute hover:scale-125 `} style={{ top, left }}>
@@ -59,16 +59,16 @@ const Home = () => {
                     onClick={() => setSelectedTheme(theme.name)}
                     className={`w-10 h-10 lg:w-12 lg:h-12  stroke-2  hover:fill-[#56d3dcc8] ${theme.name === selectedTheme ? 'fill-[#56d3dcc8]' : 'fill-slate-300'}`} />
                 </div>
-                <div className="md:hidden">
+                <div className={'md:hidden'}>
                   <theme.icon
                     onClick={() => setSelectedTheme(theme.name)}
-                    className={`w-10 h-10 lg:w-12 lg:h-12  stroke-2  hover:fill-[#56d3dcc8] ${theme.name === selectedTheme ? 'fill-[#56d3dcc8]' : 'fill-slate-300'}`} />
+                    className={`w-8 h-8 stroke-2  hover:fill-[#56d3dcc8] ${theme.name === selectedTheme ? 'fill-[#56d3dcc8]' : 'fill-slate-300'}`} />
                 </div>
               </>
             })}
           </div>
         </div>
-        <div className="dashboard-card h-1/2">
+        <div className="dashboard-card h-1/2 w-fit md:w-full">
           {/*           <UnemploymentBins dimensions={{ width: 300, height: 400 }} />
  */}        </div>
       </div>

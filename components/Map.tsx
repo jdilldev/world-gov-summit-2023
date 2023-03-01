@@ -14,7 +14,7 @@ const Map = () => {
     const mapRef = useRef<MapRef>();
 
     const onSelectSubregion = useCallback(({ lng, lat }) => {
-        mapRef.current?.flyTo({ center: [lng, lat], duration: 2000 });
+        mapRef.current?.flyTo({ center: [lng, lat], duration: 1000 });
         setZoom(2.4)
     }, []);
 
