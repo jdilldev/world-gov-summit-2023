@@ -7,7 +7,7 @@ import Education from "../public/icons/global-education.svg";
 import Exploring from "../public/icons/global-connectivity.svg";
 import Development from "../public/icons/009-overpopulation.svg";
 
-export const DEFAULT_THEME_PROMPT = "Themes";
+export const DEFAULT_THEME_PROMPT = "Select a theme";
 
 export const SummitThemeContext = createContext({
 	selectedTheme: DEFAULT_THEME_PROMPT,
