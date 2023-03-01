@@ -1,4 +1,5 @@
 'use client'
+//import '../styles/globals.module.scss'
 import './globals.css'
 import { createTheme } from '@arwes/design';
 import { ThemeProvider } from '@emotion/react';

@@ -53,15 +53,15 @@ export const GdpPercentagesRadialBarChart = ({ dimensions: { width, height }, re
 
     return <RadialBarChart relevantMetric={relevantMetric} width={width} height={height} data={data} />
 }
-const getDeltaIndicator = (delta: number) => {
+export const getDeltaIndicator = (delta: number) => {
 
-    const indicatorClass = 'w-2 h-2 lg:w-3 lg:h-3 '
+    const indicatorClass = 'w-4 h-4 '
     if (Math.abs(delta).toFixed(1) === '0.0') {
         return <NeutralIndicator className={indicatorClass + 'fill-[#fcd706]'} />
     } else if (delta > 0) {
-        return <IncreaseIndicator className={indicatorClass + 'fill-green-400'} />
+        return <IncreaseIndicator className={indicatorClass + 'fill-green-500'} />
     } else if (delta < 0) {
-        return <DecreaseIndicator className={indicatorClass + 'fill-red-400'} />
+        return <DecreaseIndicator className={indicatorClass + 'fill-red-500'} />
     }
 }
 

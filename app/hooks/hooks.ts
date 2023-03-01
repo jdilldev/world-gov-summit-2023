@@ -8,7 +8,6 @@ export const useWindowSize = (): [
 ] => {
 	const [windowSize, setWindowSize] = useState(0);
 
-	console.count("use window size");
 	useEffect(() => {
 		const updateWindowSize = () => {
 			setWindowSize(window.innerWidth);
