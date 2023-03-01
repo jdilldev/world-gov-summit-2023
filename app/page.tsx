@@ -8,9 +8,11 @@ import ThemeSelector from "../components/ThemeSelector";
 import { DEFAULT_THEME_PROMPT, SummitThemeContext, WORLD_SUMMIT_THEMES } from "./constants";
 
 
+
+
 const Home = () => {
   const [selectedTheme, setSelectedTheme] = useState(DEFAULT_THEME_PROMPT)
-  const [aggregator, setAggregator] = useState('world')
+  const [aggregator, setAggregator] = useState('global')
   return <SummitThemeContext.Provider value={{ selectedTheme, setSelectedTheme }}>
     <div className="dashboard">
       <div className="mb-3 flex p-2 text-xs md:text-lg lg:text-xl font-agelast justify-start items-center dashboard-header bg-red border-solid border-b-[1px] border-[#ffffff2b]">
@@ -33,7 +35,7 @@ const Home = () => {
               return <div className='circle absolute hover:scale-125' style={{ top, left }}>
                 <theme.icon
                   onClick={() => setSelectedTheme(theme.name)}
-                  className={`w-12 h-12  stroke-2 fill-slate-400 hover:fill-cyan-500 ${theme.name === selectedTheme ? 'fill-[#19d2e7d7]' : ''}`} />
+                  className={`w-12 h-12  stroke-2  hover:fill-[#56d3dcc8] ${theme.name === selectedTheme ? 'fill-[#56d3dcc8]' : 'fill-slate-300'}`} />
               </div>
             })}
           </div>
@@ -52,24 +54,24 @@ const Home = () => {
         </div>
       </div>
       <div className="dashboard-right flex flex-col mr-3">
-        <div className="dashboard-card h-1/3 flex flex-col">
+        <div className="dashboard-card h-2/3 flex flex-col">
           <p className="font-agelast tracking-widest">Ranking</p>
           <div className="flex flex-col gap-1 justify-between h-full font-equinox text-sm">
-            <p>{aggregator}</p>
+            <div className=''>
+              <p>{aggregator}</p>
+              <p className='text-center font-body font-light'>Metric</p>
+            </div>
             <div className='flex flex-row gap-3 justify-center items-center'>
-              {['world', 'regions', 'countries'].map(option =>
+              {['global', 'regions', 'specific region'].map(option =>
                 <div
-                  className="rounded-full w-2 h-2 bg-[#26bbdd59] hover:bg-teal-500"
+                  className={`rounded-full w-2 h-2 hover:bg-teal-500  ${aggregator === option ? 'bg-white' : 'bg-[#26bbdd59]'}`}
                   onClick={() => setAggregator(option)}
                 />)}
             </div>
           </div>
         </div>
         <div className="dashboard-card h-1/3">
-          <p className="font-agelast tracking-widest">Stats</p>
-        </div>
-        <div className="dashboard-card h-1/3">
-          <p className="font-agelast tracking-widest">Data</p>
+          <p className="font-agelast tracking-widest">Insight</p>
         </div>
       </div>
     </div>
