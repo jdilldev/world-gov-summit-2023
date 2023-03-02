@@ -255,7 +255,7 @@ const getUnemploymentBin = (delta: number): { label: string, color: string } => 
     }
 }
 
-export const UnemploymentBins = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {
+export const UnemploymentBins = () => {
     let rawData = retrieveData({ aggregator: 'world', metrics: ['2018_unemployment', '2021_unemployment'] }, 'categorical') as CategoricalData[]
 
     rawData = rawData.reduce((acc, curr) => {
@@ -280,7 +280,9 @@ export const UnemploymentBins = ({ dimensions: { width, height } }: { dimensions
 
     const data = rawData.map((datum: CategoricalData) => { return { ...datum, value: 1 } })
 
-    return <div style={{ height: height }} className='flex flex-col gap-2 text-xs lg:text-base'>
+    return <WaffleChart rawData={rawData} data={data} />
+
+    {/* <div style={{ height: height }} className='flex flex-col gap-2 text-xs lg:text-base'>
         <p className="text-xs font-equinox lowercase">Unemployment<br />Changes</p>
         <p className='text-xs text-white absolute top-0 right-0'>2018 to 2021</p>
         <div style={{ height: height - 60 }} className="flex flex-row w-full justify-between items-center">
@@ -294,7 +296,8 @@ export const UnemploymentBins = ({ dimensions: { width, height } }: { dimensions
             </div>
             <WaffleChart rawData={rawData} data={data} dimensions={{ width: width - 75, height: height }} />
         </div>
-    </div>
+    </div> */
+    }
 }
 
 export const EducatedCountries = ({ dimensions: { width, height } }: { dimensions: ChartDimensions }) => {

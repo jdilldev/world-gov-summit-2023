@@ -397,3 +397,50 @@ export const retrieveData = (inputs: ChartInputs, type: ChartType) => {
 			throw Error("trying to create a Chart of an invalid type");
 	}
 };
+type DataPoint = { id: string; value: number };
+export const getData = (
+	aggregator: AggregatorType,
+	metric: CountryMetrics,
+	regions?: M49_subregion[]
+) => {
+	let dataPoints: DataPoint[] = [];
+
+	const r = getAggregatorIndicies(aggregator, regions) as RegionCountries;
+
+	//if it's a single region, we want to index by country; otherwise, get avg of all regions or specified regions
+	if (regions && aggregator === "singleRegion") {
+		const region = regions[0];
+		dataPoints = r[region].reduce((acc, currCountry) => {
+			const extractedVal = extractMetricValue(currCountry, metric);
+
+			if (extractedVal) acc.push({ id: currCountry.name, value: extractedVal });
+			return acc;
+		}, [] as DataPoint[]);
+	} else if (aggregator === "multiRegions") {
+		dataPoints = Object.keys(r).reduce((acc, currRegion) => {
+			let val = 0;
+			let total = 0;
+
+			r[currRegion].forEach((country) => {
+				const extractedVal = extractMetricValue(country, metric);
+
+				if (extractedVal) {
+					total++;
+					val += extractedVal;
+				}
+			});
+			acc.push({ id: currRegion, value: val / total });
+
+			return acc;
+		}, [] as DataPoint[]);
+	} else if (aggregator === "world") {
+		data.forEach((country) => {
+			const extractedVal = extractMetricValue(country, metric);
+
+			if (extractedVal)
+				dataPoints.push({ id: country.name, value: extractedVal });
+		});
+	}
+
+	return dataPoints;
+};

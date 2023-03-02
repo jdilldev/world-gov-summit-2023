@@ -1,5 +1,5 @@
 import { CellComponentProps } from '@nivo/heatmap'
-import { Waffle, WaffleDatum, WaffleTooltipData } from '@nivo/waffle'
+import { ResponsiveWaffle, WaffleDatum, WaffleTooltipData } from '@nivo/waffle'
 import { CHART_MARGINS } from '../../app/constants'
 import { CategoricalData, ChartDimensions } from '../../app/data/types'
 import SquareIcon from '../../public/icons/pattern.svg'
@@ -42,15 +42,13 @@ const CustomCell = ({
     />
 )
 
-const WaffleChart = ({ rawData, data, dimensions: { width, height } }: { rawData: CategoricalData[], data: CategoricalData[], dimensions: ChartDimensions }) => (
-    <Waffle
-        width={width}
-        height={height}
+const WaffleChart = ({ rawData, data, }: { rawData: CategoricalData[], data: CategoricalData[], }) => (
+    <ResponsiveWaffle
         data={data}
         total={171}
         rows={13}
         columns={14}
-        cellComponent={CustomCell}
+        // cellComponent={CustomCell}
         fillDirection='top'
         //emptyColor='transparent'
         emptyOpacity={0}
