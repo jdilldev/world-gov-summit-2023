@@ -73,15 +73,18 @@ table {
 table,
 th,
 td {
-	font-family: avenir;
-	font-weight: 300;
 	border-collapse: collapse;
 }
 th,
 td {
+	text-transform: capitalize;
+	font-family: avenir;
 	padding: 3px;
 }
 th {
+	text-transform: lowercase;
+	font-family: equinox;
+	font-weight: 300;
 	text-align: left;
 	position: sticky;
 	top: 0;

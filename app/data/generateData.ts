@@ -403,7 +403,9 @@ export const getData = (
 	aggregator: AggregatorType,
 	metric: CountryMetrics,
 	region?: M49_subregion
-) => {
+): DataPoint[] | undefined => {
+	if (!metric) return undefined;
+
 	let dataPoints: DataPoint[] = [];
 
 	const r = getAggregatorIndicies(aggregator, [region]) as RegionCountries;

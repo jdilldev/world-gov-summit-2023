@@ -6,24 +6,18 @@ import { UnemploymentBins } from "../components/Charts/Themes/PrioritizingLearni
 import Map from "../components/Map";
 import Table from "../components/Table";
 import ThemeSelector from "../components/ThemeSelector";
-import { DEFAULT_REGION, DEFAULT_THEME_PROMPT, SummitThemeContext, WORLD_SUMMIT_THEMES } from "./constants";
+import { AGGREGATOR_TO_TITLE, DEFAULT_REGION, DEFAULT_THEME_PROMPT, SummitThemeContext, WORLD_SUMMIT_THEMES } from "./constants";
 import { getWorldAvg } from "./data/generateData";
-import { AggregatorType, M49_subregion } from "./data/types";
-
-
-const aggregatorToTitle = {
-  'world': 'Global',
-  'multiRegions': 'All Regions',
-  'singleRegion': 'Region'
-}
+import { AggregatorType, CountryMetrics, M49_subregion } from "./data/types";
+import { MongoClient } from 'mongodb'
 
 const Home = () => {
   const [selectedTheme, setSelectedTheme] = useState(DEFAULT_THEME_PROMPT)
   const [selectedRegion, setSelectedRegion] = useState<M49_subregion>(undefined)
+  const [selectedMetric, setSelectedMetric] = useState<CountryMetrics>(undefined)
   const [aggregator, setAggregator] = useState<AggregatorType>('world')
 
   useEffect(() => {
-    console.log(selectedRegion)
     if (selectedRegion !== undefined)
       setAggregator('singleRegion')
     else
@@ -40,7 +34,7 @@ const Home = () => {
           <p className="md:hidden font-agelast tracking-widest text-xs md:text-base">Themes</p>
           <div className="flex flex-col justify-evenly items-center h-full">
             {WORLD_SUMMIT_THEMES.map((theme, index) => {
-              return <div className=''>
+              return <div key={theme.name} className=''>
                 <theme.icon
                   onClick={() => setSelectedTheme(theme.name)}
                   className={`w-fit h-8 stroke-2 md:hidden  hover:fill-[#56d3dcc8] ${theme.name === selectedTheme ? 'fill-[#56d3dcc8]' : 'fill-slate-300'}`} />
@@ -71,19 +65,29 @@ const Home = () => {
       <div className="dashboard-right flex flex-col mr-3 h-full">
         <div className="hidden md:inline dashboard-card h-2/3">
           <p className="font-agelast tracking-widest">Rank</p>
-          <p>{aggregatorToTitle[aggregator]}</p>
-          <div className="flex flex-row justify-between items-center text-xs">
-            <p className='font-body'>Metric</p>
-            <p className='text-cyan-300'>World Avg: {getWorldAvg('2021_unemployment').toFixed(2)}</p>
+          <p>{selectedRegion ?? AGGREGATOR_TO_TITLE[aggregator]}</p>
+          <div className="flex flex-row flex-wrap justify-between items-center text-xs">
+            <div className="flex items-center">
+              {!selectedTheme && <p className='font-body'>{DEFAULT_THEME_PROMPT}</p>}
+              {selectedTheme &&
+                <select className="bg-transparent">
+                  <option value='metric'>metric1</option>
+                </select>}
+            </div>
+            <p className='text-cyan-300'>World Avg: {getWorldAvg(selectedMetric).toFixed(2)}</p>
           </div>
-          <div className='flex flex-col h-[28rem] overflow-scroll'>
-            <Table aggregator={aggregator} metric={"2021_unemployment"} selectedRegion={selectedRegion} />
+          <div className='flex flex-col justify-between h-[28rem] overflow-scroll'>
+            <Table aggregator={aggregator} metric={selectedMetric} selectedRegion={selectedRegion} />
           </div>
           <div className='flex flex-row gap-3 pt-2 justify-center items-center'>
             {(['world', 'multiRegions', 'singleRegion']).map(option =>
               <div
                 className={`rounded-full w-2 h-2 hover:bg-teal-500  ${aggregator === option ? 'bg-white' : 'bg-[#26bbdd59]'}`}
-                onClick={() => setAggregator(option as AggregatorType)}
+                onClick={() => {
+                  if (aggregator !== 'singleRegion')
+                    setSelectedRegion(undefined)
+                  setAggregator(option as AggregatorType)
+                }}
               />)}
           </div>
         </div>

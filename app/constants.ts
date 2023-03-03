@@ -11,6 +11,18 @@ import { M49_subregion } from "./data/types";
 export const DEFAULT_THEME_PROMPT = "Select a theme";
 export const DEFAULT_REGION = "Select a subregion";
 
+export const AGGREGATOR_TO_TITLE = {
+	world: "Global",
+	multiRegions: "All Regions",
+	singleRegion: "Select Region",
+};
+
+export const AGGREGATOR_TO_TABLE_HEADING = {
+	world: "Country",
+	multiRegions: "Region",
+	singleRegion: "",
+};
+
 export const SummitThemeContext = createContext({
 	selectedTheme: DEFAULT_THEME_PROMPT,
 	setSelectedTheme: (_: string) => {},
