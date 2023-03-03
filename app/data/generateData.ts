@@ -67,6 +67,7 @@ const getAggregatorIndicies = (
 		case "country":
 			return dataObj;
 		case "multiRegions":
+			return getSpecificRegions();
 		case "singleRegion":
 			return getSpecificRegions(regions);
 	}
@@ -401,15 +402,14 @@ type DataPoint = { id: string; value: number };
 export const getData = (
 	aggregator: AggregatorType,
 	metric: CountryMetrics,
-	regions?: M49_subregion[]
+	region?: M49_subregion
 ) => {
 	let dataPoints: DataPoint[] = [];
 
-	const r = getAggregatorIndicies(aggregator, regions) as RegionCountries;
+	const r = getAggregatorIndicies(aggregator, [region]) as RegionCountries;
 
 	//if it's a single region, we want to index by country; otherwise, get avg of all regions or specified regions
-	if (regions && aggregator === "singleRegion") {
-		const region = regions[0];
+	if (region && aggregator === "singleRegion") {
 		dataPoints = r[region].reduce((acc, currCountry) => {
 			const extractedVal = extractMetricValue(currCountry, metric);
 

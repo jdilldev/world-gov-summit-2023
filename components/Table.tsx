@@ -1,26 +1,25 @@
 import { memo, useCallback } from "react"
 import { getData, retrieveData } from "../app/data/generateData"
-import { AggregatorType, CategoricalData, CountryMetrics, LinearData } from "../app/data/types"
+import { AggregatorType, CategoricalData, CountryMetrics, LinearData, M49_subregion } from "../app/data/types"
 
-const Table = ({ aggregator, metric }: { aggregator: AggregatorType, metric: CountryMetrics }) => {
-    const getDataPoints = useCallback((agg: AggregatorType, m: CountryMetrics) => {
-        return getData(agg, m)
+const Table = ({ aggregator, metric, selectedRegion }: { aggregator: AggregatorType, metric: CountryMetrics, selectedRegion?: M49_subregion | undefined }) => {
+    const getDataPoints = useCallback((agg: AggregatorType, m: CountryMetrics, region: M49_subregion | undefined) => {
+        return getData(agg, m, region)
     }, []
     )
 
-    const data = getDataPoints(aggregator, metric)
-    console.log(data)
+    const data = getDataPoints(aggregator, metric, selectedRegion)
 
     return <table className="table-fixed border-collapse w-full">
         <thead className="w-full">
             <tr>
-                <th className="w-3/4">{aggregator}</th>
+                <th className="w-2/3">{aggregator}</th>
                 <th>Value</th>
             </tr>
         </thead>
-        <tbody>
-            {data.map(({ id, value }) => <tr>
-                <td className="w-3/4">{id}</td>
+        <tbody className="text-sm">
+            {data.map(({ id, value }) => <tr className={`${id === 'World' ? 'text-red-400 bg-white' : ''}`}>
+                <td>{id}</td>
                 <td>{value.toFixed(2)}</td>
             </tr>)}
 

@@ -6,12 +6,16 @@ import Health from "../public/icons/global-health.svg";
 import Education from "../public/icons/global-education.svg";
 import Exploring from "../public/icons/global-connectivity.svg";
 import Development from "../public/icons/009-overpopulation.svg";
+import { M49_subregion } from "./data/types";
 
 export const DEFAULT_THEME_PROMPT = "Select a theme";
+export const DEFAULT_REGION = "Select a subregion";
 
 export const SummitThemeContext = createContext({
 	selectedTheme: DEFAULT_THEME_PROMPT,
 	setSelectedTheme: (_: string) => {},
+	selectedRegion: undefined,
+	setSelectedRegion: (_: M49_subregion) => {},
 });
 
 export const CHART_MARGINS = { top: 15, right: 20, bottom: 10, left: 20 };

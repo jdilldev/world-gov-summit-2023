@@ -6,21 +6,31 @@ import { UnemploymentBins } from "../components/Charts/Themes/PrioritizingLearni
 import Map from "../components/Map";
 import Table from "../components/Table";
 import ThemeSelector from "../components/ThemeSelector";
-import { DEFAULT_THEME_PROMPT, SummitThemeContext, WORLD_SUMMIT_THEMES } from "./constants";
-import { AggregatorType } from "./data/types";
+import { DEFAULT_REGION, DEFAULT_THEME_PROMPT, SummitThemeContext, WORLD_SUMMIT_THEMES } from "./constants";
+import { getWorldAvg } from "./data/generateData";
+import { AggregatorType, M49_subregion } from "./data/types";
 
 
-
+const aggregatorToTitle = {
+  'world': 'Global',
+  'multiRegions': 'All Regions',
+  'singleRegion': 'Region'
+}
 
 const Home = () => {
   const [selectedTheme, setSelectedTheme] = useState(DEFAULT_THEME_PROMPT)
+  const [selectedRegion, setSelectedRegion] = useState<M49_subregion>(undefined)
   const [aggregator, setAggregator] = useState<AggregatorType>('world')
 
-  const absolutePositionTopAndLeft = 100
-  const themeContainerWidth = 430
-  const r = themeContainerWidth / 3.8
+  useEffect(() => {
+    console.log(selectedRegion)
+    if (selectedRegion !== undefined)
+      setAggregator('singleRegion')
+    else
+      setAggregator('world')
+  }, [selectedRegion])
 
-  return <SummitThemeContext.Provider value={{ selectedTheme, setSelectedTheme }}>
+  return <SummitThemeContext.Provider value={{ selectedTheme, setSelectedTheme, selectedRegion, setSelectedRegion }}>
     <div className="dashboard">
       <div className="mb-3 flex p-2 text-xs md:text-lg lg:text-xl font-agelast justify-start items-center dashboard-header bg-red border-solid border-b-[1px] border-[#ffffff2b]">
         <p>The Present Future Dashboard</p>
@@ -43,7 +53,6 @@ const Home = () => {
             <p>Chart</p>
             <p>Metric</p>
             <p>Insight</p>
-
           </div>
           <div className='hidden md:flex md:h-full w:h-full opacity-80'>
             <UnemploymentBins />
@@ -59,13 +68,26 @@ const Home = () => {
           <div className="bottom-item">hi</div>
         </div>
       </div>
-      <div className="dashboard-right flex flex-col mr-3">
-        <div className="dashboard-card bg-red-200 h-full hidden md:h-2/3 md:flex md:flex-col">
+      <div className="dashboard-right flex flex-col mr-3 h-full">
+        <div className="hidden md:inline dashboard-card h-2/3">
           <p className="font-agelast tracking-widest">Rank</p>
-          <p>{aggregator}</p>
-          <p className='font-body text-cyan-500'>Metric</p>
+          <p>{aggregatorToTitle[aggregator]}</p>
+          <div className="flex flex-row justify-between items-center text-xs">
+            <p className='font-body'>Metric</p>
+            <p className='text-cyan-300'>World Avg: {getWorldAvg('2021_unemployment').toFixed(2)}</p>
+          </div>
+          <div className='flex flex-col h-[28rem] overflow-scroll'>
+            <Table aggregator={aggregator} metric={"2021_unemployment"} selectedRegion={selectedRegion} />
+          </div>
+          <div className='flex flex-row gap-3 pt-2 justify-center items-center'>
+            {(['world', 'multiRegions', 'singleRegion']).map(option =>
+              <div
+                className={`rounded-full w-2 h-2 hover:bg-teal-500  ${aggregator === option ? 'bg-white' : 'bg-[#26bbdd59]'}`}
+                onClick={() => setAggregator(option as AggregatorType)}
+              />)}
+          </div>
         </div>
-        <div className="dashboard-card hidden md:flex md:h-1/3">
+        <div className="dashboard-card hidden md:inline md:h-1/3">
           <p className="font-agelast tracking-widest">Insight</p>
         </div>
       </div>

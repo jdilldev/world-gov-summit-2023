@@ -67,6 +67,7 @@ h1 {
 
 table {
 	margin: 0;
+	position: relative;
 }
 
 table,
@@ -78,7 +79,7 @@ td {
 }
 th,
 td {
-	padding: 2px;
+	padding: 3px;
 }
 th {
 	text-align: left;
@@ -89,7 +90,7 @@ th {
 }
 
 tr:nth-child(even) {
-	background-color: #0ee8ec22;
+	background-color: #0ee8ec32;
 }
 
 .tooltip {

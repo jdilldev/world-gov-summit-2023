@@ -2,7 +2,8 @@ import { Map as Mapbox, MapRef, MapLayerMouseEvent } from "react-map-gl";
 import { useCallback, useContext, useRef, useState } from "react";
 import { useWindowSize } from "../app/hooks/hooks";
 import { getDeltaIndicator } from "./Shared";
-import { SummitThemeContext, WORLD_SUMMIT_THEMES } from "../app/constants";
+import { DEFAULT_REGION, SummitThemeContext, WORLD_SUMMIT_THEMES } from "../app/constants";
+import { M49_subregion } from "../app/data/types";
 
 
 const Map = () => {
@@ -13,7 +14,7 @@ const Map = () => {
     const longitude = windowSize < 825 ? -30 : 15
     const latitude = windowSize < 825 ? 90 : 0
     const mapRef = useRef<MapRef>();
-    const { selectedTheme, setSelectedTheme } = useContext(SummitThemeContext)
+    const { selectedTheme, setSelectedTheme, setSelectedRegion } = useContext(SummitThemeContext)
     const absolutePositionTopAndLeft = 100
     const themeContainerWidth = 430
     const r = themeContainerWidth / 3.8
@@ -85,11 +86,14 @@ const Map = () => {
                 const { properties } = e.features[0];
 
                 const subregion = properties.subregionName
+                setSelectedRegion(subregion as M49_subregion)
 
                 onSelectSubregion(e.lngLat)
             }}
-        //onZoom={(e) => { console.log(e) }}
-        //onMove={(e) => { console.log(e) }}
+            //onZoom={(e) => { console.log(e) }}
+            onDragEnd={(e) => {
+                setSelectedRegion(undefined)
+            }}
         />
 
     </div>
