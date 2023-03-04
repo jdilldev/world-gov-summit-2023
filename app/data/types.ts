@@ -15,11 +15,7 @@ export type TooltipPlacement =
 
 export type ChartDimensions = { width: number; height: number };
 
-export type AggregatorType =
-	| "world"
-	| "multiRegions"
-	| "singleRegion"
-	| "country";
+export type AggregatorType = "world" | "multiRegions" | "singleRegion";
 
 export type ChartType =
 	| "linear"
@@ -115,7 +111,7 @@ export type CountryProfile = {
 	"2020_electricity_from_renewables"?: string;
 };
 
-export type CountryMetrics = keyof CountryProfile;
+export type CountryMetrics = keyof CountryProfile | undefined;
 
 export const M49_subregions: string[] = [
 	"Northern Africa",
@@ -133,6 +129,7 @@ export const M49_subregions: string[] = [
 	"Western Europe",
 	"Australia and New Zealand",
 	"Melanesia",
+	"",
 ];
 
 export type M49_subregion = typeof M49_subregions[number];

@@ -26,7 +26,7 @@ export const AGGREGATOR_TO_TABLE_HEADING = {
 export const SummitThemeContext = createContext({
 	selectedTheme: DEFAULT_THEME_PROMPT,
 	setSelectedTheme: (_: string) => {},
-	selectedRegion: undefined,
+	selectedRegion: "",
 	setSelectedRegion: (_: M49_subregion) => {},
 });
 

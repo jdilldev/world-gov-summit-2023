@@ -256,6 +256,7 @@ const getUnemploymentBin = (delta: number): { label: string, color: string } => 
 }
 
 export const UnemploymentBins = () => {
+
     let rawData = retrieveData({ aggregator: 'world', metrics: ['2018_unemployment', '2021_unemployment'] }, 'categorical') as CategoricalData[]
 
     rawData = rawData.reduce((acc, curr) => {
