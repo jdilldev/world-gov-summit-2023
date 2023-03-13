@@ -19,9 +19,25 @@ interface SingleRegionData {
 	region: M49_subregion;
 }
 
-const getWorldAvg = async (metric: CountryMetrics) => {};
+const _getMetricForSingleRegion = async (
+	metric: CountryMetrics,
+	region: M49_subregion
+) => {
+	const client = await clientPromise;
+	const db = client.db("presentFutureDB");
+	const collection = db.collection("data");
 
-const _getMetricWorldwide = async ({ metric, grouping }: BasicData) => {
+	const result = await collection
+		.find(
+			{ region: region },
+			{ projection: { _id: 0, name: 1, [`${metric}`]: 1 } }
+		)
+		.toArray();
+
+	return result;
+};
+
+const _getMetricPerRegion = async (metric: CountryMetrics) => {
 	const client = await clientPromise;
 	const db = client.db("presentFutureDB");
 	const collection = db.collection("data");
@@ -72,10 +88,17 @@ const _getMetricWorldwide = async ({ metric, grouping }: BasicData) => {
 				},
 			},
 		])
-
 		.toArray();
 
-	const other = await collection
+	return result;
+};
+
+const _getMetricWorldwide = async (metric: CountryMetrics) => {
+	const client = await clientPromise;
+	const db = client.db("presentFutureDB");
+	const collection = db.collection("data");
+
+	const result = await collection
 		.find(
 			{},
 			{
@@ -91,26 +114,42 @@ const _getMetricWorldwide = async ({ metric, grouping }: BasicData) => {
 	return result;
 };
 
-const _getMetricForSingleRegion = async ({
-	metric,
-	region,
-}: SingleRegionData) => {
+const getWorldAvg = async (metric: CountryMetrics) => {
 	const client = await clientPromise;
 	const db = client.db("presentFutureDB");
 	const collection = db.collection("data");
 
 	const result = await collection
-		.find(
-			{ region: region },
-			{ projection: { _id: 0, name: 1, [`${metric}`]: 1 } }
-		)
+		.aggregate([
+			{
+				$project: {
+					_id: 0,
+					region: "$region",
+					spec: { $objectToArray: [`$${metric}`] },
+				},
+			},
+			{ $unwind: "$spec" },
+			{
+				$group: {
+					_id: "$spec.k",
+					val: { $avg: "$spec.v" },
+				},
+			},
+		])
 		.toArray();
 
 	return result;
 };
 
 export async function get_metric(fields: BasicData | SingleRegionData) {
-	return fields.grouping === "singleRegion"
-		? _getMetricForSingleRegion(fields)
-		: _getMetricWorldwide(fields);
+	const { metric, grouping } = fields;
+	switch (grouping) {
+		case "singleRegion":
+			const { region } = fields;
+			return _getMetricForSingleRegion(metric, region);
+		case "allRegions":
+			return _getMetricPerRegion(metric);
+		case "world":
+			return _getMetricWorldwide(metric);
+	}
 }

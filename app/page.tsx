@@ -12,7 +12,7 @@ import { GET, get_metric } from "./api/routes";
 
 
 const Home = async () => {
-  const data = await get_metric({ metric: 'seda', grouping: 'allRegions' })
+  const data = await get_metric({ metric: 'government_effectiveness', grouping: 'world' })
   console.log(data)
 
   return <div></div>
