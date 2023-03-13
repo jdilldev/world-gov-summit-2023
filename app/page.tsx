@@ -6,18 +6,16 @@ import Map from "../components/Map";
 import Table from "../components/Table";
 import ThemeSelector from "../components/ThemeSelector";
 import { AGGREGATOR_TO_TITLE, DEFAULT_REGION, DEFAULT_THEME_PROMPT, SummitThemeContext, WORLD_SUMMIT_THEMES } from "./constants";
-import { getWorldAvg } from "./data/generateData";
 import { AggregatorType, CountryMetrics, M49_subregion } from "./data/types";
-import { GET, GET_COMMENTS } from "./api/routes";
+import { GET, get_metric } from "./api/routes";
 
 
-const yo = async () => {
-  const r = await GET_COMMENTS()
 
-  console.log(r)
-}
-const Home = () => {
-  yo()
+const Home = async () => {
+  const data = await get_metric({ metric: 'seda', grouping: 'allRegions' })
+  console.log(data)
+
+  return <div></div>
 
 }
 

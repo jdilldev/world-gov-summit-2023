@@ -1,8 +1,5 @@
-import type {
-	M49_subregion,
-	Alpha3_country_codes,
-	CountryProfile,
-} from "./types";
+/** Deprecated; data moved to mongodb database */
+import type { CountryProfile } from "./types";
 
 const source_data: CountryProfile[] = [
 	{

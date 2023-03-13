@@ -1,4 +1,3 @@
-import { FrameCorners } from '@arwes/core';
 import { DefaultPlaceholder } from './Shared';
 import { ReactNode } from 'react';
 import { ChartDimensions } from '../app/data/types';
@@ -84,26 +83,17 @@ const ChartII = ({ Chart, title, year, description, dimensions: { width, height 
 
     {/* 
         // @ts-ignore */}
-    return <FrameCorners
-        showContentLines
-        cornerLength={50}
-        cornerWidth={3}
-        style={{ width: width - 2, height: height, display: 'flex', flexDirection: 'column', }}
-        animator={{ animate: false }}
-        className='bg-cyan-700 bg-opacity-20 font-equinox'
-    >
-        <div className='h-full'>
-            <span className='absolute -top-2 right-0 text-xs md:text-base text-white'>{year}</span>
-            <div className='flex flex-col mt-2 md:mt-3 lg:mt-4 gap-1 md:gap-2 lg:gap-3 text-center justify-between items-center'>
-                <p className='text-xs md:text-base lowercase flex flex-wrap gap-1'>
-                    {title}
-                </p>
-                <div className='flex flex-col gap-1 md:gap-3 justify-center items-center md:items-start lg:items-center md:flex-row lg:flex-col'>
-                    {/* Mobile and Desktop views both have column layouts, whereas Tablet view has a row loayout.*/}
-                    <p style={viewPort === 'MOBILE' || 'DESKTOP' ? { height: '80%' } : { height: height - 60 }} className={`px-2 font-body text-stone-200 text-xs max-h-[80%] md:text-sm pt-2 md:pt-0 overflow-scroll`}>{description}</p>
-                    {Chart}
-                </div>
+    return <div className='h-full'>
+        <span className='absolute -top-2 right-0 text-xs md:text-base text-white'>{year}</span>
+        <div className='flex flex-col mt-2 md:mt-3 lg:mt-4 gap-1 md:gap-2 lg:gap-3 text-center justify-between items-center'>
+            <p className='text-xs md:text-base lowercase flex flex-wrap gap-1'>
+                {title}
+            </p>
+            <div className='flex flex-col gap-1 md:gap-3 justify-center items-center md:items-start lg:items-center md:flex-row lg:flex-col'>
+                {/* Mobile and Desktop views both have column layouts, whereas Tablet view has a row loayout.*/}
+                <p style={viewPort === 'MOBILE' || 'DESKTOP' ? { height: '80%' } : { height: height - 60 }} className={`px-2 font-body text-stone-200 text-xs max-h-[80%] md:text-sm pt-2 md:pt-0 overflow-scroll`}>{description}</p>
+                {Chart}
             </div>
         </div>
-    </FrameCorners>
+    </div>
 }
