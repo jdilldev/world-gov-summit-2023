@@ -1,13 +1,6 @@
 import clientPromise from "../../lib/mongodb";
 import { CountryMetrics, M49_subregion } from "../data/types";
 
-export async function GET() {
-	const res = await fetch("https://dummyjson.com/products", {});
-	const data = await res.json();
-
-	return data;
-}
-
 interface BasicData {
 	metric: CountryMetrics;
 	grouping: "world" | "allRegions";
@@ -114,7 +107,7 @@ const _getMetricWorldwide = async (metric: CountryMetrics) => {
 	return result;
 };
 
-const getWorldAvg = async (metric: CountryMetrics) => {
+export const getWorldAvg = async (metric: CountryMetrics) => {
 	const client = await clientPromise;
 	const db = client.db("presentFutureDB");
 	const collection = db.collection("data");
@@ -141,7 +134,35 @@ const getWorldAvg = async (metric: CountryMetrics) => {
 	return result;
 };
 
-export async function get_metric(fields: BasicData | SingleRegionData) {
+export const getMinAndMaxCountries = async (
+	metric: CountryMetrics,
+	region?: M49_subregion
+) => {
+	const client = await clientPromise;
+	const db = client.db("presentFutureDB");
+	const collection = db.collection("data");
+
+	const max = await collection
+		.find({ [`${metric}`]: { $ne: null } })
+		.sort({ [`${metric}`]: -1 })
+		.limit(1)
+		.toArray();
+
+	const min = await collection
+		.find({ [`${metric}`]: { $ne: null } })
+		.sort({ [`${metric}`]: 1 })
+		.limit(1)
+		.toArray();
+
+	const maxVal = max[0];
+	const minVal = min[0];
+	return {
+		max: { country: maxVal.name, val: maxVal[metric!] },
+		min: { country: minVal.name, val: minVal[metric!] },
+	};
+};
+
+export const getMetric = async (fields: BasicData | SingleRegionData) => {
 	const { metric, grouping } = fields;
 	switch (grouping) {
 		case "singleRegion":
@@ -152,4 +173,40 @@ export async function get_metric(fields: BasicData | SingleRegionData) {
 		case "world":
 			return _getMetricWorldwide(metric);
 	}
-}
+};
+
+/** only needed if data is being imported from CSV
+ * Because of the way mongo imports, you cannot import objects and it uses single quotes
+ * in order to get object data, we need to convert single quotes to double quotes and JSON parse
+ * the result. Then we need to convert undefined and numeric values to be undefined and floats, respectively
+ *
+ * There is potentially a more efficient way todo this, but this is never run in production.
+ * Also, I created the mongodb equivalent aggregatio using $function but it requires a paid tier and I dont wanna pay!
+ **/
+
+export const cleanseData = async () => {
+	const client = await clientPromise;
+	const db = client.db("presentFutureDB");
+	const collection = db.collection("data");
+
+	collection.find().forEach((item) => {
+		Object.keys(item).forEach((key) => {
+			let s = String(item[key]).replace(/'/g, '"');
+			let obj: { [key: string]: any } = {};
+
+			if (s.includes("{"))
+				try {
+					obj = JSON.parse(s);
+					Object.keys(obj).forEach((k) => {
+						if (obj[k] === "undefined") obj[k] = undefined;
+						if (parseInt(obj[k])) obj[k] = parseFloat(obj[k]);
+						if (obj[k] === "...") obj[k] = undefined;
+					});
+					item[key] = obj;
+				} catch (e) {
+					console.log("parsing error " + item[key]);
+				}
+			collection.findOneAndReplace({ _id: item._id }, item);
+		});
+	});
+};
