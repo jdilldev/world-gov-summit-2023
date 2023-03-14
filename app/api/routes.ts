@@ -196,7 +196,7 @@ export const getWorldAvg = async (metric: CountryMetrics) => {
 	return result;
 };
 
-export const getMinAndMaxCountries = async (
+const _getMinAndMaxCountries = async (
 	metric: CountryMetrics,
 	region?: M49_subregion
 ) => {
@@ -228,6 +228,49 @@ export const getMinAndMaxCountries = async (
 	const res = await collection.aggregate(pipeline).toArray();
 
 	return res;
+};
+
+const _getMinAndMaxRegions = async (metric: CountryMetrics) => {
+	const client = await clientPromise;
+	const db = client.db("presentFutureDB");
+	const collection = db.collection("data");
+
+	const pipeline: any[] = [
+		{
+			$project: {
+				_id: 0,
+				region: "$region",
+				spec: { $objectToArray: [`$${metric}`] },
+			},
+		},
+		{ $unwind: "$spec" },
+		{ $match: { "spec.v": { $exists: true, $ne: null } } },
+		{
+			$group: {
+				_id: "$spec.k",
+				max: { $max: { v: "$spec.v", country: "$region" } },
+				min: { $min: { v: "$spec.v", country: "$region" } },
+			},
+		},
+	];
+
+	const res = await collection.aggregate(pipeline).toArray();
+
+	return res;
+};
+
+export const getMinMax = async (fields: BasicData | SingleRegionData) => {
+	const { metric, grouping } = fields;
+
+	switch (grouping) {
+		case "singleRegion":
+			const { region } = fields;
+			return _getMinAndMaxCountries(metric, region);
+		case "allRegions":
+			return _getMinAndMaxRegions(metric);
+		case "world":
+			return _getMinAndMaxCountries(metric);
+	}
 };
 
 export const getMetric = async (fields: BasicData | SingleRegionData) => {

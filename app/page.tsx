@@ -5,7 +5,7 @@ import Table from "../components/Table";
 import ThemeSelector from "../components/ThemeSelector";
 import { AGGREGATOR_TO_TITLE, CHART_CATEGORY, CONTEXT_CATEGORY, DEFAULT_REGION, DEFAULT_THEME_PROMPT, METRIC_CATEGORY, WORLD_SUMMIT_THEMES } from "./constants/constants";
 import { AggregatorType, CountryMetrics, M49_subregion } from "./data/types";
-import { getWorldAvg, getMetric, getMinAndMaxCountries, } from "./api/routes";
+import { getWorldAvg, getMetric, getMinMax, } from "./api/routes";
 import { ChartTooltip } from "../components/Shared";
 import ChartIcon from '../public/icons/solar-system.svg'
 import MetricIcon from '../public/icons/hexagons.svg'
@@ -15,7 +15,7 @@ import CountryAndRegionalComparissons from "../components/CountryAndRegionalComp
 
 
 const Home = async () => {
-  const t = await getMinAndMaxCountries("seda", 'Northern Africa')
+  const t = await getMinMax({ metric: "seda", grouping: "world" })
   console.log(t)
 
   return <div className="dashboard">
