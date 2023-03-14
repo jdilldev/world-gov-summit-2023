@@ -1,3 +1,4 @@
+'use client'
 import { Map as Mapbox, MapRef, MapLayerMouseEvent } from "react-map-gl";
 import { useCallback, useContext, useRef, useState } from "react";
 import { useWindowSize } from "../app/hooks/hooks";
@@ -13,13 +14,13 @@ const Map = () => {
     const projection = windowSize < 825 ? 'mercator' : 'globe'
     const longitude = windowSize < 825 ? -30 : 15
     const latitude = windowSize < 825 ? 90 : 0
-    const mapRef = useRef<MapRef>();
+    const mapRef = useRef<MapRef>(null);
     const { selectedTheme, setSelectedTheme, setSelectedRegion } = useContext(SummitThemeContext)
     const absolutePositionTopAndLeft = 100
     const themeContainerWidth = 430
     const r = themeContainerWidth / 3.8
 
-    const onSelectSubregion = useCallback(({ lng, lat }) => {
+    const onSelectSubregion = useCallback(({ lng, lat }: { lng: number, lat: number }) => {
         mapRef.current?.flyTo({ center: [lng, lat], duration: 1000 });
         setZoom(2.4)
     }, []);
@@ -82,17 +83,17 @@ const Map = () => {
             style={{ position: 'absolute', width: '100%', height: '100%', }}
             mapStyle="mapbox://styles/jdilldev/clemtp805000901s45xextcln"
             onClick={(e: MapLayerMouseEvent) => {
-                if (!e.features[0]) return
+                if (!e.features || !e.features[0]) return
                 const { properties } = e.features[0];
 
-                const subregion = properties.subregionName
+                const subregion = properties!.subregionName
                 setSelectedRegion(subregion as M49_subregion)
 
                 onSelectSubregion(e.lngLat)
             }}
             //onZoom={(e) => { console.log(e) }}
             onDragEnd={(e) => {
-                setSelectedRegion(undefined)
+                setSelectedRegion('')
             }}
         />
 
