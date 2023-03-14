@@ -1,7 +1,6 @@
 import PieChartIcon from '../public/icons/pie-chart.svg';
 import LineChartIcon from '../public/icons/line-chart.svg';
 import InfoIcon from '../public/icons/magnifier.svg';
-import { getWorldAvg } from '../app/data/generateData';
 import RadialBarChart from './Charts/RadialBarChart';
 import { ChartDimensions, TooltipPlacement } from '../app/data/types';
 import NeutralIndicator from '../public/icons/neutral.svg'
@@ -15,22 +14,6 @@ type DefaultPlaceholderProps = {
     placeholderLocation: 'one' | 'two'
 }
 
-export const H1 = ({ text }: { text: string }) => <h1 className='font-equinox text-lg'></h1>
-
-export const ButtonGroup = ({ values, className, controlValue, onChange }: { values: string[], className?: string, controlValue: string, onChange: (value: string) => void }) => {
-    return <div className={`flex flex-row gap-1 rounded-lg border-2 border-solid border-[#b8ff4d] w-fit ${className}`}>
-        {values.map(value => <div
-            key={value}
-            onClick={() => {
-                const lowerCaseValue = value.toLowerCase()
-                onChange(lowerCaseValue)
-            }}
-            className={`opacity-80 hover:opacity-100 px-3 font-body ${controlValue === value.toLowerCase() ? 'bg-[#b8ff4d] text-[black] border-none' : 'text-[#b8ff4d]'}`}>
-            {value}
-        </div>)}
-    </div>
-}
-
 export const DefaultPlaceholder = ({ height, placeholderLocation }: DefaultPlaceholderProps) => {
     const chartIconClassName = 'w-16 h-16 md:w-28 md:h-28'
     return <div style={{ height: height }} className='flex flex-col sjustify-center items-center'>
@@ -40,19 +23,20 @@ export const DefaultPlaceholder = ({ height, placeholderLocation }: DefaultPlace
 }
 
 export const GdpPercentagesRadialBarChart = ({ dimensions: { width, height }, relevantMetric }: { dimensions: ChartDimensions, relevantMetric: string }) => {
-    const governanceGDP = getWorldAvg('government_gdp')
-    const healtcareGDP = getWorldAvg('2019_health_gdp')
-    const educationGDP = getWorldAvg('2021_education_gdp')
-    const militaryGDP = getWorldAvg('military_gdp')
+    // const governanceGDP = getWorldAvg('government_gdp')
+    // const healtcareGDP = getWorldAvg('2019_health_gdp')
+    //const educationGDP = getWorldAvg('2021_education_gdp')
+    //const militaryGDP = getWorldAvg('military_gdp')
     const data = [
-        { id: 'Military', data: [{ x: '', y: militaryGDP }] },
-        { id: 'Healthcare', data: [{ x: '', y: healtcareGDP }] },
-        { id: 'Education', data: [{ x: '', y: educationGDP }] },
-        { id: 'Government', data: [{ x: '% of GDP', y: governanceGDP }] },
+        { id: 'Military', data: [{ x: '', y: 200 }] },
+        { id: 'Healthcare', data: [{ x: '', y: 300 }] },
+        { id: 'Education', data: [{ x: '', y: 400 }] },
+        { id: 'Government', data: [{ x: '% of GDP', y: 500 }] },
     ]
 
     return <RadialBarChart relevantMetric={relevantMetric} width={width} height={height} data={data} />
 }
+
 export const getDeltaIndicator = (delta: number) => {
 
     const indicatorClass = 'w-4 h-4 '

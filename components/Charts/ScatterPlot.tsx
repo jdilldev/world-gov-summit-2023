@@ -1,5 +1,5 @@
 import { ScatterPlot } from '@nivo/scatterplot'
-import { CHART_MARGINS, NIVO_THEME } from '../../app/constants'
+import { CHART_MARGINS, NIVO_THEME } from '../../app/constants/constants'
 import { ChartDimensions, LinearData } from '../../app/data/types'
 
 // make sure parent container have a defined height when using

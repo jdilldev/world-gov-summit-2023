@@ -4,7 +4,7 @@ import { memo, useCallback, useContext, useMemo } from 'react';
 import { ParentSize } from '@visx/responsive';
 import { GovernmentHDIDifferenceChart, GovernmentIncreaseDecreaseChart, GovernmentRadialBar, GovernmentStabilityRadar } from './Charts/Themes/AcceleratingGov';
 import { AvgGlobalTempChangePerDecade, HappyPlanetIndex, ParisAgreementStatus, ShareOfElectricityFromRenewables, WaterStressByRegion } from './Charts/Themes/GlobalCityDesign';
-import { DEFAULT_THEME_PROMPT, SummitThemeContext } from '../app/constants';
+import { DEFAULT_THEME_PROMPT, SummitThemeContext } from '../app/constants/constants';
 import { AstronautsAndSatellites, CryptoStats, GDPStats, SpaceAgencies } from './Charts/Themes/ExploringtheFrontier';
 import { EconomicGrowthDelta, GINI, InflationChanges, WarningAboutInterdependentEconomies } from './Charts/Themes/EconomicResillience';
 import { EmergentDiseases, LifeExpectancy, SuicideDeaths, Top10CausesOfDeath } from './Charts/Themes/FutureSocietiesAndHealthcare';

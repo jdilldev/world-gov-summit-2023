@@ -1,5 +1,5 @@
 import { Bullet } from '@nivo/bullet'
-import { CHART_MARGINS, NIVO_THEME } from '../../app/constants'
+import { CHART_MARGINS, NIVO_THEME } from '../../app/constants/constants'
 
 type BulletData = {
     id: string,

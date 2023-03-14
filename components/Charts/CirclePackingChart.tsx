@@ -1,5 +1,5 @@
 import { CirclePacking } from '@nivo/circle-packing'
-import { CHART_MARGINS, NIVO_THEME } from '../../app/constants'
+import { CHART_MARGINS, NIVO_THEME } from '../../app/constants/constants'
 import { ChartDimensions, HierarchicalData } from '../../app/data/types'
 import { ChartTooltip, CustomTooltip } from '../Shared'
 

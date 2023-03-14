@@ -1,5 +1,5 @@
 import { Line, Point, Serie } from '@nivo/line'
-import { CHART_MARGINS, NIVO_THEME } from '../../app/constants'
+import { CHART_MARGINS, NIVO_THEME } from '../../app/constants/constants'
 import { ChartDimensions, LinearData } from '../../app/data/types'
 import { ChartTooltip } from '../Shared';
 

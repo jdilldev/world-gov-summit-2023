@@ -1,4 +1,4 @@
-import { PRE_CONTENT_ICON_SIZE } from "../../../app/constants"
+import { PRE_CONTENT_ICON_SIZE } from "../../../app/constants/constants"
 import { getMax, getWorldAvg, retrieveData } from "../../../app/data/generateData"
 import { CategoricalData, ChartDimensions, LinearData } from "../../../app/data/types"
 import { CustomTooltip, GdpPercentagesRadialBarChart, StatCard } from "../../Shared"

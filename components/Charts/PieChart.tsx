@@ -1,5 +1,5 @@
 import { Pie } from '@nivo/pie'
-import { CHART_MARGINS, NIVO_THEME } from '../../app/constants';
+import { CHART_MARGINS, NIVO_THEME } from '../../app/constants/constants';
 import { PercentileData } from '../../app/data/types'
 
 const colors = ['#b3f5ffb9', '#00b1ccd9', '#047898e3']

@@ -21,10 +21,41 @@ const _getMetricForSingleRegion = async (
 	const collection = db.collection("data");
 
 	const result = await collection
-		.find(
-			{ region: region },
-			{ projection: { _id: 0, name: 1, [`${metric}`]: 1 } }
-		)
+		.aggregate([
+			{ $match: { region: `${region}` } },
+			{
+				$project: {
+					country: "$name",
+					spec: { $objectToArray: [`$${metric}`] },
+				},
+			},
+			{ $unwind: "$spec" },
+			{
+				$project: {
+					country: "$country",
+					key: "$spec.k",
+					val: { $toDouble: "$spec.v" },
+				},
+			},
+			{
+				$group: {
+					_id: "$country",
+					val: {
+						$push: {
+							k: "$key",
+							v: "$val",
+						},
+					},
+				},
+			},
+			{
+				$project: {
+					_id: 0,
+					country: "$_id",
+					years: { $arrayToObject: "$val" },
+				},
+			},
+		])
 		.toArray();
 
 	return result;
@@ -92,16 +123,41 @@ const _getMetricWorldwide = async (metric: CountryMetrics) => {
 	const collection = db.collection("data");
 
 	const result = await collection
-		.find(
-			{},
+		.aggregate([
 			{
-				projection: {
+				$project: {
 					_id: 0,
-					name: 1,
-					[`${metric}`]: 1,
+					country: "$name",
+					spec: { $objectToArray: [`$${metric}`] },
 				},
-			}
-		)
+			},
+			{ $unwind: "$spec" },
+			{
+				$project: {
+					country: "$country",
+					key: "$spec.k",
+					val: { $toDouble: "$spec.v" },
+				},
+			},
+			{
+				$group: {
+					_id: "$country",
+					val: {
+						$push: {
+							k: "$key",
+							v: "$val",
+						},
+					},
+				},
+			},
+			{
+				$project: {
+					_id: 0,
+					country: "$_id",
+					years: { $arrayToObject: "$val" },
+				},
+			},
+		])
 		.toArray();
 
 	return result;
@@ -123,9 +179,15 @@ export const getWorldAvg = async (metric: CountryMetrics) => {
 			},
 			{ $unwind: "$spec" },
 			{
+				$project: {
+					key: "$spec.k",
+					val: { $toDouble: "$spec.v" },
+				},
+			},
+			{
 				$group: {
-					_id: "$spec.k",
-					val: { $avg: "$spec.v" },
+					_id: "$key",
+					val: { $avg: "$val" },
 				},
 			},
 		])
@@ -142,24 +204,30 @@ export const getMinAndMaxCountries = async (
 	const db = client.db("presentFutureDB");
 	const collection = db.collection("data");
 
-	const max = await collection
-		.find({ [`${metric}`]: { $ne: null } })
-		.sort({ [`${metric}`]: -1 })
-		.limit(1)
-		.toArray();
+	const pipeline: any[] = [
+		{
+			$project: {
+				_id: 0,
+				name: "$name",
+				spec: { $objectToArray: [`$${metric}`] },
+			},
+		},
+		{ $unwind: "$spec" },
+		{ $match: { "spec.v": { $exists: true, $ne: null } } },
+		{
+			$group: {
+				_id: "$spec.k",
+				max: { $max: { v: "$spec.v", country: "$name" } },
+				min: { $min: { v: "$spec.v", country: "$name" } },
+			},
+		},
+	];
 
-	const min = await collection
-		.find({ [`${metric}`]: { $ne: null } })
-		.sort({ [`${metric}`]: 1 })
-		.limit(1)
-		.toArray();
+	if (region) pipeline.unshift({ $match: { region: { $eq: region } } });
 
-	const maxVal = max[0];
-	const minVal = min[0];
-	return {
-		max: { country: maxVal.name, val: maxVal[metric!] },
-		min: { country: minVal.name, val: minVal[metric!] },
-	};
+	const res = await collection.aggregate(pipeline).toArray();
+
+	return res;
 };
 
 export const getMetric = async (fields: BasicData | SingleRegionData) => {

@@ -1,5 +1,5 @@
 import { ResponsiveSwarmPlot, SwarmPlot as Swarm } from '@nivo/swarmplot'
-import { NIVO_THEME, CHART_MARGINS } from '../../app/constants'
+import { NIVO_THEME, CHART_MARGINS } from '../../app/constants/constants'
 import { CategoricalData, ChartDimensions } from '../../app/data/types'
 
 // make sure parent container have a defined height when using

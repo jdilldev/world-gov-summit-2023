@@ -2,7 +2,7 @@
 
 import { Radar } from '@nivo/radar'
 import { CategoricalData, ChartDimensions, CountryMetrics } from '../../app/data/types'
-import { CHART_MARGINS, NIVO_THEME } from '../../app/constants'
+import { CHART_MARGINS, NIVO_THEME } from '../../app/constants/constants'
 import { GridLabelComponent } from '@nivo/radar'
 import { ChartTooltip } from '../Shared';
 // make sure parent container have a defined height when using

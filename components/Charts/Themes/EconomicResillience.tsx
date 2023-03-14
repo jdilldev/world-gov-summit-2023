@@ -3,7 +3,7 @@ import { source_data_obj } from "../../../app/data/source_data"
 import { CategoricalData, ChartDimensions } from "../../../app/data/types"
 import { ButtonGroup, CustomTooltip, StatCard, StatCardCustom, } from "../../Shared"
 import EconomicCrisisIcon from '../../../public/icons/economic-crisis.svg'
-import { PRE_CONTENT_ICON_SIZE } from "../../../app/constants"
+import { PRE_CONTENT_ICON_SIZE } from "../../../app/constants/constants"
 import { useState } from "react"
 import PieChart from "../PieChart"
 import BarChart from "../BarChart"

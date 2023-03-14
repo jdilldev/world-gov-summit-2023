@@ -5,7 +5,7 @@ import BumpChart from "../BumpChart"
 import HdiIcon from '../../../public/icons/networking.svg'
 import EfficacyIcon from '../../../public/icons/team.svg'
 import { GdpPercentagesRadialBarChart, StatCard } from "../../Shared"
-import { PRE_CONTENT_ICON_SIZE } from "../../../app/constants"
+import { PRE_CONTENT_ICON_SIZE } from "../../../app/constants/constants"
 
 export const GovernmentStabilityRadar = ({ width, height }: ChartDimensions) => {
     const data = [

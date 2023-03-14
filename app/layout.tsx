@@ -1,7 +1,6 @@
 'use client'
 //import '../styles/globals.module.scss'
 import './globals.css'
-import { ThemeProvider } from '@emotion/react';
 
 const RootLayout = ({
   children,

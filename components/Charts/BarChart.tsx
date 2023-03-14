@@ -1,5 +1,5 @@
 import { Bar } from '@nivo/bar'
-import { CHART_MARGINS, NIVO_THEME } from '../../app/constants'
+import { CHART_MARGINS, NIVO_THEME } from '../../app/constants/constants'
 import { CategoricalData, ChartDimensions } from '../../app/data/types'
 
 

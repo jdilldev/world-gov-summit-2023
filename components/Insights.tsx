@@ -5,7 +5,7 @@ import { StatBoxes } from '../components/StatBoxes';
 import { HexagonFrame as RegionalInfo } from '../components/RegionalStats';
 
 
-import { DEFAULT_THEME_PROMPT, SummitThemeContext } from '../app/constants';
+import { DEFAULT_THEME_PROMPT, SummitThemeContext } from '../app/constants/constants';
 import { renderChartBasedOnTheme } from './Chart';
 import Map from './Map';
 import { useWindowSize } from '../app/hooks/hooks';

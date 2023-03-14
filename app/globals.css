@@ -50,7 +50,7 @@ h1 {
 
 .dashboard-card {
 	width: calc(100%-0.3rem);
-	margin: 0.3rem 0;
+	padding: 0.3em;
 	border-left: 0.4rem solid rgba(144, 166, 175, 0.124);
 	background-color: rgba(56, 114, 137, 0.273);
 }
@@ -167,6 +167,14 @@ tr:nth-child(even) {
 		grid-template-areas:
 			"z z z"
 			"a b c";
+	}
+	.bottom-item {
+		font-family: nebula;
+		flex: 0 1 calc(50% - 10px);
+		margin: 5px;
+		border-radius: 5px;
+		padding: 0.3rem;
+		border: 1px solid #b8f03fdb;
 	}
 }
 

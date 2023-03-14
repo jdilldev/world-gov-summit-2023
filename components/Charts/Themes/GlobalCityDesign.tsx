@@ -3,7 +3,7 @@ import { ChartDimensions, LinearData, PercentileData } from "../../../app/data/t
 import GlobalWarmingIcon from '../../../public/icons/global-melting.svg'
 import HappyPlanetIcon from '../../../public/icons/earth.svg'
 import { CustomTooltip, StatCard, StatCardCustom } from "../../Shared"
-import { PRE_CONTENT_ICON_SIZE } from "../../../app/constants"
+import { PRE_CONTENT_ICON_SIZE } from "../../../app/constants/constants"
 import HeatmapChart from "../HeatmapChart"
 import BumpChart from "../BumpChart"
 import LineChart from "../LineChart"

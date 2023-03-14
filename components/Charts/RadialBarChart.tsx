@@ -1,6 +1,6 @@
 import { RadialBar } from '@nivo/radial-bar'
 import { ParentSize } from '@visx/responsive'
-import { CHART_MARGINS, NIVO_THEME } from '../../app/constants'
+import { CHART_MARGINS, NIVO_THEME } from '../../app/constants/constants'
 import { LinearData } from '../../app/data/types'
 
 const RadialBarChart = ({ data, width, height, relevantMetric }: { data: LinearData[], width: number, height: number, relevantMetric: string }) => {

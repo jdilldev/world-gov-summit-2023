@@ -1,6 +1,6 @@
 import { CellComponentProps } from '@nivo/heatmap'
 import { ResponsiveWaffle, WaffleDatum, WaffleTooltipData } from '@nivo/waffle'
-import { CHART_MARGINS } from '../../app/constants'
+import { CHART_MARGINS } from '../../app/constants/constants'
 import { CategoricalData, ChartDimensions } from '../../app/data/types'
 import SquareIcon from '../../public/icons/pattern.svg'
 // make sure parent container have a defined height when using

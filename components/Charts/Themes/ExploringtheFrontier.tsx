@@ -6,7 +6,7 @@ import GdpIcon from '../../../public/icons/gdp.svg'
 import SpaceIcon from '../../../public/icons/solar-system.svg'
 import AstronautIcon from '../../../public/icons/astronaut.svg'
 import BitcoinIcon from '../../../public/icons/crypto.svg'
-import { PRE_CONTENT_ICON_SIZE } from "../../../app/constants"
+import { PRE_CONTENT_ICON_SIZE } from "../../../app/constants/constants"
 import { CirclePacking } from "@nivo/circle-packing"
 import CirclePackingChart from "../CirclePackingChart"
 

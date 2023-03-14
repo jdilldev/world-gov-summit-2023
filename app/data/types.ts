@@ -17,6 +17,20 @@ export type ChartDimensions = { width: number; height: number };
 
 export type AggregatorType = "world" | "multiRegions" | "singleRegion";
 
+type YearsOfData = {
+	[year: string]: number;
+};
+
+export type DataPerCountry = {
+	country: string;
+	years: YearsOfData;
+};
+
+export type DataPerRegion = {
+	region: string;
+	years: YearsOfData;
+};
+
 export type ChartType =
 	| "linear"
 	| "hierarchical"

@@ -2,7 +2,7 @@
 import { Bar } from '@nivo/bar'
 import { HeatMap } from '@nivo/heatmap'
 import { RadialBar } from '@nivo/radial-bar'
-import { NIVO_THEME } from '../../app/constants'
+import { NIVO_THEME } from '../../app/constants/constants'
 import { ChartDimensions, CountryMetrics, LinearData } from '../../app/data/types'
 
 
