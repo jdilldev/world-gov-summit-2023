@@ -14,13 +14,11 @@ const CountryAndRegionalComparissons = ({ data }: { data: any[] }) => {
     const isThemeSelected = (theme !== DEFAULT_THEME_PROMPT)
     const isSingleRegionGrouping = (grouping === 'singleRegion')
 
-    console.log(data)
-
     const { year, min, max } = data.at(0)
     const { country: minCountry, v: minVal } = min
     const { country: maxCountry, v: maxVal } = max
 
-    return <div className="flex justify-center gap-y-4 items-center w-full p-4 flex-wrap">
+    return <div className="flex flex-col justify-center gap-y-4 items-center w-full p-4">
         {!isThemeSelected && <p className="text-center font-nebula text-red-500">Please Select a Theme</p>}
         <div className="flex flex-col w-full lg:max-w-[70%]">
             <p className={`font-equinox text-xs lowercase text-cyan-500 ${isSingleRegionGrouping ? 'text-center' : 'text-left'}`}>Best Performing</p>

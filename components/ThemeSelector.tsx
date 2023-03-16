@@ -1,11 +1,64 @@
 'use client'
 
-import { memo } from "react"
-import { WORLD_SUMMIT_THEMES } from "../app/constants/constants"
+import { memo, useRef } from "react"
+import { MapRef } from "react-map-gl"
+import { DEFAULT_THEME_PROMPT, WORLD_SUMMIT_THEMES } from "../app/constants/constants"
+import { CountryMetrics } from "../app/data/types"
+import { useWindowSize } from "../app/hooks/hooks"
 import { useGlobalStore } from "../lib/store"
 
-const ThemeSelector = memo(() => {
-    const { theme: selectedTheme, setTheme } = useGlobalStore()
+export const CircularThemeSelector = memo(() => {
+    const { theme: selectedTheme, setTheme, setMetric } = useGlobalStore()
+    const [windowSize,] = useWindowSize()
+    const absolutePositionTopAndLeft = 100
+    const themeContainerWidth = 430
+    const r = themeContainerWidth / 3.8
+
+    const changeTheme = (theme: {
+        name: string;
+        icon: any;
+        metrics: CountryMetrics[];
+    }) => {
+        {
+            setTheme(theme.name)
+            setMetric(theme.metrics[0])
+        }
+    }
+
+    return <div className="hidden md:inline z-10 fixed left-8 top-16">
+        <p
+            style={{ top: absolutePositionTopAndLeft - 10, left: absolutePositionTopAndLeft / 2, position: 'absolute' }}
+            className={`w-36 hidden md:inline font-equinox text-sm lowercase text-center ${selectedTheme === DEFAULT_THEME_PROMPT ? 'text-red-500' : ''}`}>
+            {selectedTheme}</p>
+        <div>
+            {WORLD_SUMMIT_THEMES.map((theme, index) => {
+                //http://jsfiddle.net/55ukqboa/1/
+                //https://stackoverflow.com/questions/26599782/positioning-divs-in-a-circle-using-javascript
+                //theta is (360/n)/180 where n is the number of items that need to be in the circle
+                const theta = ((360 / WORLD_SUMMIT_THEMES.length) / 180) * index * Math.PI
+                const x = Math.round(r * (Math.cos(theta)))
+                const y = Math.round(r * (Math.sin(theta)))
+                const top = (absolutePositionTopAndLeft) - y
+                const left = (absolutePositionTopAndLeft) + x
+                return <>
+                    <div className={`hidden md:inline absolute hover:scale-125 `} style={{ top, left }}>
+                        <theme.icon
+                            onClick={() => changeTheme(theme)}
+                            className={`w-10 h-10 stroke-2  hover:fill-[#56d3dcc8] ${theme.name === selectedTheme ? 'fill-[#56d3dcc8]' : 'fill-slate-300'}`} />
+                    </div>
+                    <div className=''>
+                        <theme.icon
+                            onClick={() => changeTheme(theme)}
+                            className={`bg-blue-600 w-fit h-8 stroke-2 md:hidden  hover:fill-[#56d3dcc8] ${theme.name === selectedTheme ? 'fill-[#56d3dcc8]' : 'fill-slate-300'}`} />
+                    </div>
+                </>
+            })}
+        </div>
+    </div>
+})
+
+export const ThemeSelector = memo(() => {
+    const { theme: selectedTheme, setTheme, setMetric } = useGlobalStore()
 
     return <>
         <p className="md:hidden font-agelast tracking-widest text-xs md:text-base">Themes</p>
@@ -13,7 +66,10 @@ const ThemeSelector = memo(() => {
             {WORLD_SUMMIT_THEMES.map((theme, index) => {
                 return <div key={theme.name} className=''>
                     <theme.icon
-                        onClick={() => setTheme(theme.name)}
+                        onClick={() => {
+                            setTheme(theme.name)
+                            setMetric(theme.metrics[0])
+                        }}
                         className={`w-fit h-8 stroke-2 md:hidden  hover:fill-[#56d3dcc8] ${theme.name === selectedTheme ? 'fill-[#56d3dcc8]' : 'fill-slate-300'}`} />
                 </div>
             })}
@@ -21,4 +77,3 @@ const ThemeSelector = memo(() => {
     </>
 },)
 
-export default ThemeSelector

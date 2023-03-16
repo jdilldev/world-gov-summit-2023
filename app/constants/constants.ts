@@ -52,21 +52,53 @@ export const WORLD_SUMMIT_THEMES: {
 	{
 		name: "Accelerating Development and Governance",
 		icon: Development,
-		metrics: [],
+		metrics: [
+			"HDI",
+			"government_effectiveness",
+			"government_gdp",
+			"rule_of_law",
+			"political_instability",
+			"control_of_corruption",
+			"regulatory_quality",
+		],
 	},
 	{
 		name: "Global City Design and Sustainability",
 		icon: SustainableWorld,
-		metrics: [],
+		metrics: [
+			//add water sustainability
+			"electricity_from_renewables",
+			"CO2e_emissions_per_capita",
+			"happy_planet_index",
+		],
 	},
-	{ name: "Exploring the Frontiers", icon: Exploring, metrics: [] },
+	{
+		name: "Exploring the Frontiers",
+		icon: Exploring,
+		// add space metrics
+		metrics: ["gii", "economic_growth"],
+	},
 	{
 		name: "Governing Economic Resilience and Connectivity",
 		icon: Economy,
-		metrics: [],
+		//add inflation
+		metrics: ["gini", "economic_growth"],
 	},
-	{ name: "Future of Societies and Healthcare", icon: Health, metrics: [] },
-	{ name: "Prioritizing Learning and Work", icon: Education, metrics: [] },
+	{
+		name: "Future of Societies and Healthcare",
+		icon: Health,
+		//add lifespan
+		metrics: ["health_expenditure_per_person"],
+	},
+	{
+		name: "Prioritizing Learning and Work",
+		icon: Education,
+		metrics: [
+			"primary_school_aged_kids_out",
+			"unemployment",
+			"access_to_electricity",
+		],
+	},
 ];
 
 export const UN_PERMANENT = [

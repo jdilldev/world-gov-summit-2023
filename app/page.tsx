@@ -1,8 +1,6 @@
-import { AstronautsAndSatellites } from "../components/Charts/Themes/ExploringtheFrontier";
-import { UnemploymentBins } from "../components/Charts/Themes/PrioritizingLearningAndWork";
 import Map from "../components/Map";
 import Table from "../components/Table";
-import ThemeSelector from "../components/ThemeSelector";
+import { ThemeSelector } from "../components/ThemeSelector";
 import { AGGREGATOR_TO_TITLE, CHART_CATEGORY, CONTEXT_CATEGORY, DEFAULT_REGION, DEFAULT_THEME_PROMPT, METRIC_CATEGORY, WORLD_SUMMIT_THEMES } from "./constants/constants";
 import { AggregatorType, CountryMetrics, M49_subregion } from "./data/types";
 import { getAvg, getMetric, getMinMax, } from "./api/routes";
@@ -16,7 +14,7 @@ import DeltaIndicator from "../components/DeltaIndicator";
 
 
 const Home = async () => {
-  const deltaData = await getAvg({ metric: 'HDI', grouping: 'world' })
+  const deltaData = await getAvg({ metric: 'CO2e_emissions_per_capita', grouping: 'world' })
   const minMax = await getMinMax({ metric: 'HDI', grouping: 'world' })
 
   return <div className="dashboard">
@@ -34,7 +32,7 @@ const Home = async () => {
             { title: CHART_CATEGORY, icon: <ChartIcon /> },
             { title: METRIC_CATEGORY, icon: <MetricIcon /> },
             { title: CONTEXT_CATEGORY, icon: <BulbIcon /> }
-          ].map(category => <div className="flex flex-col items-center gap-2 text-sm p-2 tracking-[.15em] fill-[#9fd0dccc] hover:text-teal-400 hover:fill-[#56d3dcc8]">
+          ].map(category => <div className="flex flex-col items-center gap-2 text-sm p-2 tracking-[.15em] fill-[#9fd0dccc] hover:text-[#56d3dc] hover:fill-[#56d3dc]">
             <p>{category.title}</p>
             <div className='w-12 '>{category.icon}
             </div>
@@ -59,7 +57,7 @@ const Home = async () => {
       </div>
       <div className="dashboard-card hidden md:inline md:h-1/3 mb-4">
         <p className="font-agelast tracking-widest">{CONTEXT_CATEGORY}</p>
-        <p className="font-body text-sm font-thin">HDI mesasures blah blah blah, lower is better src.</p>
+        <p className="font-body text-sm font-thin">TODO</p>
       </div>
     </div>
   </div>

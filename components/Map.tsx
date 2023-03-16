@@ -7,6 +7,7 @@ import { DEFAULT_REGION, DEFAULT_THEME_PROMPT, WORLD_SUMMIT_THEMES } from "../ap
 import { M49_subregion } from "../app/data/types";
 import { useGlobalStore } from "../lib/store"
 import DeltaIndicator from "./DeltaIndicator";
+import { CircularThemeSelector } from "./ThemeSelector";
 
 
 
@@ -29,36 +30,7 @@ const Map = () => {
     }, []);
 
     return <div ref={mapContainer} className={'h-full w-full relative'}>
-        <div className="hidden md:inline z-10 fixed left-8 top-16">
-            <p
-                style={{ top: absolutePositionTopAndLeft - 10, left: absolutePositionTopAndLeft / 2, position: 'absolute' }}
-                className={`w-36 hidden md:inline font-equinox text-sm lowercase text-center ${selectedTheme === DEFAULT_THEME_PROMPT ? 'text-red-500' : ''}`}>
-                {selectedTheme}</p>
-            <div>
-                {WORLD_SUMMIT_THEMES.map((theme, index) => {
-                    //http://jsfiddle.net/55ukqboa/1/
-                    //https://stackoverflow.com/questions/26599782/positioning-divs-in-a-circle-using-javascript
-                    //theta is (360/n)/180 where n is the number of items that need to be in the circle
-                    const theta = ((360 / WORLD_SUMMIT_THEMES.length) / 180) * index * Math.PI
-                    const x = Math.round(r * (Math.cos(theta)))
-                    const y = Math.round(r * (Math.sin(theta)))
-                    const top = (absolutePositionTopAndLeft) - y
-                    const left = (absolutePositionTopAndLeft) + x
-                    return <>
-                        <div className={`hidden md:inline absolute hover:scale-125 `} style={{ top, left }}>
-                            <theme.icon
-                                onClick={() => setTheme(theme.name)}
-                                className={`w-10 h-10 stroke-2  hover:fill-[#56d3dcc8] ${theme.name === selectedTheme ? 'fill-[#56d3dcc8]' : 'fill-slate-300'}`} />
-                        </div>
-                        <div className=''>
-                            <theme.icon
-                                onClick={() => setTheme(theme.name)}
-                                className={`bg-blue-600 w-fit h-8 stroke-2 md:hidden  hover:fill-[#56d3dcc8] ${theme.name === selectedTheme ? 'fill-[#56d3dcc8]' : 'fill-slate-300'}`} />
-                        </div>
-                    </>
-                })}
-            </div>
-        </div>
+        <CircularThemeSelector />
         <Mapbox
             ref={mapRef}
             trackResize

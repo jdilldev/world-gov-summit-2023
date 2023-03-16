@@ -1,7 +1,6 @@
 import PieChartIcon from '../public/icons/pie-chart.svg';
 import LineChartIcon from '../public/icons/line-chart.svg';
 import InfoIcon from '../public/icons/magnifier.svg';
-import RadialBarChart from './Charts/RadialBarChart';
 import { ChartDimensions, TooltipPlacement } from '../app/data/types';
 import { ReactNode } from 'react';
 import { Tooltip } from '@nextui-org/react';
@@ -17,21 +16,6 @@ export const DefaultPlaceholder = ({ height, placeholderLocation }: DefaultPlace
         {placeholderLocation === 'one' ? <PieChartIcon className={chartIconClassName} /> : <LineChartIcon className={chartIconClassName} />}
         <p className='font-agelast uppercase tracking-widest text-xl md:text-2xl'>Select a theme</p>
     </div>
-}
-
-export const GdpPercentagesRadialBarChart = ({ dimensions: { width, height }, relevantMetric }: { dimensions: ChartDimensions, relevantMetric: string }) => {
-    // const governanceGDP = getWorldAvg('government_gdp')
-    // const healtcareGDP = getWorldAvg('2019_health_gdp')
-    //const educationGDP = getWorldAvg('2021_education_gdp')
-    //const militaryGDP = getWorldAvg('military_gdp')
-    const data = [
-        { id: 'Military', data: [{ x: '', y: 200 }] },
-        { id: 'Healthcare', data: [{ x: '', y: 300 }] },
-        { id: 'Education', data: [{ x: '', y: 400 }] },
-        { id: 'Government', data: [{ x: '% of GDP', y: 500 }] },
-    ]
-
-    return <RadialBarChart relevantMetric={relevantMetric} width={width} height={height} data={data} />
 }
 
 type StatCardProps = {
