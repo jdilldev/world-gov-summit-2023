@@ -5,25 +5,27 @@ import Table from "../components/Table";
 import ThemeSelector from "../components/ThemeSelector";
 import { AGGREGATOR_TO_TITLE, CHART_CATEGORY, CONTEXT_CATEGORY, DEFAULT_REGION, DEFAULT_THEME_PROMPT, METRIC_CATEGORY, WORLD_SUMMIT_THEMES } from "./constants/constants";
 import { AggregatorType, CountryMetrics, M49_subregion } from "./data/types";
-import { getWorldAvg, getMetric, getMinMax, } from "./api/routes";
+import { getAvg, getMetric, getMinMax, } from "./api/routes";
 import { ChartTooltip } from "../components/Shared";
 import ChartIcon from '../public/icons/solar-system.svg'
 import MetricIcon from '../public/icons/hexagons.svg'
 import BulbIcon from '../public/icons/026-learning.svg'
 import CountryAndRegionalComparissons from "../components/CountryAndRegionalComparissons";
+import DeltaIndicator from "../components/DeltaIndicator";
 //import BulbIcon from '../public/icons/028-puzzle.svg'
 
 
 const Home = async () => {
-  const t = await getMinMax({ metric: "seda", grouping: "world" })
-  console.log(t)
+  const deltaData = await getAvg({ metric: 'HDI', grouping: 'world' })
+  const minMax = await getMinMax({ metric: 'HDI', grouping: 'world' })
 
   return <div className="dashboard">
+    <DeltaIndicator data={deltaData} />
     <div className="mb-3 flex p-2 text-xs md:text-lg lg:text-xl font-agelast justify-start items-center dashboard-header bg-red border-solid border-b-[1px] border-[#ffffff2b]">
       <p>The Present Future Dashboard</p>
     </div>
     <div className="dashboard-left flex flex-col ml-3 mb-4">
-      <div className="md:bg-transparent md:border-none dashboard-card h-1/2 mb-3 w-fit md:w-full">
+      <div className="md:bg-transparent md:border-none w-full dashboard-card h-1/2 mb-3">
         <ThemeSelector />
       </div>
       <div className="dashboard-card h-1/2 w-full">
@@ -35,7 +37,8 @@ const Home = async () => {
           ].map(category => <div className="flex flex-col items-center gap-2 text-sm p-2 tracking-[.15em] fill-[#9fd0dccc] hover:text-teal-400 hover:fill-[#56d3dcc8]">
             <p>{category.title}</p>
             <div className='w-12 '>{category.icon}
-            </div></div>
+            </div>
+          </div>
           )}
         </div>
         <div className='hidden md:flex md:h-full w:h-full opacity-80'>
@@ -45,13 +48,13 @@ const Home = async () => {
     </div>
     <div className="dashboard-main flex flex-col">
       <Map />
-      <CountryAndRegionalComparissons />
+      <CountryAndRegionalComparissons data={minMax} />
     </div>
     <div className="dashboard-right flex flex-col mr-3 h-full">
       <div className="hidden md:inline dashboard-card h-2/3 mb-3">
         <p className="font-agelast tracking-widest">Rank</p>
         <div className="flex flex-row flex-wrap justify-between items-center text-xs">
-          <Table data={t} aggregator={"world"} />
+          <Table data={[]} aggregator={"world"} />
         </div>
       </div>
       <div className="dashboard-card hidden md:inline md:h-1/3 mb-4">

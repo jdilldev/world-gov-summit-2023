@@ -163,7 +163,53 @@ const _getMetricWorldwide = async (metric: CountryMetrics) => {
 	return result;
 };
 
-export const getWorldAvg = async (metric: CountryMetrics) => {
+const _getRegionAvg = async (metric: CountryMetrics, region: M49_subregion) => {
+	const client = await clientPromise;
+	const db = client.db("presentFutureDB");
+	const collection = db.collection("data");
+
+	const result = await collection
+		.aggregate([
+			{ $match: { region: { $eq: region } } },
+			{
+				$project: {
+					_id: 0,
+					region: "$region",
+					spec: { $objectToArray: [`$${metric}`] },
+				},
+			},
+			{ $unwind: "$spec" },
+			{
+				$project: {
+					year: "$spec.k",
+					val: { $toDouble: "$spec.v" },
+				},
+			},
+			{
+				$group: {
+					_id: "$year",
+					val: { $avg: "$val" },
+				},
+			},
+			{
+				$sort: {
+					_id: -1,
+				},
+			},
+			{
+				$project: {
+					_id: 0,
+					year: "$_id",
+					val: "$val",
+				},
+			},
+		])
+		.toArray();
+
+	return result;
+};
+
+const _getWorldAvg = async (metric: CountryMetrics) => {
 	const client = await clientPromise;
 	const db = client.db("presentFutureDB");
 	const collection = db.collection("data");
@@ -190,10 +236,35 @@ export const getWorldAvg = async (metric: CountryMetrics) => {
 					val: { $avg: "$val" },
 				},
 			},
+			{
+				$sort: {
+					_id: -1,
+				},
+			},
+			{
+				$project: {
+					_id: 0,
+					year: "$_id",
+					val: "$val",
+				},
+			},
 		])
 		.toArray();
 
 	return result;
+};
+
+export const getAvg = async (fields: BasicData | SingleRegionData) => {
+	const { metric, grouping } = fields;
+
+	switch (grouping) {
+		case "world":
+		case "allRegions":
+			return _getWorldAvg(metric);
+		case "singleRegion":
+			const { region } = fields;
+			return _getRegionAvg(metric, region);
+	}
 };
 
 const _getMinAndMaxCountries = async (
@@ -221,6 +292,15 @@ const _getMinAndMaxCountries = async (
 				min: { $min: { v: "$spec.v", country: "$name" } },
 			},
 		},
+		{
+			$project: {
+				_id: 0,
+				year: "$_id",
+				max: "$max",
+				min: "$min",
+			},
+		},
+		{ $sort: { year: -1 } },
 	];
 
 	if (region) pipeline.unshift({ $match: { region: { $eq: region } } });
@@ -252,6 +332,15 @@ const _getMinAndMaxRegions = async (metric: CountryMetrics) => {
 				min: { $min: { v: "$spec.v", country: "$region" } },
 			},
 		},
+		{
+			$project: {
+				_id: 0,
+				year: "$_id",
+				max: "$max",
+				min: "$min",
+			},
+		},
+		{ $sort: { year: -1 } },
 	];
 
 	const res = await collection.aggregate(pipeline).toArray();

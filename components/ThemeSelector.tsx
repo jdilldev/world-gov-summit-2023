@@ -5,8 +5,6 @@ import { WORLD_SUMMIT_THEMES } from "../app/constants/constants"
 import { useGlobalStore } from "../lib/store"
 
 const ThemeSelector = memo(() => {
-    console.log('Theme Selector')
-
     const { theme: selectedTheme, setTheme } = useGlobalStore()
 
     return <>

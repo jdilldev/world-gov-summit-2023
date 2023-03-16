@@ -3,10 +3,10 @@
 import { Map as Mapbox, MapRef, MapLayerMouseEvent } from "react-map-gl";
 import { useCallback, useContext, useRef, useState } from "react";
 import { useWindowSize } from "../app/hooks/hooks";
-import { getDeltaIndicator } from "./Shared";
-import { DEFAULT_REGION, WORLD_SUMMIT_THEMES } from "../app/constants/constants";
+import { DEFAULT_REGION, DEFAULT_THEME_PROMPT, WORLD_SUMMIT_THEMES } from "../app/constants/constants";
 import { M49_subregion } from "../app/data/types";
 import { useGlobalStore } from "../lib/store"
+import DeltaIndicator from "./DeltaIndicator";
 
 
 
@@ -29,17 +29,10 @@ const Map = () => {
     }, []);
 
     return <div ref={mapContainer} className={'h-full w-full relative'}>
-        {metric && <div className="flex flex-col gap-2 justify-center items-center font-equinox  z-10 fixed top-[12%] right-1/4 pointer-events-none">
-            <p className='text-red-500 tracking-widest'>{metric}</p>
-            <div className='flex flex-col gap-2 justify-center items-center w-20 h-20 border-dashed rounded-full border-2 text-red-600 border-red-600 bg-red-900 bg-opacity-30'>
-                {getDeltaIndicator(-.5)}
-                <p className="justify-center items-center text-center text-sm">{' 17% since 2019'}</p>
-            </div>
-        </div>}
         <div className="hidden md:inline z-10 fixed left-8 top-16">
             <p
                 style={{ top: absolutePositionTopAndLeft - 10, left: absolutePositionTopAndLeft / 2, position: 'absolute' }}
-                className="w-36 hidden md:inline font-equinox text-sm lowercase text-center">
+                className={`w-36 hidden md:inline font-equinox text-sm lowercase text-center ${selectedTheme === DEFAULT_THEME_PROMPT ? 'text-red-500' : ''}`}>
                 {selectedTheme}</p>
             <div>
                 {WORLD_SUMMIT_THEMES.map((theme, index) => {

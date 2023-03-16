@@ -4,7 +4,6 @@ import { AggregatorType } from "../app/data/types"
 
 
 const Table = ({ data, aggregator }: { data: any[], aggregator: AggregatorType }) => {
-
     return !data || data.length === 0
         ? <p>Info message</p>
         : <table className="table-fixed border-collapse w-full">

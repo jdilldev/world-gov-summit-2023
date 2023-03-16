@@ -3,9 +3,6 @@ import LineChartIcon from '../public/icons/line-chart.svg';
 import InfoIcon from '../public/icons/magnifier.svg';
 import RadialBarChart from './Charts/RadialBarChart';
 import { ChartDimensions, TooltipPlacement } from '../app/data/types';
-import NeutralIndicator from '../public/icons/neutral.svg'
-import IncreaseIndicator from '../public/icons/up-triangle.svg'
-import DecreaseIndicator from '../public/icons/down-triangle.svg'
 import { ReactNode } from 'react';
 import { Tooltip } from '@nextui-org/react';
 
@@ -37,18 +34,6 @@ export const GdpPercentagesRadialBarChart = ({ dimensions: { width, height }, re
     return <RadialBarChart relevantMetric={relevantMetric} width={width} height={height} data={data} />
 }
 
-export const getDeltaIndicator = (delta: number) => {
-
-    const indicatorClass = 'w-4 h-4 '
-    if (Math.abs(delta).toFixed(1) === '0.0') {
-        return <NeutralIndicator className={indicatorClass + 'fill-[#fcd706]'} />
-    } else if (delta > 0) {
-        return <IncreaseIndicator className={indicatorClass + 'fill-green-500'} />
-    } else if (delta < 0) {
-        return <DecreaseIndicator className={indicatorClass + 'fill-red-500'} />
-    }
-}
-
 type StatCardProps = {
     stat: string | ReactNode,
     dimensions: ChartDimensions
@@ -69,7 +54,6 @@ export const StatCard = ({ stat, text, icon, metric, year, delta, percentage = t
             {<div className='flex flex-col w-full'>
                 {delta &&
                     <p className='self-end flex flex-row items-center gap-1 text-white text-sm font-equinox lowercase'>
-                        <span>{getDeltaIndicator(delta)}</span>
                         <span>{delta.toFixed(1)} {percentage ? '%' : ''}</span>
                     </p>}
                 <p className={`${delta ? '-mt-1' : 'mt-0'} text-xs md:text-sm text-end text-white`}>{year}</p>

@@ -1,6 +1,6 @@
 "use client";
 
-import { M49_subregion } from "../data/types";
+import { CountryMetrics, M49_subregion } from "../data/types";
 // assets
 import Economy from "../../public/icons/global-economy.svg";
 import SustainableWorld from "../../public/icons/global-sustainability.svg";
@@ -44,13 +44,29 @@ export const LIGHT_COLOR = "#78cce2";
 
 export const BRICS = ["Brazil", "Russia", "India", "China", "South Africa"];
 
-export const WORLD_SUMMIT_THEMES: { name: string; icon: any }[] = [
-	{ name: "Accelerating Development and Governance", icon: Development },
-	{ name: "Global City Design and Sustainability", icon: SustainableWorld },
-	{ name: "Exploring the Frontiers", icon: Exploring },
-	{ name: "Governing Economic Resilience and Connectivity", icon: Economy },
-	{ name: "Future of Societies and Healthcare", icon: Health },
-	{ name: "Prioritizing Learning and Work", icon: Education },
+export const WORLD_SUMMIT_THEMES: {
+	name: string;
+	icon: any;
+	metrics: CountryMetrics[];
+}[] = [
+	{
+		name: "Accelerating Development and Governance",
+		icon: Development,
+		metrics: [],
+	},
+	{
+		name: "Global City Design and Sustainability",
+		icon: SustainableWorld,
+		metrics: [],
+	},
+	{ name: "Exploring the Frontiers", icon: Exploring, metrics: [] },
+	{
+		name: "Governing Economic Resilience and Connectivity",
+		icon: Economy,
+		metrics: [],
+	},
+	{ name: "Future of Societies and Healthcare", icon: Health, metrics: [] },
+	{ name: "Prioritizing Learning and Work", icon: Education, metrics: [] },
 ];
 
 export const UN_PERMANENT = [
