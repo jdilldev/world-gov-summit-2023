@@ -58,7 +58,7 @@ const _getMetricForSingleRegion = async (
 		])
 		.toArray();
 
-	return result;
+	return result as { year: string; val: number }[];
 };
 
 const _getMetricPerRegion = async (metric: CountryMetrics) => {
@@ -114,7 +114,7 @@ const _getMetricPerRegion = async (metric: CountryMetrics) => {
 		])
 		.toArray();
 
-	return result;
+	return result as { year: string; val: number }[];
 };
 
 const _getMetricWorldwide = async (metric: CountryMetrics) => {
@@ -160,7 +160,7 @@ const _getMetricWorldwide = async (metric: CountryMetrics) => {
 		])
 		.toArray();
 
-	return result;
+	return result as { year: string; val: number }[];
 };
 
 const _getRegionAvg = async (metric: CountryMetrics, region: M49_subregion) => {
@@ -362,7 +362,9 @@ export const getMinMax = async (fields: BasicData | SingleRegionData) => {
 	}
 };
 
-export const getMetric = async (fields: BasicData | SingleRegionData) => {
+export const getMetric = async (
+	fields: BasicData | SingleRegionData
+): Promise<{ year: string; val: number }[]> => {
 	const { metric, grouping } = fields;
 	switch (grouping) {
 		case "singleRegion":
@@ -409,4 +411,26 @@ export const cleanseData = async () => {
 			collection.findOneAndReplace({ _id: item._id }, item);
 		});
 	});
+
+	/* 
+		convert gini from string to object 
+		collection.find().forEach((item) => {
+				collection.findOneAndUpdate(
+					{
+						_id: item._id,
+					},
+					{
+						$set: {
+							gini: {
+								varies:
+									item.gini.varies.varies.gini.varies.gini.varies.gini.varies.gini
+										.varies.gini.varies.gini.varies.gini,
+							},
+						},
+					},
+					{
+						upsert: true,
+					}
+				);
+			}); */
 };

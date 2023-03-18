@@ -1,5 +1,3 @@
-"use client";
-
 import { CountryMetrics, M49_subregion } from "../data/types";
 // assets
 import Economy from "../../public/icons/global-economy.svg";
@@ -8,7 +6,6 @@ import Health from "../../public/icons/global-health.svg";
 import Education from "../../public/icons/global-education.svg";
 import Exploring from "../../public/icons/global-connectivity.svg";
 import Development from "../../public/icons/009-overpopulation.svg";
-import { createContext } from "react";
 
 export const DEFAULT_THEME_PROMPT = "Select a theme";
 export const DEFAULT_REGION = "Select a subregion";
@@ -29,13 +26,6 @@ export const AGGREGATOR_TO_TABLE_HEADING = {
 };
 
 export const CHART_MARGINS = { top: 15, right: 20, bottom: 10, left: 20 };
-
-export const SummitThemeContext = createContext({
-	selectedTheme: DEFAULT_THEME_PROMPT,
-	setSelectedTheme: (_: string) => {},
-	selectedRegion: "",
-	setSelectedRegion: (_: M49_subregion) => {},
-});
 
 export const PRE_CONTENT_ICON_SIZE =
 	"self-center w-8 h-8 md:w-14 md:h-14 lg:w-18 lg:h-18";

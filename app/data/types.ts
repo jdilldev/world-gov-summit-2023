@@ -15,7 +15,7 @@ export type TooltipPlacement =
 
 export type ChartDimensions = { width: number; height: number };
 
-export type AggregatorType = "world" | "multiRegions" | "singleRegion";
+export type AggregatorType = "world" | "allRegions" | "singleRegion";
 
 type YearsOfData = {
 	[year: string]: number;
@@ -79,7 +79,7 @@ export interface ChartInputs {
 	countries?: Alpha3_country_codes[];
 }
 
-export type CountryProfile = {
+export interface CountryProfile {
 	iso_3: Alpha3_country_codes;
 	name: string;
 	region: M49_subregion;
@@ -108,7 +108,7 @@ export type CountryProfile = {
 	government_integrity?: { [key: number]: number };
 	CO2e_emissions_per_capita?: { [key: number]: number };
 	electricity_from_renewables?: { [key: number]: number };
-};
+}
 
 export type CountryMetrics = keyof CountryProfile | undefined;
 

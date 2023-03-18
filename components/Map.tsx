@@ -8,10 +8,12 @@ import { M49_subregion } from "../app/data/types";
 import { useGlobalStore } from "../lib/store"
 import DeltaIndicator from "./DeltaIndicator";
 import { CircularThemeSelector } from "./ThemeSelector";
+import { useRouter } from "next/navigation";
 
 
 
 const Map = () => {
+    const router = useRouter();
     const { theme: selectedTheme, setTheme, region, setRegion, metric } = useGlobalStore()
     const mapContainer = useRef<HTMLDivElement | null>(null);
     const [zoom, setZoom] = useState(0)
@@ -56,6 +58,7 @@ const Map = () => {
                 setRegion(subregion as M49_subregion)
 
                 onSelectSubregion(e.lngLat)
+                router.push(`/singleRegion/${metric}?region=${subregion.replace(/ /g, '_')}`, {})
             }}
             //onZoom={(e) => { console.log(e) }}
             onDragEnd={(e) => {
