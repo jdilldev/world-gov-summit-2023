@@ -45,7 +45,7 @@ export const CircularThemeSelector = memo(() => {
                 const left = (absolutePositionTopAndLeft) + x
                 return <>
                     <div className={`hidden md:inline absolute hover:scale-125 `} style={{ top, left }}>
-                        <Link key={theme.name} href={`/${grouping}/${theme.metrics[0]}?region=${region}`}>
+                        <Link key={theme.name} href={`/${grouping}/${theme.metrics[0]}${region ? '?region=' + region.replace(/ /g, '_') : ''}`}>
                             <theme.icon
                                 onClick={() => changeTheme(theme)}
                                 className={`w-10 h-10 stroke-2  hover:fill-[#56d3dcc8] ${theme.name === selectedTheme ? 'fill-[#56d3dcc8]' : 'fill-slate-300'}`} />
@@ -75,7 +75,7 @@ export const ThemeSelector = memo(() => {
         <p className="md:hidden font-agelast tracking-widest text-xs md:text-base">Themes</p>
         <div className="flex flex-col justify-evenly items-center h-full">
             {WORLD_SUMMIT_THEMES.map((theme, index) => {
-                return <Link key={theme.name} href={`/${grouping}/${theme.metrics[0]}?region=${region}`}>
+                return <Link key={theme.name} href={`/${grouping}/${theme.metrics[0]}${region ? '?region=' + region.replace(/ /g, '_') : ''}`}>
                     <theme.icon
                         onClick={() => changeTheme(theme)}
                         className={`w-fit h-8 stroke-2 md:hidden  hover:fill-[#56d3dcc8] ${theme.name === selectedTheme ? 'fill-[#56d3dcc8]' : 'fill-slate-300'}`} />
