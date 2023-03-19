@@ -22,7 +22,8 @@ export default async function Page({ params, searchParams }: {
     const region = searchParams && searchParams.region ? searchParams.region.replace(/_/g, ' ') : undefined
 
     const deltaData = await getDeltaData(metric, grouping, region)
-    const minMaxData = await getMinMaxData(metric, grouping, region)
+    const minMaxDataCountries = await getMinMaxData(metric, grouping, region)
+    const minMaxDataRegions = await getMinMaxData(metric, 'allRegions', region)
 
     return metric ? <>
         <DeltaIndicator data={deltaData} metric={metric} grouping={grouping} region={region} />
@@ -30,10 +31,10 @@ export default async function Page({ params, searchParams }: {
             <div className="hidden md:inline dashboard-card h-2/3 mb-3">
                 <p className="font-agelast tracking-widest">Rank</p>
                 <div className="flex flex-row flex-wrap justify-between items-center text-xs">
-                    <Table data={[]} aggregator={"world"} />
+                    <Table data={[]} />
                 </div>
             </div>
-            <CountryAndRegionalComparissons data={minMaxData} />
+            <CountryAndRegionalComparissons data={{ countries: minMaxDataCountries, regions: minMaxDataRegions }} />
             <div className="dashboard-card hidden md:inline md:h-1/3 mb-4">
                 <p className="font-agelast tracking-widest">{CONTEXT_CATEGORY}</p>
                 <p className="font-body text-sm font-thin">TODO</p>

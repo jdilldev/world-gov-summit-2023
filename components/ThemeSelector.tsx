@@ -15,7 +15,6 @@ export const CircularThemeSelector = memo(() => {
     const absolutePositionTopAndLeft = 100
     const themeContainerWidth = 430
     const r = themeContainerWidth / 3.8
-    console.log(grouping)
 
     const changeTheme = (theme: {
         name: string;

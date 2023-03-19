@@ -5,6 +5,7 @@ import NeutralIndicator from '../public/icons/neutral.svg'
 import IncreaseIndicator from '../public/icons/up-triangle.svg'
 import DecreaseIndicator from '../public/icons/down-triangle.svg'
 import { AggregatorType, CountryMetrics, M49_subregion } from "../app/data/types"
+import { DEFAULT_THEME_PROMPT } from "../app/constants/constants"
 
 const _getDeltaIndicator = (delta: number, isAvg: boolean) => {
     const indicatorClass = 'w-4 h-4 '
@@ -57,8 +58,11 @@ const _getDeltaBackgroundColor = (delta: number, isAvg: boolean): string => {
 
 
 const DeltaIndicator = ({ data, metric, grouping, region }: { data: any[], metric: CountryMetrics, grouping: AggregatorType, region?: M49_subregion }) => {
-    console.log(grouping)
     if (data.length === 0) throw Error('Uh-oh, you have a data error, for there was no data retrieved from the DB for this metric ')
+
+    const { theme } = useGlobalStore()
+
+    if (theme === DEFAULT_THEME_PROMPT) return <></>
 
     const { val: latestVal, year: latestYear } = data.at(0)!
     let previousYear: string | undefined = undefined

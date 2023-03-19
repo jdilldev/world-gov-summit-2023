@@ -328,8 +328,8 @@ const _getMinAndMaxRegions = async (metric: CountryMetrics) => {
 		{
 			$group: {
 				_id: "$spec.k",
-				max: { $max: { v: "$spec.v", country: "$region" } },
-				min: { $min: { v: "$spec.v", country: "$region" } },
+				max: { $max: { v: "$spec.v", region: "$region" } },
+				min: { $min: { v: "$spec.v", region: "$region" } },
 			},
 		},
 		{

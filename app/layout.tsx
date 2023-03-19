@@ -29,7 +29,7 @@ const RootLayout = async ({
             <div className="dashboard-card h-1/2 w-full">
               <div className='flex flex-col justify-around h-full md:hidden'>
                 {[
-                  { title: CHART_CATEGORY, sicon: <ChartIcon /> },
+                  { title: CHART_CATEGORY, icon: <ChartIcon /> },
                   { title: METRIC_CATEGORY, icon: <MetricIcon /> },
                   { title: CONTEXT_CATEGORY, icon: <BulbIcon /> }
                 ].map(category => <div key={category.title} className="flex flex-col items-center gap-2 text-sm p-2 tracking-[.15em] fill-[#9fd0dccc] hover:text-[#56d3dc] hover:fill-[#56d3dc]">
@@ -51,7 +51,7 @@ const RootLayout = async ({
             <div className="hidden md:inline dashboard-card h-2/3 mb-3">
               <p className="font-agelast tracking-widest">Rank</p>
               <div className="flex flex-row flex-wrap justify-between items-center text-xs">
-                <Table data={[]} aggregator={"world"} />
+                <Table data={[]} />
               </div>
             </div>
             <div className="dashboard-card hidden md:inline md:h-1/3 mb-4">

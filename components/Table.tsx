@@ -1,15 +1,23 @@
+'use client'
+
 import { memo } from "react"
 import { AGGREGATOR_TO_TABLE_HEADING } from "../app/constants/constants"
 import { AggregatorType } from "../app/data/types"
+import { useGlobalStore } from "../lib/store"
 
 
-const Table = ({ data, aggregator }: { data: any[], aggregator: AggregatorType }) => {
+const Table = ({ data }: { data: any[], }) => {
+    const { grouping, region, theme: selectedTheme, setTheme, setMetric } = useGlobalStore()
+
+    console.log('table')
+    console.log(selectedTheme)
+
     return !data || data.length === 0
         ? <p>Info message</p>
         : <table className="table-fixed border-collapse w-full">
             <thead className="w-full">
                 <tr>
-                    <th className="w-[70%]">{AGGREGATOR_TO_TABLE_HEADING[aggregator]}</th>
+                    <th className="w-[70%]">{'heading'}</th>
                     <th>Value</th>
                 </tr>
             </thead>
@@ -26,4 +34,4 @@ const Table = ({ data, aggregator }: { data: any[], aggregator: AggregatorType }
         </table>
 }
 
-export default memo(Table)
+export default Table

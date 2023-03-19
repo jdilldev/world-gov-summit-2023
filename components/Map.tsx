@@ -61,10 +61,10 @@ const Map = () => {
                 onSelectSubregion(e.lngLat)
                 router.push(`/singleRegion/${metric}?region=${subregion.replace(/ /g, '_')}`, {})
             }}
-            //onZoom={(e) => { console.log(e) }}
-            onDragEnd={(e) => {
-                setRegion('')
-            }}
+        //onZoom={(e) => { console.log(e) }}
+        /*            onDragEnd={(e) => {
+                       setRegion('')
+                   }} */
         />
 
     </div>
