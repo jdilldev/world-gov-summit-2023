@@ -14,6 +14,7 @@ const CountryAndRegionalComparissons = ({ data }: { data: { countries: any, regi
     const { theme, metric, grouping } = useGlobalStore()
     if (theme === DEFAULT_THEME_PROMPT) return <></>
 
+    console.log('country comparisson ' + theme)
 
     const isThemeSelected = (theme !== DEFAULT_THEME_PROMPT)
     const isSingleRegionGrouping = (grouping === 'singleRegion')

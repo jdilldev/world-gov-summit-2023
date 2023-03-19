@@ -6,6 +6,7 @@ import type { AggregatorType, CountryMetrics, M49_subregion } from '../../data/t
 import CountryAndRegionalComparissons from '../../../components/CountryAndRegionalComparissons';
 import Table from "../../../components/Table";
 import DeltaIndicator from '../../../components/DeltaIndicator';
+import { CircularThemeSelector } from '../../../components/ThemeSelector';
 
 
 const getDeltaData = async (metric: CountryMetrics, grouping: AggregatorType, region?: M49_subregion) =>
@@ -34,6 +35,7 @@ export default async function Page({ params, searchParams }: {
                     <Table data={[]} />
                 </div>
             </div>
+            <CircularThemeSelector />
             <CountryAndRegionalComparissons data={{ countries: minMaxDataCountries, regions: minMaxDataRegions }} />
             <div className="dashboard-card hidden md:inline md:h-1/3 mb-4">
                 <p className="font-agelast tracking-widest">{CONTEXT_CATEGORY}</p>

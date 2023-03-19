@@ -21,10 +21,10 @@ export const CircularThemeSelector = memo(() => {
         icon: any;
         metrics: CountryMetrics[];
     }) => {
-        {
-            setTheme(theme.name)
-            setMetric(theme.metrics[0])
-        }
+
+        setTheme(theme.name)
+        setMetric(theme.metrics[0])
+
     }
 
     return <div className="hidden md:inline z-10 fixed left-8 top-16">
@@ -64,10 +64,10 @@ export const ThemeSelector = memo(() => {
         icon: any;
         metrics: CountryMetrics[];
     }) => {
-        {
-            setTheme(theme.name)
-            setMetric(theme.metrics[0])
-        }
+
+        setTheme(theme.name)
+        setMetric(theme.metrics[0])
+
     }
 
     return <>

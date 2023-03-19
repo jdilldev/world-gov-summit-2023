@@ -1,6 +1,5 @@
 import Map from "../components/Map";
 import Table from "../components/Table";
-import { ThemeSelector } from "../components/ThemeSelector";
 import ChartIcon from '../public/icons/solar-system.svg'
 import MetricIcon from '../public/icons/hexagons.svg'
 import BulbIcon from '../public/icons/026-learning.svg'
@@ -24,7 +23,6 @@ const RootLayout = async ({
           </div>
           <div className="dashboard-left flex flex-col ml-3 mb-4">
             <div className="md:bg-transparent md:border-none w-full dashboard-card h-1/2 mb-3">
-              <ThemeSelector />
             </div>
             <div className="dashboard-card h-1/2 w-full">
               <div className='flex flex-col justify-around h-full md:hidden'>
