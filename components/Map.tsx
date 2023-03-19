@@ -6,7 +6,6 @@ import { useWindowSize } from "../app/hooks/hooks";
 import { DEFAULT_REGION, DEFAULT_THEME_PROMPT, WORLD_SUMMIT_THEMES } from "../app/constants/constants";
 import { M49_subregion } from "../app/data/types";
 import { useGlobalStore } from "../lib/store"
-import DeltaIndicator from "./DeltaIndicator";
 import { useRouter } from "next/navigation";
 
 

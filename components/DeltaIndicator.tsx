@@ -6,6 +6,7 @@ import IncreaseIndicator from '../public/icons/up-triangle.svg'
 import DecreaseIndicator from '../public/icons/down-triangle.svg'
 import { AggregatorType, CountryMetrics, M49_subregion } from "../app/data/types"
 import { DEFAULT_THEME_PROMPT } from "../app/constants/constants"
+import { memo } from "react"
 
 const _getDeltaIndicator = (delta: number, isAvg: boolean) => {
     const indicatorClass = 'w-4 h-4 '
@@ -57,11 +58,15 @@ const _getDeltaBackgroundColor = (delta: number, isAvg: boolean): string => {
 }
 
 
-const DeltaIndicator = ({ data, metric, grouping, region }: { data: any[], metric: CountryMetrics, grouping: AggregatorType, region?: M49_subregion }) => {
+const DeltaIndicator = memo(({ data, metric, grouping, region }: { data: any[], metric: CountryMetrics, grouping: AggregatorType, region?: M49_subregion }) => {
 
     if (data.length === 0) throw Error('Uh-oh, you have a data error, for there was no data retrieved from the DB for this metric ')
 
     const { theme } = useGlobalStore()
+    if (theme === DEFAULT_THEME_PROMPT) return <></>
+
+
+    console.log('delta theme ' + theme)
 
     if (theme === DEFAULT_THEME_PROMPT) return <></>
 
@@ -80,7 +85,7 @@ const DeltaIndicator = ({ data, metric, grouping, region }: { data: any[], metri
     let delta = previousVal ? latestVal - previousVal : latestVal
 
     delta = delta ? parseFloat(delta.toFixed(2)) : 'No data'
-    return metric ? <div className="flex flex-col gap-1 justify-center items-center font-equinox z-10 fixed top-[12%] right-1/4 pointer-events-none w-1/3">
+    return <div className="flex flex-col gap-1 justify-center items-center font-equinox z-10 fixed top-[12%] right-1/4 pointer-events-none w-1/3">
         <p className={`flex flex-col text-center justify-center items-center tracking-widest lowercase ${_getDeltaColor(delta, isAvg)} text-xs`}>
             {metric + ' | ' + latestYear}
             <span className='text-white'>{grouping === 'singleRegion' ? region : grouping}</span>
@@ -93,7 +98,6 @@ const DeltaIndicator = ({ data, metric, grouping, region }: { data: any[], metri
             </p>
         </div>
     </div>
-        : <></>
-}
+})
 
 export default DeltaIndicator

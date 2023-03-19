@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from "react";
 import { DEFAULT_THEME_PROMPT } from "../app/constants/constants";
 import { useGlobalStore } from "../lib/store"
 
@@ -10,15 +11,12 @@ const MinMaxBox = ({ type, name, val }: { type: 'country' | 'region', name: stri
     <p className="font-equinox lowercase mt-3 text-center text-xs md:text-sm">{`${name && !isNaN(val) ? name + ' : ' + val : 'No data'}`}</p>
 </div>
 
-const CountryAndRegionalComparissons = ({ data }: { data: { countries: any, regions: any } }) => {
+const CountryAndRegionalComparissons = memo(({ data }: { data: { countries: any, regions: any } }) => {
     const { theme, metric, grouping } = useGlobalStore()
     if (theme === DEFAULT_THEME_PROMPT) return <></>
 
-    console.log('country comparisson ' + theme)
-
     const isThemeSelected = (theme !== DEFAULT_THEME_PROMPT)
     const isSingleRegionGrouping = (grouping === 'singleRegion')
-
 
     // get data for most recent year if available
     const { min: minC, max: maxC } = data.countries.length ? data.countries.at(0) : { min: 'No Data', max: 'No Data' }
@@ -44,7 +42,7 @@ const CountryAndRegionalComparissons = ({ data }: { data: { countries: any, regi
             </div>
         </div>
     </div>
-}
+})
 
 
 export default CountryAndRegionalComparissons

@@ -10,7 +10,10 @@ import { useGlobalStore } from "../lib/store"
 
 
 export const CircularThemeSelector = memo(() => {
-    const { grouping, region, theme: selectedTheme, setTheme, setMetric } = useGlobalStore()
+    const { metric, grouping, region, theme: selectedTheme, setTheme, setMetric } = useGlobalStore()
+    //TODO: look into why this weird hack is necessary; without it, I cant get global state values from zustand
+
+    if (!metric) return <></>
     const [windowSize,] = useWindowSize()
     const absolutePositionTopAndLeft = 100
     const themeContainerWidth = 430
@@ -42,15 +45,14 @@ export const CircularThemeSelector = memo(() => {
                 const y = Math.round(r * (Math.sin(theta)))
                 const top = (absolutePositionTopAndLeft) - y
                 const left = (absolutePositionTopAndLeft) + x
-                return <>
-                    <div className={`hidden md:inline absolute hover:scale-125 `} style={{ top, left }}>
-                        <Link key={theme.name} href={`/${grouping}/${theme.metrics[0]}${region ? '?region=' + region.replace(/ /g, '_') : ''}`}>
-                            <theme.icon
-                                onClick={() => changeTheme(theme)}
-                                className={`w-10 h-10 stroke-2  hover:fill-[#56d3dcc8] ${theme.name === selectedTheme ? 'fill-[#56d3dcc8]' : 'fill-slate-300'}`} />
-                        </Link>
-                    </div>
-                </>
+                return <div className={`hidden md:inline absolute hover:scale-125 `} style={{ top, left }}>
+                    <Link key={theme.name} href={`/${grouping}/${theme.metrics[0]}${region ? '?region=' + region.replace(/ /g, '_') : ''}`}>
+                        <theme.icon
+                            onClick={() => changeTheme(theme)}
+                            className={`w-10 h-10 stroke-2  hover:fill-[#56d3dcc8] ${theme.name === selectedTheme ? 'fill-[#56d3dcc8]' : 'fill-slate-300'}`} />
+                    </Link>
+                </div>
+
             })}
         </div>
     </div>

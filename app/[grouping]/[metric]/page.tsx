@@ -27,7 +27,6 @@ export default async function Page({ params, searchParams }: {
     const minMaxDataRegions = await getMinMaxData(metric, 'allRegions', region)
 
     return metric ? <>
-        <DeltaIndicator data={deltaData} metric={metric} grouping={grouping} region={region} />
         <div className="dashboard-right flex flex-col mr-3 h-full">
             <div className="hidden md:inline dashboard-card h-2/3 mb-3">
                 <p className="font-agelast tracking-widest">Rank</p>
@@ -35,7 +34,7 @@ export default async function Page({ params, searchParams }: {
                     <Table data={[]} />
                 </div>
             </div>
-            <CircularThemeSelector />
+            <DeltaIndicator data={deltaData} metric={metric} grouping={grouping} region={region} />
             <CountryAndRegionalComparissons data={{ countries: minMaxDataCountries, regions: minMaxDataRegions }} />
             <div className="dashboard-card hidden md:inline md:h-1/3 mb-4">
                 <p className="font-agelast tracking-widest">{CONTEXT_CATEGORY}</p>
