@@ -19,9 +19,8 @@ export default async function Page({ params, searchParams }: {
     searchParams?: { region: string }
 }) {
     const { grouping, metric } = params
-    const region = searchParams && searchParams.region ? searchParams.region.replace(/_/g, ' ') : undefined
+    const region = grouping === 'singleRegion' ? searchParams && searchParams.region ? searchParams.region.replace(/_/g, ' ') : 'Northern America' : undefined
 
-    console.log(region, grouping, metric)
     const deltaData = await getDeltaData(metric, grouping, region)
     const minMaxDataCountries = await getMinMaxData(metric, grouping, region)
     const minMaxDataRegions = await getMinMaxData(metric, 'allRegions', region)
@@ -46,9 +45,9 @@ export default async function Page({ params, searchParams }: {
 
 }
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
     const staticParams: { grouping: AggregatorType, metric: CountryMetrics }[] = []
-    const groupings = ["world", "multiRegions", "singleRegion"];
+    const groupings = ["world", "allRegions", "singleRegion"];
 
     //go thru each theme and add its metrics to an array
     const availableMetrics: CountryMetrics[] = WORLD_SUMMIT_THEMES.reduce((acc: CountryMetrics[], curr) => {
@@ -58,7 +57,7 @@ export async function generateStaticParams() {
 
     //return that array as an obj {metric: <metric>}
     availableMetrics.forEach(metric => {
-        for (const grouping in groupings) {
+        for (const grouping of groupings) {
             staticParams.push({ grouping: (grouping as AggregatorType), metric })
         }
     })
