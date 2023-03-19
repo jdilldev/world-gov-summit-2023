@@ -24,7 +24,7 @@ export default async function Page({ params, searchParams }: {
     params: { theme: string, grouping: AggregatorType, metric: CountryMetrics },
     searchParams?: { region: string }
 }) {
-    const { grouping, metric } = params
+    const { theme, grouping, metric } = params
     const region = grouping === 'singleRegion' ? searchParams && searchParams.region ? replaceUnderscoreWithSpace(searchParams.region) : 'Northern America' : undefined
 
     const deltaData = await getDeltaData(metric, grouping, region)
@@ -35,7 +35,7 @@ export default async function Page({ params, searchParams }: {
 
     return metric ? <>
         <DeltaIndicator data={deltaData} metric={metric} grouping={grouping} region={region} />
-        <CountryAndRegionalComparissons data={{ countries: minMaxDataCountries, regions: minMaxDataRegions }} />
+        <CountryAndRegionalComparissons data={{ countries: minMaxDataCountries, regions: minMaxDataRegions }} grouping={grouping} theme={theme} />
         <TableAndMetric data={tableData} metric={metric} globalAvg={worldAvg} grouping={grouping} />
     </>
         : <></>
