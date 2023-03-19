@@ -13,11 +13,10 @@ const TableAndMetric = ({ data, metric, globalAvg }: { data: any[], metric: Coun
 
     const filteredData = data.filter(({ country, years }: { country: string, years: { [key: string]: number } }) => {
         const filterAsNumber = parseFloat(filter)
-        console.log(filterAsNumber)
         if (filterAsNumber)
             return years[latestYear] >= filterAsNumber
 
-        return country.toLowerCase().includes(filter)
+        return country ? country.toLowerCase().includes(filter) : false
     })
 
     return <div className="absolute top-12 right-0 w-1/4 flex flex-col mr-3 h-full">
