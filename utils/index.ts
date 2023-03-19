@@ -13,7 +13,7 @@ export const sortData = (data: any[], sort: SortType, latestYear: string) => {
 
 		// https://stackoverflow.com/questions/29829205/sort-an-array-so-that-null-values-always-come-last
 		if (aVal === bVal) {
-			return 0;
+			return String(a.country).localeCompare(String(b.country));
 		}
 
 		// nulls sort after anything else

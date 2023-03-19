@@ -63,9 +63,6 @@ const DeltaIndicator = memo(({ data, metric, grouping, region }: { data: any[], 
     if (data.length === 0) throw Error('Uh-oh, you have a data error, for there was no data retrieved from the DB for this metric ')
 
     const { theme } = useGlobalStore()
-    if (theme === DEFAULT_THEME_PROMPT) return <></>
-
-    if (theme === DEFAULT_THEME_PROMPT) return <></>
 
     let { val: latestVal, year: latestYear } = data.at(0)!
 

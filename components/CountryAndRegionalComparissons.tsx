@@ -13,7 +13,6 @@ const MinMaxBox = ({ type, name, val }: { type: 'country' | 'region', name: stri
 
 const CountryAndRegionalComparissons = memo(({ data }: { data: { countries: any, regions: any } }) => {
     const { theme, metric, grouping } = useGlobalStore()
-    if (theme === DEFAULT_THEME_PROMPT) return <></>
 
     const isThemeSelected = (theme !== DEFAULT_THEME_PROMPT)
     const isSingleRegionGrouping = (grouping === 'singleRegion')
