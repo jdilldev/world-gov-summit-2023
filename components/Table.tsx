@@ -4,7 +4,7 @@ import { memo } from "react"
 import { AGGREGATOR_TO_TABLE_HEADING } from "../app/constants/constants"
 import { AggregatorType, SortType } from "../app/data/types"
 import { useGlobalStore } from "../lib/store"
-import { sort } from "../utils"
+import { sortData } from "../utils"
 import UpArrow from '../public/icons/up-arrow.svg'
 
 const Table = ({ data, sortOrder }: { data: any[], sortOrder: SortType }) => {
@@ -13,9 +13,7 @@ const Table = ({ data, sortOrder }: { data: any[], sortOrder: SortType }) => {
 
     const latestYear = Object.keys(data[0].years).at(-1)!
 
-    const sortedData = sort(data, sortOrder, latestYear)
-
-    console.log(sortedData)
+    const sortedData = sortData(data, sortOrder, latestYear)
 
     return <table className="table-fixed border-collapse w-full">
         <thead className="w-full">

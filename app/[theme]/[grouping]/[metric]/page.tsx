@@ -21,10 +21,10 @@ const getTableData = async (metric: CountryMetrics, grouping: AggregatorType, re
 const getWorldAvg = async (metric: CountryMetrics) => getAvg({ metric, grouping: 'world' })
 
 export default async function Page({ params, searchParams }: {
-    params: { grouping: AggregatorType, metric: CountryMetrics },
+    params: { theme: string, grouping: AggregatorType, metric: CountryMetrics },
     searchParams?: { region: string }
 }) {
-    const { grouping, metric } = params
+    const { theme, grouping, metric } = params
     const region = grouping === 'singleRegion' ? searchParams && searchParams.region ? replaceUnderscoreWithSpace(searchParams.region) : 'Northern America' : undefined
 
     const deltaData = await getDeltaData(metric, grouping, region)

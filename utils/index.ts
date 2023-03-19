@@ -6,7 +6,7 @@ export const replaceSpacesWithUnderscore = (val: string) =>
 export const replaceUnderscoreWithSpace = (val: string) =>
 	val.replace(/_/g, " ");
 
-export const sort = (data: any[], sort: SortType, latestYear: string) => {
+export const sortData = (data: any[], sort: SortType, latestYear: string) => {
 	return data.sort((a, b) => {
 		const aVal = a.years[latestYear] ?? null;
 		const bVal = b.years[latestYear] ?? null;
@@ -26,10 +26,10 @@ export const sort = (data: any[], sort: SortType, latestYear: string) => {
 
 		// otherwise, if we're ascending, lowest sorts first
 		if (sort === "ascending") {
-			return a < b ? -1 : 1;
+			return aVal < bVal ? -1 : 1;
 		}
 
 		// if descending, highest sorts first
-		return a < b ? 1 : -1;
+		return aVal < bVal ? 1 : -1;
 	});
 };

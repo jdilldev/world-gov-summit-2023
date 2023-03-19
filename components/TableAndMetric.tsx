@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from "react"
-import { getAvg } from "../app/api/routes"
 import { CONTEXT_CATEGORY } from "../app/constants/constants"
 import { CountryMetrics } from "../app/data/types"
 import Table from "./Table"
@@ -31,7 +30,7 @@ const TableAndMetric = ({ data, metric, globalAvg }: { data: any[], metric: Coun
                 </div>
             </div>
             <div className="flex flex-row flex-wrap justify-between items-center text-xs">
-                <Table data={filteredData} sortOrder={'ascending'} />
+                <Table data={filteredData} sortOrder={'descending'} />
             </div>
         </div>
         <div className="dashboard-card hidden md:inline md:h-1/4">
