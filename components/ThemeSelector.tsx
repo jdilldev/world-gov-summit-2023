@@ -8,27 +8,22 @@ import { AggregatorType, CountryMetrics } from "../app/data/types"
 import { useWindowSize } from "../app/hooks/hooks"
 import { useGlobalStore } from "../lib/store"
 import { replaceSpacesWithUnderscore, replaceUnderscoreWithSpace } from "../utils"
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 export const CircularThemeSelector = memo(() => {
-    const router = usePathname()
-    const currentTheme = replaceUnderscoreWithSpace(router!.split('/')[1]) || DEFAULT_THEME_PROMPT
-    const { metric, grouping, region, setTheme, setMetric } = useGlobalStore()
+    const pathname = usePathname()
+    const searchParams = useSearchParams()
+
     //TODO: look into why this weird hack is necessary; without it, I cant get global state values from zustand
 
     const absolutePositionTopAndLeft = 100
     const themeContainerWidth = 430
     const r = themeContainerWidth / 3.8
 
-    const changeTheme = (theme: {
-        name: string;
-        icon: any;
-        metrics: CountryMetrics[];
-    }) => {
-        setTheme(theme.name)
-        setMetric(theme.metrics[0])
 
-    }
+    const [_, theme, grouping, ___] = pathname!.split('/')
+    const currentTheme = replaceUnderscoreWithSpace(theme) || DEFAULT_THEME_PROMPT
+    const region = searchParams.get('region')
 
     return <div className="hidden md:inline z-10 fixed left-8 top-16">
         <p
@@ -46,12 +41,12 @@ export const CircularThemeSelector = memo(() => {
                 const top = (absolutePositionTopAndLeft) - y
                 const left = (absolutePositionTopAndLeft) + x
 
-                let route = `${summitTheme.name}/${grouping}/${summitTheme.metrics[0]}${region ? '?region=' + region : ''}`
+                let route = `${summitTheme.name}/${grouping ?? 'world'}/${summitTheme.metrics[0]}${region ? '?region=' + region : ''}`
                 route = replaceSpacesWithUnderscore(route)
                 return <div className={`hidden md:inline absolute hover:scale-125 `} style={{ top, left }}>
                     <Link key={summitTheme.name} href={route}>
                         <summitTheme.icon
-                            onClick={() => changeTheme(summitTheme)}
+
                             className={`w-10 h-10 stroke-2  hover:fill-[#56d3dcc8] ${summitTheme.name === currentTheme ? 'fill-[#56d3dcc8]' : 'fill-slate-300'}`} />
                     </Link>
                 </div>

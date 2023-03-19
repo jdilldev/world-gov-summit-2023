@@ -5,12 +5,16 @@ import { AGGREGATOR_TO_TITLE, CONTEXT_CATEGORY } from "../app/constants/constant
 import { AggregatorType, CountryMetrics } from "../app/data/types"
 import { useGlobalStore } from "../lib/store"
 import Table from "./Table"
-import { useRouter, usePathname, } from "next/navigation"
+import { useRouter, usePathname, useSearchParams } from "next/navigation"
+import { replaceUnderscoreWithSpace } from "../utils"
 
 const TableAndMetric = ({ data, metric, globalAvg, grouping }: { data: any[], metric: CountryMetrics, globalAvg: any, grouping: AggregatorType }) => {
-    const { region, filter, setFilter, hideMissingData, setHideMissingData } = useGlobalStore()
+    const { filter, setFilter, hideMissingData, setHideMissingData } = useGlobalStore()
     const router = useRouter()
     const pathname = usePathname()
+    const searchParams = useSearchParams()
+
+    const region = replaceUnderscoreWithSpace(searchParams.get('region') || '')
     // const [filter, setFilter] = useState('')
     // const [hideMissingData, setHideMissingData] = useState(false)
     const mostRecentGlobalAvg = globalAvg.at(0)!.val
@@ -37,7 +41,7 @@ const TableAndMetric = ({ data, metric, globalAvg, grouping }: { data: any[], me
                     <p className="font-agelast tracking-widest">Rank</p>
                     <select
                         onChange={(e) => router.push(`/${theme}/${e.target.value}/${metric}`)}
-                        className="text-sm text-pink-500 bg-transparent w-fit max-w-[8rem]"
+                        className="text-sm text-pink-500 bg-transparent w-fit max-w-[6rem] whitespace-pre-wrap"
                         placeholder="Select Grouping" value={grouping}>
                         <option value='world'>Worldwide</option>
                         <option value='allRegions'>By Region</option>

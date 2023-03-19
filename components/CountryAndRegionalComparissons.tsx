@@ -3,8 +3,7 @@
 import { memo } from "react";
 import { DEFAULT_THEME_PROMPT } from "../app/constants/constants";
 import { AggregatorType } from "../app/data/types";
-import { useGlobalStore } from "../lib/store"
-
+import { useSearchParams } from "next/navigation";
 
 const MinMaxBox = ({ type, name, val }: { type: 'country' | 'region', name: string, val: number }) => <div className="bottom-item relative text-white">
     <p className='text-lime-400 absolute top-0 text-xs'>{type}</p>
@@ -13,12 +12,11 @@ const MinMaxBox = ({ type, name, val }: { type: 'country' | 'region', name: stri
 </div>
 
 const CountryAndRegionalComparissons = memo(({ data, grouping, theme }: { data: { countries: any, regions: any }, grouping: AggregatorType, theme: string }) => {
-
     const isThemeSelected = (theme !== DEFAULT_THEME_PROMPT)
     const isSingleRegionGrouping = (grouping === 'singleRegion')
     const isRegionalGrouping = (grouping === 'allRegions')
 
-    console.log(grouping)
+
     // get data for most recent year if available
     const { min: minC, max: maxC } = data.countries.length ? data.countries.at(0) : { min: 'No Data', max: 'No Data' }
     const { country: minCountry, v: minValC } = minC
