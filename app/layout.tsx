@@ -1,19 +1,11 @@
 import Map from "../components/Map";
 import Table from "../components/Table";
 import { ThemeSelector } from "../components/ThemeSelector";
-import { AGGREGATOR_TO_TITLE, CHART_CATEGORY, CONTEXT_CATEGORY, DEFAULT_REGION, DEFAULT_THEME_PROMPT, METRIC_CATEGORY, WORLD_SUMMIT_THEMES } from "./constants/constants";
-import { AggregatorType, CountryMetrics, M49_subregion } from "./data/types";
-import { cleanseData, getAvg, getMetric, getMinMax, } from "./api/routes";
-import { ChartTooltip } from "../components/Shared";
 import ChartIcon from '../public/icons/solar-system.svg'
 import MetricIcon from '../public/icons/hexagons.svg'
 import BulbIcon from '../public/icons/026-learning.svg'
-import CountryAndRegionalComparissons from "../components/CountryAndRegionalComparissons";
-import DeltaIndicator from "../components/DeltaIndicator";
 import './globals.css'
-import Link from "next/link";
-import { useGlobalStore } from "../lib/store";
-import Red from "../components/Red";
+import { CHART_CATEGORY, METRIC_CATEGORY, CONTEXT_CATEGORY } from "./constants/constants";
 
 
 const RootLayout = async ({

@@ -4,6 +4,7 @@ import { useGlobalStore } from "../lib/store"
 import NeutralIndicator from '../public/icons/neutral.svg'
 import IncreaseIndicator from '../public/icons/up-triangle.svg'
 import DecreaseIndicator from '../public/icons/down-triangle.svg'
+import { AggregatorType, CountryMetrics, M49_subregion } from "../app/data/types"
 
 const _getDeltaIndicator = (delta: number, isAvg: boolean) => {
     const indicatorClass = 'w-4 h-4 '
@@ -55,36 +56,33 @@ const _getDeltaBackgroundColor = (delta: number, isAvg: boolean): string => {
 }
 
 
-const DeltaIndicator = ({ data, }: { data: any[], }) => {
-    if (data.length === 0) throw Error('Uh-oh, you have a data error, for there was no data retrieved from the DB for this metric')
+const DeltaIndicator = ({ data, metric, grouping, region }: { data: any[], metric: CountryMetrics, grouping: AggregatorType, region?: M49_subregion }) => {
+    console.log(grouping)
+    if (data.length === 0) throw Error('Uh-oh, you have a data error, for there was no data retrieved from the DB for this metric ')
 
-    const { metric } = useGlobalStore()
-    const { val: latestVal, year: latestYear } = data.at(0)
-    let previousYear: number | undefined = undefined
+    const { val: latestVal, year: latestYear } = data.at(0)!
+    let previousYear: string | undefined = undefined
     let previousVal: number | undefined = undefined
-
 
     if (data.length > 1) {
         //get second most recent value
-        previousYear = data.at(1).year
-        previousVal = data.at(1).val
+        previousYear = data.at(1)!.year
+        previousVal = data.at(1)!.val
     }
 
     const isAvg = previousYear === undefined
     let delta = previousVal ? latestVal - previousVal : latestVal
-    delta = delta.toFixed(2)
-
-
-    return metric ? <div className="flex flex-col gap-2 justify-center items-center font-equinox  z-10 fixed top-[12%] right-1/4 pointer-events-none">
-        <p className={`flex flex-col justify-center items-center tracking-widest lowercase ${_getDeltaColor(delta, isAvg)} text-xs`}>
+    delta = parseFloat(delta.toFixed(2))
+    return metric ? <div className="flex flex-col gap-1 justify-center items-center font-equinox z-10 fixed top-[12%] right-1/4 pointer-events-none w-1/3">
+        <p className={`flex flex-col text-center justify-center items-center tracking-widest lowercase ${_getDeltaColor(delta, isAvg)} text-xs`}>
             {metric + ' | ' + latestYear}
-            <span className='text-white'>{'worldwide'}</span>
+            <span className='text-white'>{grouping === 'singleRegion' ? region : grouping}</span>
         </p>
-        <div className={`flex flex-col gap-2 bg-opacity-60 justify-center items-center w-[5.5rem] h-[5.5rem] border-dashed rounded-full border-2 ${_getDeltaColor(delta, isAvg)} ${_getDeltaBorderColor(delta, isAvg)} ${_getDeltaBackgroundColor(delta, isAvg)}`}>
+        <div className={`flex flex-col bg-opacity-60 justify-center items-center w-24 h-24 border-dashed rounded-full border-2 ${_getDeltaColor(delta, isAvg)} ${_getDeltaBorderColor(delta, isAvg)} ${_getDeltaBackgroundColor(delta, isAvg)}`}>
             {previousVal && <>{_getDeltaIndicator(delta, isAvg)}</>}
-            <p className="justify-center items-center text-center text-sm">{delta}
-                {!previousYear && <br />}
-                <span className="">{`${previousYear ? ' since ' + previousYear : 'avg'}`}</span>
+            <p className="justify-center items-center text-center">{delta}
+                <br />
+                <span className="text-xs ">{`${previousYear ? ' since ' + previousYear : 'avg'}`}</span>
             </p>
         </div>
     </div>

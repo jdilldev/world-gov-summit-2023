@@ -13,7 +13,6 @@ const CountryAndRegionalComparissons = ({ data }: { data: any[] }) => {
     if (data.length === 0) return <></>
 
     const { theme, metric, grouping } = useGlobalStore()
-    console.log('comparisson metric')
     const isThemeSelected = (theme !== DEFAULT_THEME_PROMPT)
     const isSingleRegionGrouping = (grouping === 'singleRegion')
 

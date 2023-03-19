@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 
 const Map = () => {
     const router = useRouter();
-    const { theme: selectedTheme, setTheme, region, setRegion, metric } = useGlobalStore()
+    const { theme, setTheme, region, setRegion, metric, setGrouping } = useGlobalStore()
     const mapContainer = useRef<HTMLDivElement | null>(null);
     const [zoom, setZoom] = useState(0)
     const [windowSize,] = useWindowSize()
@@ -51,11 +51,12 @@ const Map = () => {
             style={{ position: 'absolute', width: '100%', height: '100%', }}
             mapStyle="mapbox://styles/jdilldev/clemtp805000901s45xextcln"
             onClick={(e: MapLayerMouseEvent) => {
-                if (!e.features || !e.features[0]) return
+                if (theme === DEFAULT_THEME_PROMPT || !e.features || !e.features[0]) return
                 const { properties } = e.features[0];
 
                 const subregion = properties!.subregionName
                 setRegion(subregion as M49_subregion)
+                setGrouping('singleRegion')
 
                 onSelectSubregion(e.lngLat)
                 router.push(`/singleRegion/${metric}?region=${subregion.replace(/ /g, '_')}`, {})
