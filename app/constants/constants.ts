@@ -15,8 +15,8 @@ export const CONTEXT_CATEGORY = "CONTEXT";
 
 export const AGGREGATOR_TO_TITLE = {
 	world: "Global",
-	multiRegions: "All Regions",
-	singleRegion: "Select Region",
+	allRegions: "All Regions",
+	singleRegion: " Region",
 };
 
 export const AGGREGATOR_TO_TABLE_HEADING = {

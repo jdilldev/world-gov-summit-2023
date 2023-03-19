@@ -8,6 +8,8 @@ import { CountryMetrics, M49_subregion } from "../app/data/types";
 type DataGrouping = "world" | "allRegions" | "singleRegion";
 
 type State = {
+	filter: string;
+	hideMissingData: boolean;
 	theme: string;
 	region: M49_subregion;
 	metric: CountryMetrics;
@@ -15,6 +17,8 @@ type State = {
 };
 
 type Actions = {
+	setFilter: (updatedFilter: string) => void;
+	setHideMissingData: (updatedVal: boolean) => void;
 	setTheme: (updatedTheme: string) => void;
 	setRegion: (updatedRegion: M49_subregion) => void;
 	setMetric: (updatedMetric: CountryMetrics) => void;
@@ -24,10 +28,15 @@ type Actions = {
 };
 
 export const useGlobalStore = create<State & Actions>((set) => ({
+	filter: "",
 	theme: DEFAULT_THEME_PROMPT,
 	region: "",
 	metric: undefined,
 	grouping: "world",
+	hideMissingData: false,
+	setFilter: (updatedFilter: string) => set(() => ({ filter: updatedFilter })),
+	setHideMissingData: (updatedVal: boolean) =>
+		set(() => ({ hideMissingData: updatedVal })),
 	setTheme: (updatedTheme: string) => set(() => ({ theme: updatedTheme })),
 	setRegion: (updatedRegion: M49_subregion) =>
 		set(() => ({ region: updatedRegion })),

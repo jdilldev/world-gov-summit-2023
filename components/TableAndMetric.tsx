@@ -1,37 +1,66 @@
 'use client'
 
 import { useState } from "react"
-import { CONTEXT_CATEGORY } from "../app/constants/constants"
-import { CountryMetrics } from "../app/data/types"
+import { AGGREGATOR_TO_TITLE, CONTEXT_CATEGORY } from "../app/constants/constants"
+import { AggregatorType, CountryMetrics } from "../app/data/types"
+import { useGlobalStore } from "../lib/store"
 import Table from "./Table"
+import { useRouter, usePathname, } from "next/navigation"
 
-const TableAndMetric = ({ data, metric, globalAvg }: { data: any[], metric: CountryMetrics, globalAvg: any }) => {
-    const [filter, setFilter] = useState('')
+const TableAndMetric = ({ data, metric, globalAvg, grouping }: { data: any[], metric: CountryMetrics, globalAvg: any, grouping: AggregatorType }) => {
+    const { region, filter, setFilter, hideMissingData, setHideMissingData } = useGlobalStore()
+    const router = useRouter()
+    const pathname = usePathname()
+    // const [filter, setFilter] = useState('')
+    // const [hideMissingData, setHideMissingData] = useState(false)
     const mostRecentGlobalAvg = globalAvg.at(0)!.val
     const latestYear = Object.keys(data[0].years).at(-1)!
 
-    const filteredData = data.filter(({ country, years }: { country: string, years: { [key: string]: number } }) => {
+    const [_, theme, __, ___] = pathname!.split('/')
+    let filteredData = data.filter((params) => {
         const filterAsNumber = parseFloat(filter)
         if (filterAsNumber)
-            return years[latestYear] >= filterAsNumber
+            return params.years[latestYear] >= filterAsNumber
 
-        return country ? country.toLowerCase().includes(filter) : false
+        const paramKey = grouping === 'allRegions' ? params.region : params.country
+        return paramKey ? paramKey.toLowerCase().includes(filter.toLocaleLowerCase()) : false
     })
 
-    return <div className="absolute top-12 right-0 w-1/4 flex flex-col mr-3 h-full">
-        <div className="hidden md:inline dashboard-card h-fit max-h-[66%] mb-3 overflow-scroll">
-            <div className="flex flex-col gap-y-1">
-                <p className="font-agelast tracking-widest">Rank</p>
+    if (hideMissingData)
+        filteredData = filteredData.filter(({ years }) => years[latestYear])
+
+    return <div className="fixed top-12 right-0 w-1/4 flex flex-col mr-3 h-full">
+        <div className="hidden md:inline dashboard-card h-fit max-h-[66%] mb-3">
+            <div className="sticky top-0 flex flex-col gap-y-1">
+
+                <div className="flex flex-row justify-between items-center pt-1 pr-3">
+                    <p className="font-agelast tracking-widest">Rank</p>
+                    <select
+                        onChange={(e) => router.push(`/${theme}/${e.target.value}/${metric}`)}
+                        className="text-sm text-pink-500 bg-transparent w-fit max-w-[8rem]"
+                        placeholder="Select Grouping" value={grouping}>
+                        <option value='world'>Worldwide</option>
+                        <option value='allRegions'>By Region</option>
+                        {grouping === 'singleRegion' && <option value='singleRegion'>{region}</option>}
+                    </select>
+                </div>
+
                 <p className='text-sm font-equinox lowercase text-pink-500'>Global Avg: {(mostRecentGlobalAvg).toFixed(2)}</p>
-                <div className='flex flex-row text-xs text-white items-center gap-2'> <p>Ignore empty values</p><input type='checkbox' className="" /></div>
+                <div className='flex flex-row text-xs text-white items-center gap-2'>
+                    <p>Hide missing data</p>
+                    <input type='checkbox' className="" checked={hideMissingData} onChange={() => setHideMissingData(!hideMissingData)} />
+                </div>
                 <div className='flex flex-row gap-2'>
-                    <input type='text' className="mb-2 rounded-sm text-pink-500 px-1" onChange={e => setFilter(e.target.value)} />
+                    <input type='text' className="mb-2 rounded-sm text-pink-500 px-1" value={filter} onChange={e => setFilter(e.target.value)} />
                     {/*    <span className='text-xs'>higher</span> */}
                 </div>
             </div>
-            <div className="flex flex-row flex-wrap justify-between items-center text-xs">
-                <Table data={filteredData} sortOrder={'descending'} />
+            <div className='max-h-[83%] h-fit overflow-scroll'>
+                <div className="flex flex-row flex-wrap justify-between items-center text-xs">
+                    <Table data={filteredData} sortOrder={'descending'} />
+                </div>
             </div>
+
         </div>
         <div className="dashboard-card hidden md:inline md:h-1/4">
             <p className="font-agelast tracking-widest">{CONTEXT_CATEGORY}</p>
