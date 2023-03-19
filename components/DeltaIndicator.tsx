@@ -65,9 +65,6 @@ const DeltaIndicator = memo(({ data, metric, grouping, region }: { data: any[], 
     const { theme } = useGlobalStore()
     if (theme === DEFAULT_THEME_PROMPT) return <></>
 
-
-    console.log('delta theme ' + theme)
-
     if (theme === DEFAULT_THEME_PROMPT) return <></>
 
     let { val: latestVal, year: latestYear } = data.at(0)!
@@ -85,7 +82,7 @@ const DeltaIndicator = memo(({ data, metric, grouping, region }: { data: any[], 
     let delta = previousVal ? latestVal - previousVal : latestVal
 
     delta = delta ? parseFloat(delta.toFixed(2)) : 'No data'
-    return <div className="flex flex-col gap-1 justify-center items-center font-equinox z-10 fixed top-[12%] right-1/4 pointer-events-none w-1/3">
+    return <div className="flex flex-col gap-1 justify-center items-center font-equinox z-10 fixed top-[12%] right-[27%] pointer-events-none w-1/3">
         <p className={`flex flex-col text-center justify-center items-center tracking-widest lowercase ${_getDeltaColor(delta, isAvg)} text-xs`}>
             {metric + ' | ' + latestYear}
             <span className='text-white'>{grouping === 'singleRegion' ? region : grouping}</span>

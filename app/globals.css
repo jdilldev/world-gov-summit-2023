@@ -29,7 +29,7 @@ h1 {
 	grid-template-columns: 20% minmax(0, 1fr) 20%;
 	grid-template-areas:
 		"z z z"
-		"a b c";
+		"b b c";
 }
 
 .dashboard-header {

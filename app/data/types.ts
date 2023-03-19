@@ -1,3 +1,11 @@
+export type RouteParams = {
+	theme: string;
+	grouping: AggregatorType;
+	metric: CountryMetrics;
+};
+
+export type SortType = "ascending" | "descending";
+
 export type TooltipPlacement =
 	| "bottom"
 	| "left"

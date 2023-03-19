@@ -7,6 +7,7 @@ import { DEFAULT_REGION, DEFAULT_THEME_PROMPT, WORLD_SUMMIT_THEMES } from "../ap
 import { M49_subregion } from "../app/data/types";
 import { useGlobalStore } from "../lib/store"
 import { useRouter } from "next/navigation";
+import { replaceSpacesWithUnderscore } from "../utils";
 
 
 
@@ -29,7 +30,7 @@ const Map = () => {
         setZoom(2.4)
     }, []);
 
-    return <div ref={mapContainer} className={'h-full w-full relative'}>
+    return <div ref={mapContainer} className={'h-full w-full relative md:ml-20 md:h-[90%]'}>
         <Mapbox
             ref={mapRef}
             trackResize
@@ -56,7 +57,9 @@ const Map = () => {
                 setGrouping('singleRegion')
 
                 onSelectSubregion(e.lngLat)
-                router.push(`/singleRegion/${metric}?region=${subregion.replace(/ /g, '_')}`, {})
+                let route = `${theme}/singleRegion/${metric}?region=${subregion}`
+                route = replaceSpacesWithUnderscore(route)
+                router.push(route, {})
             }}
         //onZoom={(e) => { console.log(e) }}
         /*            onDragEnd={(e) => {
