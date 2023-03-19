@@ -21,6 +21,7 @@ export default async function Page({ params, searchParams }: {
     const { grouping, metric } = params
     const region = searchParams && searchParams.region ? searchParams.region.replace(/_/g, ' ') : undefined
 
+    console.log(region, grouping, metric)
     const deltaData = await getDeltaData(metric, grouping, region)
     const minMaxDataCountries = await getMinMaxData(metric, grouping, region)
     const minMaxDataRegions = await getMinMaxData(metric, 'allRegions', region)

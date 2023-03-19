@@ -4,10 +4,10 @@ import { DEFAULT_THEME_PROMPT } from "../app/constants/constants";
 import { useGlobalStore } from "../lib/store"
 
 
-const MinMaxBox = ({ type, name, val }: { type: 'country' | 'region', name: string, val: number }) => <div className="bottom-item relative">
+const MinMaxBox = ({ type, name, val }: { type: 'country' | 'region', name: string, val: number }) => <div className="bottom-item relative text-white">
     <p className='text-lime-400 absolute top-0 text-xs'>{type}</p>
     {/** 0 is a valid value */}
-    <p className="font-equinox lowercase mt-3 text-center text-xs md:text-sm">{`${name && !isNaN(val) ? name + ' : ' + val : ''}`}</p>
+    <p className="font-equinox lowercase mt-3 text-center text-xs md:text-sm">{`${name && !isNaN(val) ? name + ' : ' + val : 'No data'}`}</p>
 </div>
 
 const CountryAndRegionalComparissons = ({ data }: { data: { countries: any, regions: any } }) => {
@@ -19,8 +19,8 @@ const CountryAndRegionalComparissons = ({ data }: { data: { countries: any, regi
     const isSingleRegionGrouping = (grouping === 'singleRegion')
 
 
-    // get data for most recent year
-    const { min: minC, max: maxC } = data.countries.at(0)
+    // get data for most recent year if available
+    const { min: minC, max: maxC } = data.countries.length ? data.countries.at(0) : { min: 'No Data', max: 'No Data' }
     const { country: minCountry, v: minValC } = minC
     const { country: maxCountry, v: maxValC } = maxC
 

@@ -9,8 +9,6 @@ import { useGlobalStore } from "../lib/store"
 const Table = ({ data }: { data: any[], }) => {
     const { grouping, region, theme: selectedTheme, setTheme, setMetric } = useGlobalStore()
 
-    console.log('table')
-    console.log(selectedTheme)
 
     return !data || data.length === 0
         ? <p>Info message</p>

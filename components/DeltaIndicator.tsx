@@ -58,13 +58,15 @@ const _getDeltaBackgroundColor = (delta: number, isAvg: boolean): string => {
 
 
 const DeltaIndicator = ({ data, metric, grouping, region }: { data: any[], metric: CountryMetrics, grouping: AggregatorType, region?: M49_subregion }) => {
+
     if (data.length === 0) throw Error('Uh-oh, you have a data error, for there was no data retrieved from the DB for this metric ')
 
     const { theme } = useGlobalStore()
 
     if (theme === DEFAULT_THEME_PROMPT) return <></>
 
-    const { val: latestVal, year: latestYear } = data.at(0)!
+    let { val: latestVal, year: latestYear } = data.at(0)!
+
     let previousYear: string | undefined = undefined
     let previousVal: number | undefined = undefined
 
@@ -76,7 +78,8 @@ const DeltaIndicator = ({ data, metric, grouping, region }: { data: any[], metri
 
     const isAvg = previousYear === undefined
     let delta = previousVal ? latestVal - previousVal : latestVal
-    delta = parseFloat(delta.toFixed(2))
+
+    delta = delta ? parseFloat(delta.toFixed(2)) : 'No data'
     return metric ? <div className="flex flex-col gap-1 justify-center items-center font-equinox z-10 fixed top-[12%] right-1/4 pointer-events-none w-1/3">
         <p className={`flex flex-col text-center justify-center items-center tracking-widest lowercase ${_getDeltaColor(delta, isAvg)} text-xs`}>
             {metric + ' | ' + latestYear}
