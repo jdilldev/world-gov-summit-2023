@@ -11,7 +11,7 @@ import { replaceSpacesWithUnderscore } from "../utils";
 import { usePathname } from "next/navigation";
 import 'mapbox-gl/dist/mapbox-gl.css'
 
-const Map = memo(() => {
+const Map = () => {
     const router = useRouter();
     const pathname = usePathname()
     const mapContainer = useRef<HTMLDivElement | null>(null);
@@ -48,7 +48,7 @@ const Map = memo(() => {
             style={{ position: 'absolute', width: '100%', height: '100%', }}
             mapStyle="mapbox://styles/jdilldev/clemtp805000901s45xextcln"
             onClick={(e: MapLayerMouseEvent) => {
-                if (theme === DEFAULT_THEME_PROMPT || !e.features || !e.features[0]) return
+                if (theme === '' || !e.features || !e.features[0]) return
                 const { properties } = e.features[0];
 
                 const subregion = properties!.subregionName
@@ -66,6 +66,6 @@ const Map = memo(() => {
         />
 
     </div>
-})
+}
 
 export default Map
