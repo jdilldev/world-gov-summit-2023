@@ -21,7 +21,6 @@ const Map = () => {
     const longitude = windowSize < 825 ? -30 : 15
     const latitude = windowSize < 825 ? 90 : 0
     const mapRef = useRef<MapRef>(null);
-    const themeContainerWidth = 430
 
     const [_, theme, __, metric] = pathname!.split('/')
     const onSelectSubregion = useCallback(({ lng, lat }: { lng: number, lat: number }) => {
@@ -49,15 +48,8 @@ const Map = () => {
             mapStyle="mapbox://styles/jdilldev/clemtp805000901s45xextcln"
             onClick={(e: MapLayerMouseEvent) => {
                 if (theme === '' || !e.features || !e.features[0]) return
-                const { properties } = e.features[0];
 
-                const subregion = properties!.subregionName
-
-
-                onSelectSubregion(e.lngLat)
-                let route = `${theme}/singleRegion/${metric}?region=${subregion}`
-                route = replaceSpacesWithUnderscore(route)
-                router.push(route, {})
+                console.log('ramen')
             }}
         //onZoom={(e) => { console.log(e) }}
         /*            onDragEnd={(e) => {

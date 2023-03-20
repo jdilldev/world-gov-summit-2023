@@ -60,7 +60,7 @@ const TableAndMetric = ({ data, theme, metric, globalAvg, grouping }: { data: an
                     <input type='checkbox' className="" checked={hideMissingData} onChange={() => setHideMissingData(!hideMissingData)} />
                 </div>
                 <div className='flex flex-row gap-2'>
-                    <input type='text' className="mb-2 rounded-sm text-pink-500 px-1" value={filter} onChange={e => setFilter(e.target.value)} />
+                    <input type='text' className="mb-2 bg-transparent border-solid border-b-2 border-pink-300 text-pink-500 px-1" value={filter} onChange={e => setFilter(e.target.value)} />
                     {/*    <span className='text-xs'>higher</span> */}
                 </div>
             </div>
