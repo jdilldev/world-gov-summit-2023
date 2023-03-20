@@ -39,14 +39,13 @@ const Map = () => {
             onClick={(e: MapLayerMouseEvent) => {
                 if (theme === '' || !e.features || !e.features[0]) return
                 const { properties } = e.features[0];
-
-                e.target.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], duration: 1000 });
-
                 const subregion = properties!.subregionName
 
                 let route = `${theme}/singleRegion/${metric}?region=${subregion}`
                 route = replaceSpacesWithUnderscore(route)
                 router.push(route, {})
+                e.target.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], duration: 1000 });
+
             }}
         //onZoom={(e) => { console.log(e) }}
         /*            onDragEnd={(e) => {
