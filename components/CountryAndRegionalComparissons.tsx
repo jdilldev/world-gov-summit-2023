@@ -3,7 +3,6 @@
 import { memo } from "react";
 import { DEFAULT_THEME_PROMPT } from "../app/constants/constants";
 import { AggregatorType } from "../app/data/types";
-import { useSearchParams } from "next/navigation";
 
 const MinMaxBox = ({ type, name, val }: { type: 'country' | 'region', name: string, val: number }) => <div className="bottom-item relative text-white">
     <p className='text-lime-400 absolute top-0 text-xs'>{type}</p>

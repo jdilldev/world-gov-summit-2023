@@ -59,10 +59,8 @@ const _getDeltaBackgroundColor = (delta: number, isAvg: boolean): string => {
 
 
 const DeltaIndicator = memo(({ data, metric, grouping, region }: { data: any[], metric: CountryMetrics, grouping: AggregatorType, region?: M49_subregion }) => {
-
     if (data.length === 0) throw Error('Uh-oh, you have a data error, for there was no data retrieved from the DB for this metric ')
 
-    const { theme } = useGlobalStore()
 
     let { val: latestVal, year: latestYear } = data.at(0)!
 

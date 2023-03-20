@@ -7,6 +7,7 @@ import { useGlobalStore } from "../lib/store"
 import Table from "./Table"
 import { useRouter, usePathname, useSearchParams } from "next/navigation"
 import { replaceUnderscoreWithSpace } from "../utils"
+import AggregatorSelect from "./AggregatorSelect"
 
 const TableAndMetric = ({ data, metric, globalAvg, grouping }: { data: any[], metric: CountryMetrics, globalAvg: any, grouping: AggregatorType }) => {
     const { filter, setFilter, hideMissingData, setHideMissingData } = useGlobalStore()
@@ -37,16 +38,9 @@ const TableAndMetric = ({ data, metric, globalAvg, grouping }: { data: any[], me
         <div className="hidden md:inline dashboard-card h-fit max-h-[66%] mb-3">
             <div className="sticky top-0 flex flex-col gap-y-1">
 
-                <div className="flex flex-row justify-between items-center pt-1 pr-3">
+                <div className="flex flex-col">
                     <p className="font-agelast tracking-widest">Rank</p>
-                    <select
-                        onChange={(e) => router.push(`/${theme}/${e.target.value}/${metric}`)}
-                        className="text-sm text-pink-500 bg-transparent w-fit max-w-[6rem] whitespace-pre-wrap"
-                        placeholder="Select Grouping" value={grouping}>
-                        <option value='world'>Worldwide</option>
-                        <option value='allRegions'>By Region</option>
-                        {grouping === 'singleRegion' && <option value='singleRegion'>{region}</option>}
-                    </select>
+                    <AggregatorSelect />
                 </div>
 
                 <p className='text-sm font-equinox lowercase text-pink-500'>Global Avg: {(mostRecentGlobalAvg).toFixed(2)}</p>
@@ -59,7 +53,7 @@ const TableAndMetric = ({ data, metric, globalAvg, grouping }: { data: any[], me
                     {/*    <span className='text-xs'>higher</span> */}
                 </div>
             </div>
-            <div className='max-h-[83%] h-fit overflow-scroll'>
+            <div className='max-h-[80%] h-fit overflow-scroll'>
                 <div className="flex flex-row flex-wrap justify-between items-center text-xs">
                     <Table data={filteredData} sortOrder={'descending'} />
                 </div>

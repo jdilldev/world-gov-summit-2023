@@ -6,6 +6,7 @@ import MetricIcon from '../public/icons/hexagons.svg'
 import BulbIcon from '../public/icons/026-learning.svg'
 import './globals.css'
 import { CHART_CATEGORY, METRIC_CATEGORY, CONTEXT_CATEGORY } from "./constants/constants";
+import AggregatorSelect from "../components/AggregatorSelect";
 
 
 const RootLayout = async ({
@@ -23,6 +24,7 @@ const RootLayout = async ({
           <div className="mb-3 flex p-2 text-xs md:text-lg lg:text-xl font-agelast justify-start items-center dashboard-header bg-red border-solid border-b-[1px] border-[#ffffff2b]">
             <p>The Present Future Dashboard</p>
           </div>
+          <AggregatorSelect />
           <div className="dashboard-left flex flex-col ml-3 mb-4">
             <div className="md:bg-transparent md:border-none w-full dashboard-card h-1/2 mb-3">
               <ThemeSelector />

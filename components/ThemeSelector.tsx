@@ -57,31 +57,22 @@ export const CircularThemeSelector = memo(() => {
 })
 
 export const ThemeSelector = memo(() => {
-    const router = usePathname()
-    const currentTheme = router?.split('/')[1]
-    const { setTheme, setMetric, grouping, metric, region } = useGlobalStore()
+    const pathname = usePathname()
+    const searchParams = useSearchParams()
 
-    const changeTheme = (theme: {
-        name: string;
-        icon: any;
-        metrics: CountryMetrics[];
-    }) => {
-
-        setTheme(theme.name)
-        setMetric(theme.metrics[0])
-
-    }
+    const [_, theme, grouping, ___] = pathname!.split('/')
+    const currentTheme = replaceUnderscoreWithSpace(theme) || DEFAULT_THEME_PROMPT
+    const region = searchParams.get('region')
 
     return <>
         <p className="md:hidden font-agelast tracking-widest text-xs md:text-base">Themes</p>
         <div className="flex flex-col justify-evenly items-center h-full">
-            {WORLD_SUMMIT_THEMES.map((theme, index) => {
-                let route = `${theme.name}/${grouping}/${theme.metrics[0]}${region ? '?region=' + region : ''}`
+            {WORLD_SUMMIT_THEMES.map((theme) => {
+                let route = `${theme.name}/${grouping ?? 'world'}/${theme.metrics[0]}${region ? '?region=' + region : ''}`
                 route = replaceSpacesWithUnderscore(route)
 
                 return <Link key={theme.name} href={route}>
                     <theme.icon
-                        onClick={() => changeTheme(theme)}
                         className={`w-fit h-8 stroke-2 md:hidden  hover:fill-[#56d3dcc8] ${theme.name === currentTheme ? 'fill-[#56d3dcc8]' : 'fill-slate-300'}`} />
                 </Link>
             })}
