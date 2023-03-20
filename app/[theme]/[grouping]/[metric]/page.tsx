@@ -7,7 +7,7 @@ import CountryAndRegionalComparissons from '../../../../components/CountryAndReg
 import DeltaIndicator from '../../../../components/DeltaIndicator';
 import { replaceUnderscoreWithSpace } from '../../../../utils';
 import TableAndMetric from '../../../../components/TableAndMetric';
-
+import SidebarContent from '../../../../components/SidebarContent';
 
 const getDeltaData = async (metric: CountryMetrics, grouping: AggregatorType, region?: M49_subregion) =>
     region ? await getAvg({ metric, grouping, region }) : await getAvg({ metric, grouping: (grouping as 'world' | 'allRegions') })
@@ -36,7 +36,10 @@ export default async function Page({ params, searchParams }: {
     return metric ? <>
         <DeltaIndicator data={deltaData} metric={metric} grouping={grouping} region={region} />
         <CountryAndRegionalComparissons data={{ countries: minMaxDataCountries, regions: minMaxDataRegions }} grouping={grouping} theme={theme} />
-        <TableAndMetric data={tableData} metric={metric} globalAvg={worldAvg} grouping={grouping} />
+        <TableAndMetric data={tableData} theme={theme} metric={metric} globalAvg={worldAvg} grouping={grouping} />
+        <div>
+            <SidebarContent theme={theme} metric={metric} grouping={grouping} data={tableData} />
+        </div>
     </>
         : <></>
 

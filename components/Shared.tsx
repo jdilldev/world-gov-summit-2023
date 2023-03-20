@@ -9,3 +9,10 @@ export const CustomTooltip = ({ text, placement, fill }: { text: string | ReactN
     </Tooltip>
 
 export const ChartTooltip = ({ content }: { content: string | ReactNode }) => <div className='z-100  text-xs font-body text-center text-white p-2 bg-[#0d5680] rounded-sm'>{content}</div>
+
+export const ButtonGroup = () => {
+    return <div className='flex flex-row px-1 text-sm rounded-lg border-solid border-2 border-indigo-600 divide-x-2 divide-indigo-500'>
+        <div className='p-1'>HDI</div>
+        <div className='p-1'>a</div>
+    </div>
+}

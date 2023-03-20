@@ -1,7 +1,7 @@
 import Map from "../components/Map";
 import Table from "../components/Table";
 import { CircularThemeSelector, ThemeSelector } from "../components/ThemeSelector";
-import ChartIcon from '../public/icons/solar-system.svg'
+import ChartIcon from '../public/icons/bar-chart.svg'
 import MetricIcon from '../public/icons/hexagons.svg'
 import BulbIcon from '../public/icons/026-learning.svg'
 import './globals.css'
@@ -52,6 +52,7 @@ const RootLayout = async ({
           </div>
         </div>
         {children}
+
       </body>
     </html>
   )
