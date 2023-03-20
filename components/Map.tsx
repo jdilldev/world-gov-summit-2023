@@ -33,7 +33,7 @@ const Map = () => {
         interactiveLayerIds={['subregional-data']}
         projection={projection}
         attributionControl={false}
-        style={{ position: 'absolute', top: 0, width: '50%', height: '100%', }}
+        style={{ position: 'absolute', width: '100%', height: '100%', }}
         mapStyle="mapbox://styles/jdilldev/clemtp805000901s45xextcln"
         onClick={(e: MapLayerMouseEvent) => {
             if (theme === '' || !e.features || !e.features[0]) return
