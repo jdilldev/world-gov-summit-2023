@@ -44,7 +44,7 @@ export const CircularThemeSelector = memo(() => {
                 let route = `${summitTheme.name}/${grouping ?? 'world'}/${summitTheme.metrics[0]}${region ? '?region=' + region : ''}`
                 route = replaceSpacesWithUnderscore(route)
                 return <div key={summitTheme.name} className={`hidden md:inline absolute hover:scale-125 `} style={{ top, left }}>
-                    <Link href={route} as={route}>
+                    <Link href={route}>
                         <summitTheme.icon
 
                             className={`w-10 h-10 stroke-2  hover:fill-[#56d3dcc8] ${summitTheme.name === currentTheme ? 'fill-[#56d3dcc8]' : 'fill-slate-300'}`} />

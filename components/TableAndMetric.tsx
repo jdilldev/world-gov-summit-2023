@@ -29,7 +29,7 @@ const TableAndMetric = ({ data, theme, metric, globalAvg, grouping }: { data: an
     if (hideMissingData)
         filteredData = filteredData.filter(({ years }) => years[latestYear])
 
-    return <div className="fixed top-12 right-0 w-1/4 flex flex-col mr-3 h-full">
+    return theme === DEFAULT_THEME_PROMPT ? <></> : <div className="fixed top-12 right-0 w-1/4 flex flex-col mr-3 h-full">
         <div className="hidden md:inline dashboard-card h-fit max-h-[66%] mb-3">
             <div className="sticky top-0 flex flex-col gap-y-1">
 
@@ -49,7 +49,7 @@ const TableAndMetric = ({ data, theme, metric, globalAvg, grouping }: { data: an
                         >
                             {WORLD_SUMMIT_THEMES.find(
                                 summit_theme =>
-                                    summit_theme.name === replaceUnderscoreWithSpace(theme))!.metrics.map(metric => <option value={metric}>{metric}</option>)}
+                                    summit_theme.name === replaceUnderscoreWithSpace(theme))!.metrics.map(metric => <option key={metric} value={metric}>{metric}</option>)}
                         </select>
                     </div>
                 </div>

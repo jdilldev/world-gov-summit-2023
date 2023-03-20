@@ -9,7 +9,7 @@ import { useGlobalStore } from "../lib/store"
 import { useRouter } from "next/navigation";
 import { replaceSpacesWithUnderscore } from "../utils";
 import { usePathname } from "next/navigation";
-
+import 'mapbox-gl/dist/mapbox-gl.css'
 
 const Map = memo(() => {
     const router = useRouter();
