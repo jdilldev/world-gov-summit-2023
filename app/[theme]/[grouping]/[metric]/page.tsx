@@ -33,7 +33,7 @@ export default async function Page({ params, searchParams }: {
     const tableData = await getTableData(metric, grouping, region)
     const worldAvg = await getWorldAvg(metric)
 
-    return metric ? <>
+    return <>
         <DeltaIndicator data={deltaData} metric={metric} grouping={grouping} region={region} />
         <CountryAndRegionalComparissons data={{ countries: minMaxDataCountries, regions: minMaxDataRegions }} grouping={grouping} theme={theme} />
         <TableAndMetric data={tableData} theme={theme} metric={metric} globalAvg={worldAvg} grouping={grouping} />
@@ -41,7 +41,7 @@ export default async function Page({ params, searchParams }: {
             <SidebarContent theme={theme} metric={metric} grouping={grouping} data={tableData} />
         </div>
     </>
-        : <></>
+
 
 }
 
