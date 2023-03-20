@@ -1,7 +1,7 @@
 'use client'
 
 import { Map as Mapbox, MapRef, MapLayerMouseEvent } from "react-map-gl";
-import { useCallback, useContext, useRef, useState } from "react";
+import { memo, useCallback, useContext, useRef, useState } from "react";
 import { useWindowSize } from "../app/hooks/hooks";
 import { DEFAULT_REGION, DEFAULT_THEME_PROMPT, WORLD_SUMMIT_THEMES } from "../app/constants/constants";
 import { M49_subregion } from "../app/data/types";
@@ -11,7 +11,7 @@ import { replaceSpacesWithUnderscore } from "../utils";
 import { usePathname } from "next/navigation";
 
 
-const Map = () => {
+const Map = memo(() => {
     const router = useRouter();
     const pathname = usePathname()
     const mapContainer = useRef<HTMLDivElement | null>(null);
@@ -66,6 +66,6 @@ const Map = () => {
         />
 
     </div>
-}
+})
 
 export default Map
