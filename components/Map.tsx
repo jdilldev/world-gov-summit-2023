@@ -52,6 +52,6 @@ const Map = memo(() => {
                    setRegion('')
                }} */
     />
-}, true)
+}, () => true)
 
 export default Map
