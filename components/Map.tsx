@@ -8,7 +8,7 @@ import { replaceSpacesWithUnderscore } from "../utils";
 import { usePathname } from "next/navigation";
 import 'mapbox-gl/dist/mapbox-gl.css'
 
-const Map = memo(() => {
+const Map = () => {
 
 
     //  const [_, theme, __, metric] = pathname!.split('/')
@@ -18,7 +18,7 @@ const Map = memo(() => {
         style={{ position: 'absolute', width: '100%', height: '100%', }}
         mapStyle="mapbox://styles/jdilldev/clemtp805000901s45xextcln"
         mapboxAccessToken="pk.eyJ1IjoiamRpbGxkZXYiLCJhIjoiY2xjbHR0MXNtOXE3ZTN2cGx1YWwxYmE4cyJ9.UKQMbbf2Q4revc3Nz9ws3g" />
-})
+}
 
 export default Map
 

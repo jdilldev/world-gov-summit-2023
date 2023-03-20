@@ -1,6 +1,5 @@
 'use client'
 
-import { useGlobalStore } from "../lib/store"
 import NeutralIndicator from '../public/icons/neutral.svg'
 import IncreaseIndicator from '../public/icons/up-triangle.svg'
 import DecreaseIndicator from '../public/icons/down-triangle.svg'
