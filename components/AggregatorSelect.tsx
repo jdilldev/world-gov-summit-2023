@@ -12,9 +12,9 @@ const AggregatorSelect = () => {
     const [_, theme, grouping, metric] = pathname!.split('/')
     const region = replaceUnderscoreWithSpace(searchParams.get('region') || '')
 
-    return !theme ? <p className="font-equinox lowercase z-10 fixed right-2 top-12 text-red-500">{DEFAULT_THEME_PROMPT}</p> : <select
+    return !theme ? <p className="md:hidden font-equinox lowercase z-10 fixed right-2 top-12 text-red-500">{DEFAULT_THEME_PROMPT}</p> : <select
         onChange={(e) => router.push(`/${theme}/${e.target.value}/${metric}`)}
-        className="z-10 fixed right-2 top-12 md:inline text-sm text-teal-400 md:text-pink-500 bg-transparent w-fit whitespace-pre-wrap"
+        className="z-10 fixed right-2 top-12 md:static md:text-xs text-teal-400 md:-ml-1 md:text-pink-500 bg-transparent w-fit  whitespace-pre-wrap"
         placeholder="Select Grouping"
         value={grouping}>
         <option value='world'>Worldwide</option>
