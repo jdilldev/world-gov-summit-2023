@@ -1,12 +1,12 @@
 'use client'
 
+import Link from "next/link"
 import { memo } from "react"
 import { DEFAULT_THEME_PROMPT, WORLD_SUMMIT_THEMES } from "../app/constants/constants"
 import { replaceSpacesWithUnderscore, replaceUnderscoreWithSpace } from "../utils"
-import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 export const CircularThemeSelector = memo(() => {
-    const router = useRouter()
     const pathname = usePathname()
     const searchParams = useSearchParams()
 
@@ -40,10 +40,13 @@ export const CircularThemeSelector = memo(() => {
                 let route = `${summitTheme.name}/${grouping ?? 'world'}/${summitTheme.metrics[0]}${region ? '?region=' + region : ''}`
                 route = replaceSpacesWithUnderscore(route)
                 return <div key={summitTheme.name} className={`hidden md:inline absolute hover:scale-125 `} style={{ top, left }}>
+                    <Link href={'/[theme]/[grouping]/[metric]'}
+                        as={route}
+                        shallow={true}>
+                        <summitTheme.icon
 
-                    <summitTheme.icon
-                        onClick={() => router.push(route)}
-                        className={`w-10 h-10 stroke-2  hover:fill-[#56d3dcc8] ${summitTheme.name === currentTheme ? 'fill-[#56d3dcc8]' : 'fill-slate-300'}`} />
+                            className={`w-10 h-10 stroke-2  hover:fill-[#56d3dcc8] ${summitTheme.name === currentTheme ? 'fill-[#56d3dcc8]' : 'fill-slate-300'}`} />
+                    </Link>
                 </div>
 
             })}
@@ -54,7 +57,6 @@ export const CircularThemeSelector = memo(() => {
 export const ThemeSelector = memo(() => {
     const pathname = usePathname()
     const searchParams = useSearchParams()
-    const router = useRouter()
 
     const [_, theme, grouping, ___] = pathname!.split('/')
     const currentTheme = replaceUnderscoreWithSpace(theme) || DEFAULT_THEME_PROMPT
@@ -67,11 +69,10 @@ export const ThemeSelector = memo(() => {
                 let route = `${theme.name}/${grouping ?? 'world'}/${theme.metrics[0]}${region ? '?region=' + region : ''}`
                 route = replaceSpacesWithUnderscore(route)
 
-                return <theme.icon
-                    key={theme.name}
-                    onClick={() => router.push(route)}
-                    className={`w-fit h-8 stroke-2 md:hidden  hover:fill-[#56d3dcc8] ${theme.name === currentTheme ? 'fill-[#56d3dcc8]' : 'fill-slate-300'}`} />
-
+                return <Link key={theme.name} href={route}>
+                    <theme.icon
+                        className={`w-fit h-8 stroke-2 md:hidden  hover:fill-[#56d3dcc8] ${theme.name === currentTheme ? 'fill-[#56d3dcc8]' : 'fill-slate-300'}`} />
+                </Link>
             })}
         </div>
     </>
