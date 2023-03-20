@@ -44,6 +44,7 @@ const Map = () => {
                 let route = `${theme}/singleRegion/${metric}?region=${subregion}`
                 route = replaceSpacesWithUnderscore(route)
                 router.push(route, {})
+                //e.target.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], duration: 1000 });
 
             }}
         //onZoom={(e) => { console.log(e) }}
