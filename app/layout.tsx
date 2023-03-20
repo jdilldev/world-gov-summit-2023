@@ -52,7 +52,6 @@ const RootLayout = async ({
           </div>
         </div>
         {children}
-
       </body>
     </html>
   )
