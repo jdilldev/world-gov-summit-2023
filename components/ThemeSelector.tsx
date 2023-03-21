@@ -4,11 +4,12 @@ import Link from "next/link"
 import { memo } from "react"
 import { DEFAULT_THEME_PROMPT, WORLD_SUMMIT_THEMES } from "../app/constants/constants"
 import { replaceSpacesWithUnderscore, replaceUnderscoreWithSpace } from "../utils"
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 
-export const CircularThemeSelector = memo(({ region }: { region?: string }) => {
+export const CircularThemeSelector = memo(() => {
     const pathname = usePathname()
-
+    const searchParams = useSearchParams()
+    const region = searchParams.get('region')
     //TODO: look into why this weird hack is necessary; without it, I cant get global state values from zustand
 
     const absolutePositionTopAndLeft = 100
@@ -52,12 +53,13 @@ export const CircularThemeSelector = memo(({ region }: { region?: string }) => {
     </div>
 })
 
-export const ThemeSelector = memo(({ region }: { region?: string }) => {
+export const ThemeSelector = memo(() => {
     const pathname = usePathname()
 
     const [_, theme, grouping, ___] = pathname!.split('/')
     const currentTheme = replaceUnderscoreWithSpace(theme) || DEFAULT_THEME_PROMPT
-
+    const searchParams = useSearchParams()
+    const region = searchParams.get('region')
     return <>
         <p className="md:hidden font-agelast tracking-widest text-xs md:text-base">Themes</p>
         <div className="flex flex-col justify-evenly items-center h-full">

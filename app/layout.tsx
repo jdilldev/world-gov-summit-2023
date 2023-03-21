@@ -20,7 +20,7 @@ const RootLayout = async ({
     <html lang="en">
       <head />
       <body className={`h-screen w-screen overflow-hidden bg-slate-900 text-[#9fd0dccc] font-body subpixel-antialiased`}>
-        <div className="dashboard">
+        <div className="dashboard overflow-hidden">
           <div className="mb-3 flex p-2 text-xs md:text-lg lg:text-xl font-agelast justify-start items-center dashboard-header bg-red border-solid border-b-[1px] border-[#ffffff2b]">
             <p>The Present Future Dashboard</p>
           </div>
@@ -29,9 +29,10 @@ const RootLayout = async ({
           </div>
           <div className="dashboard-left flex flex-col ml-3 mb-4">
             <div className="md:bg-transparent md:border-none w-full dashboard-card h-1/2 mb-3">
-
+              <ThemeSelector />
+              <CircularThemeSelector />
             </div>
-            <div className="dashboard-card h-1/2 w-full">
+            <div className="dashboard-card h-1/2 w-full md:hidden">
               <div className='flex flex-col justify-around h-full md:hidden'>
                 {[
                   { title: CHART_CATEGORY, icon: <ChartIcon /> },
@@ -39,7 +40,7 @@ const RootLayout = async ({
                   { title: CONTEXT_CATEGORY, icon: <BulbIcon /> }
                 ].map(category => <div key={category.title} className="flex flex-col items-center gap-2 text-sm p-2 tracking-[.15em] fill-[#9fd0dccc] hover:text-[#56d3dc] hover:fill-[#56d3dc]">
                   <p>{category.title}</p>
-                  <div className='w-12 '>{category.icon}
+                  <div className='w-10 '>{category.icon}
                   </div>
                 </div>
                 )}
@@ -48,9 +49,10 @@ const RootLayout = async ({
           </div>
           <div className="dashboard-main flex flex-col">
             <Map />
+            {children}
+
           </div>
         </div>
-        {children}
       </body>
     </html>
   )

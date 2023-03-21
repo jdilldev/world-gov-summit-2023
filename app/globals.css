@@ -29,7 +29,7 @@ h1 {
 	grid-template-columns: 20% minmax(0, 1fr) 20%;
 	grid-template-areas:
 		"z z z"
-		"b b c";
+		"a b c";
 }
 
 .dashboard-header {
@@ -160,10 +160,11 @@ tr:nth-child(even) {
 
 @media (max-width: 825px) {
 	.dashboard {
+		overflow: hidden;
 		height: 100%;
 		display: grid;
 		grid-template-rows: 50px auto;
-		grid-template-columns: auto minmax(0, 1fr) auto;
+		grid-template-columns: auto minmax(auto, 1fr) 0;
 		grid-template-areas:
 			"z z z"
 			"a b c";

@@ -37,13 +37,12 @@ export default async function Page({ params, searchParams }: {
     const worldAvg = await getWorldAvg(metric)
 
     return <>
-        <ThemeSelector region={region} />
-        <CircularThemeSelector region={region} />
+
         <DeltaIndicator data={deltaData} metric={metric} grouping={grouping} region={region} />
         <CountryAndRegionalComparissons data={{ countries: minMaxDataCountries, regions: minMaxDataRegions }} grouping={grouping} theme={theme} />
         <TableAndMetric region={region} data={tableData} theme={theme} metric={metric} globalAvg={worldAvg} grouping={grouping} />
-        <div>
-            <SidebarContent theme={theme} metric={metric} grouping={grouping} data={tableData} />
+        <div className='md:hidden'>
+            {false && <SidebarContent theme={theme} metric={metric} grouping={grouping} data={tableData} />}
         </div>
     </>
 
