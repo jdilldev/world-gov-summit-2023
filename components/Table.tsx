@@ -12,7 +12,7 @@ const Table = ({ data, sortOrder }: { data: any[], sortOrder: SortType }) => {
     if (!data || !data.length) return <p>No data matching criteria</p>
 
     const pathname = usePathname()
-    const [_, __, grouping, ____] = pathname!.split('/')
+    const [_, __, grouping, metric] = pathname!.split('/')
 
     const latestYear = Object.keys(data[0].years).at(-1)!
 
@@ -22,7 +22,7 @@ const Table = ({ data, sortOrder }: { data: any[], sortOrder: SortType }) => {
         <thead className="w-full">
             <tr>
                 <th className="text-sm w-[65%] overflow-clip">
-                    {'metric'}
+                    {'Health expenditure p/ person'}
                     <span className='text-[.65rem]'>{' (year: ' + latestYear + ')'}</span>
                 </th>
                 <th className='text-sm'>Value

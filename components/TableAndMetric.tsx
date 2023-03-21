@@ -47,7 +47,7 @@ const TableAndMetric = ({ data, theme, metric, globalAvg, grouping, region }: { 
                     {/*    <span className='text-xs'>higher</span> */}
                 </div>
             </div>
-            <div className='max-h-[80%] h-fit overflow-scroll'>
+            <div className='max-h-[78%] h-fit overflow-scroll'>
                 <div className="flex flex-row flex-wrap justify-between items-center text-xs">
                     <Table data={filteredData} sortOrder={'descending'} />
                 </div>
