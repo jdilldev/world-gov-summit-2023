@@ -22,6 +22,12 @@ h1 {
 	text-transform: lowercase;
 }
 
+select {
+	-moz-appearance: none; /* Firefox */
+	-webkit-appearance: none; /* Safari and Chrome */
+	appearance: none;
+}
+
 .dashboard {
 	height: 100%;
 	display: grid;

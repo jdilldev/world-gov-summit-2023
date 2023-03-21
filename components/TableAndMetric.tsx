@@ -10,10 +10,7 @@ import { replaceUnderscoreWithSpace } from "../utils"
 
 const TableAndMetric = ({ data, theme, metric, globalAvg, grouping, region }: { data: any[], theme: string, metric: CountryMetrics, globalAvg: any, grouping: AggregatorType, region?: string }) => {
     const { filter, setFilter, hideMissingData, setHideMissingData } = useGlobalStore()
-    const pathname = usePathname()
-    const router = useRouter()
-    // const [filter, setFilter] = useState('')
-    // const [hideMissingData, setHideMissingData] = useState(false)
+
     const mostRecentGlobalAvg = globalAvg.at(0)!.val
     const latestYear = Object.keys(data[0].years).at(-1)!
 
@@ -38,22 +35,8 @@ const TableAndMetric = ({ data, theme, metric, globalAvg, grouping, region }: { 
 
                     <div className='flex flex-row justify-between'>
                         <AggregatorSelect />
-                        <select
-                            className='text-xs bg-transparent w-28 border-solid border-b-2 border-pink-500'
-                            value={metric}
-                            onChange={(e) => {
-                                const [_, theme, grouping, __] = pathname!.split('/')
-                                const pathnameWithUpdatedMetric = `${theme}/${grouping}/${e.target.value}${region ? '?region=' + region : ''}`;
-                                router.push(pathnameWithUpdatedMetric)
-                            }}
-                        >
-                            {WORLD_SUMMIT_THEMES.find(
-                                summit_theme =>
-                                    summit_theme.name === replaceUnderscoreWithSpace(theme))!.metrics.map(metric => <option key={metric} value={metric}>{metric}</option>)}
-                        </select>
                     </div>
                 </div>
-
                 <p className='text-sm font-equinox lowercase text-pink-500'>Global Avg: {(mostRecentGlobalAvg).toFixed(2)}</p>
                 <div className='flex flex-row text-xs text-white items-center gap-2'>
                     <p>Hide missing data</p>

@@ -7,6 +7,7 @@ import BulbIcon from '../public/icons/026-learning.svg'
 import './globals.css'
 import { CHART_CATEGORY, METRIC_CATEGORY, CONTEXT_CATEGORY } from "./constants/constants";
 import AggregatorSelect from "../components/AggregatorSelect";
+import MetricSelect from "../components/MetricSelect";
 
 
 const RootLayout = async ({
