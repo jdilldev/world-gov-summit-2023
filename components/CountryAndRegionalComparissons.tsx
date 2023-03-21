@@ -4,7 +4,7 @@ import { memo } from "react";
 import { DEFAULT_THEME_PROMPT } from "../app/constants/constants";
 import { AggregatorType } from "../app/data/types";
 
-const MinMaxBox = ({ type, name, val }: { type: 'country' | 'region', name: string, val: number }) => <div className="bottom-item relative  text-white  bg-black bg-opacity-30 md:bg-transparent md:bg-opacity-0">
+const MinMaxBox = ({ type, name, val }: { type: 'country' | 'region', name: string, val: number }) => <div className="bottom-item relative  text-white bg-black bg-opacity-30  md:bg-transparent md:bg-opacity-0">
     <p className='text-lime-400 absolute top-0 text-xs'>{type}</p>
     {/** 0 is a valid value */}
     <p className="whitespace-nowrap font-equinox lowercase mt-3 text-center text-xs md:text-sm">{`${name && !isNaN(val) ? name + ' : ' + val : 'No data'}`}</p>
@@ -25,7 +25,7 @@ const CountryAndRegionalComparissons = memo(({ data, grouping, theme }: { data: 
     const { region: minRegion, v: minValR } = minR
     const { region: maxRegion, v: maxValR } = maxR
 
-    return <div className="fixed bottom-0 md:left-[40%] md:fixed md:w-[50%] md:place-self-center flex flex-col justify-center gap-y-4 items-center p-4">
+    return <div className="fixed bottom-0 md:min-w-[50%] md:fixed md:place-self-center flex flex-col justify-center gap-y-4 items-center p-4">
         {!isThemeSelected && <p className="text-center font-nebula text-red-500">Please Select a Theme</p>}
         <div className="flex flex-col w-full lg:max-w-[70%]">
             <p className={`font-equinox text-xs lowercase text-white md:text-cyan-500 ${isSingleRegionGrouping || isRegionalGrouping ? 'text-center' : 'text-left'}`}>Highest</p>
