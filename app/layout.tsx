@@ -50,7 +50,6 @@ const RootLayout = async ({
           <div className="dashboard-main flex flex-col">
             <Map />
             {children}
-
           </div>
         </div>
       </body>
