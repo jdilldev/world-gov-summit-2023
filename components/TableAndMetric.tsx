@@ -8,7 +8,7 @@ import { usePathname, useRouter } from "next/navigation"
 import AggregatorSelect from "./AggregatorSelect"
 import { replaceUnderscoreWithSpace } from "../utils"
 
-const TableAndMetric = ({ data, theme, metric, globalAvg, grouping }: { data: any[], theme: string, metric: CountryMetrics, globalAvg: any, grouping: AggregatorType }) => {
+const TableAndMetric = ({ data, theme, metric, globalAvg, grouping, region }: { data: any[], theme: string, metric: CountryMetrics, globalAvg: any, grouping: AggregatorType, region?: string }) => {
     const { filter, setFilter, hideMissingData, setHideMissingData } = useGlobalStore()
     const pathname = usePathname()
     const router = useRouter()
@@ -37,7 +37,7 @@ const TableAndMetric = ({ data, theme, metric, globalAvg, grouping }: { data: an
                     <p className="font-agelast tracking-widest">Rank</p>
 
                     <div className='flex flex-row justify-between'>
-                        <AggregatorSelect />
+                        <AggregatorSelect region={region} />
                         <select
                             className='text-xs bg-transparent w-28 border-solid border-b-2 border-pink-500'
                             value={metric}

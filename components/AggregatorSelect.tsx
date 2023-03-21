@@ -2,15 +2,12 @@
 
 import { useRouter, usePathname, useSearchParams } from "next/navigation"
 import { DEFAULT_THEME_PROMPT } from "../app/constants/constants"
-import { replaceUnderscoreWithSpace } from "../utils"
 
-const AggregatorSelect = () => {
+const AggregatorSelect = ({ region }: { region?: string }) => {
     const router = useRouter()
     const pathname = usePathname()
-    const searchParams = useSearchParams()
 
     const [_, theme, grouping, metric] = pathname!.split('/')
-    const region = replaceUnderscoreWithSpace(searchParams.get('region') || '')
 
     return !theme ? <p className="md:hidden font-equinox lowercase z-10 fixed right-2 top-12 text-red-500">{DEFAULT_THEME_PROMPT}</p> : <select
         onChange={(e) => router.push(`/${theme}/${e.target.value}/${metric}`)}
@@ -19,7 +16,7 @@ const AggregatorSelect = () => {
         value={grouping}>
         <option value='world'>Worldwide</option>
         <option value='allRegions'>By Region</option>
-        {grouping === 'singleRegion' && <option value='singleRegion'>{region}</option>}
+        {region && <option value='singleRegion'>{region}</option>}
     </select>
 }
 

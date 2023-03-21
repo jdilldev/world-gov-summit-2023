@@ -29,8 +29,7 @@ const RootLayout = async ({
           </div>
           <div className="dashboard-left flex flex-col ml-3 mb-4">
             <div className="md:bg-transparent md:border-none w-full dashboard-card h-1/2 mb-3">
-              <ThemeSelector />
-              <CircularThemeSelector />
+
             </div>
             <div className="dashboard-card h-1/2 w-full">
               <div className='flex flex-col justify-around h-full md:hidden'>

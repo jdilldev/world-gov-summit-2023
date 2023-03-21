@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 
 import React from 'react'
 import { getAvg, getMetric, getMinMax } from '../../../api/routes';
@@ -8,6 +9,7 @@ import DeltaIndicator from '../../../../components/DeltaIndicator';
 import { replaceUnderscoreWithSpace } from '../../../../utils';
 import TableAndMetric from '../../../../components/TableAndMetric';
 import SidebarContent from '../../../../components/SidebarContent';
+import { ThemeSelector, CircularThemeSelector } from '../../../../components/ThemeSelector';
 
 const getDeltaData = async (metric: CountryMetrics, grouping: AggregatorType, region?: M49_subregion) =>
     region ? await getAvg({ metric, grouping, region }) : await getAvg({ metric, grouping: (grouping as 'world' | 'allRegions') })
@@ -25,7 +27,8 @@ export default async function Page({ params, searchParams }: {
     searchParams?: { region: string }
 }) {
     const { theme, grouping, metric } = params
-    const region = grouping === 'singleRegion' ? searchParams && searchParams.region ? replaceUnderscoreWithSpace(searchParams.region) : 'Northern America' : undefined
+    const region = (grouping === 'singleRegion') ? searchParams && searchParams.region ? replaceUnderscoreWithSpace(searchParams.region) : 'Northern America' : undefined
+
 
     const deltaData = await getDeltaData(metric, grouping, region)
     const minMaxDataCountries = await getMinMaxData(metric, grouping, region)
@@ -34,9 +37,11 @@ export default async function Page({ params, searchParams }: {
     const worldAvg = await getWorldAvg(metric)
 
     return <>
+        <ThemeSelector region={region} />
+        <CircularThemeSelector region={region} />
         <DeltaIndicator data={deltaData} metric={metric} grouping={grouping} region={region} />
         <CountryAndRegionalComparissons data={{ countries: minMaxDataCountries, regions: minMaxDataRegions }} grouping={grouping} theme={theme} />
-        <TableAndMetric data={tableData} theme={theme} metric={metric} globalAvg={worldAvg} grouping={grouping} />
+        <TableAndMetric region={region} data={tableData} theme={theme} metric={metric} globalAvg={worldAvg} grouping={grouping} />
         <div>
             <SidebarContent theme={theme} metric={metric} grouping={grouping} data={tableData} />
         </div>
@@ -55,7 +60,7 @@ export function generateStaticParams() {
                 acc.push({
                     theme: curr.name.replace(/ /g, '_'),
                     grouping: (grouping as AggregatorType),
-                    metric
+                    metric,
                 })
             }
         }

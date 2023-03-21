@@ -4,11 +4,10 @@ import Link from "next/link"
 import { memo } from "react"
 import { DEFAULT_THEME_PROMPT, WORLD_SUMMIT_THEMES } from "../app/constants/constants"
 import { replaceSpacesWithUnderscore, replaceUnderscoreWithSpace } from "../utils"
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
-export const CircularThemeSelector = memo(() => {
+export const CircularThemeSelector = memo(({ region }: { region?: string }) => {
     const pathname = usePathname()
-    const searchParams = useSearchParams()
 
     //TODO: look into why this weird hack is necessary; without it, I cant get global state values from zustand
 
@@ -19,7 +18,6 @@ export const CircularThemeSelector = memo(() => {
 
     const [_, theme, grouping, ___] = pathname!.split('/')
     const currentTheme = replaceUnderscoreWithSpace(theme) || DEFAULT_THEME_PROMPT
-    const region = searchParams.get('region')
 
     return <div className="hidden md:inline z-10 fixed left-8 top-16">
         <p
@@ -40,8 +38,8 @@ export const CircularThemeSelector = memo(() => {
                 let route = `${summitTheme.name}/${grouping ?? 'world'}/${summitTheme.metrics[0]}${region ? '?region=' + region : ''}`
                 route = replaceSpacesWithUnderscore(route)
                 return <div key={summitTheme.name} className={`hidden md:inline absolute hover:scale-125 `} style={{ top, left }}>
-                    <Link href={'/[theme]/[grouping]/[metric]'}
-                        as={route}
+                    <Link href={route}
+
                         shallow={true}>
                         <summitTheme.icon
 
@@ -54,13 +52,11 @@ export const CircularThemeSelector = memo(() => {
     </div>
 })
 
-export const ThemeSelector = memo(() => {
+export const ThemeSelector = memo(({ region }: { region?: string }) => {
     const pathname = usePathname()
-    const searchParams = useSearchParams()
 
     const [_, theme, grouping, ___] = pathname!.split('/')
     const currentTheme = replaceUnderscoreWithSpace(theme) || DEFAULT_THEME_PROMPT
-    const region = searchParams.get('region')
 
     return <>
         <p className="md:hidden font-agelast tracking-widest text-xs md:text-base">Themes</p>

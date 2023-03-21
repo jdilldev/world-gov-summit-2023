@@ -1,11 +1,7 @@
-'use client'
-
 import NeutralIndicator from '../public/icons/neutral.svg'
 import IncreaseIndicator from '../public/icons/up-triangle.svg'
 import DecreaseIndicator from '../public/icons/down-triangle.svg'
 import { AggregatorType, CountryMetrics, M49_subregion } from "../app/data/types"
-import { DEFAULT_THEME_PROMPT } from "../app/constants/constants"
-import { memo } from "react"
 
 const _getDeltaIndicator = (delta: number, isAvg: boolean) => {
     const indicatorClass = 'w-4 h-4 '
@@ -57,9 +53,8 @@ const _getDeltaBackgroundColor = (delta: number, isAvg: boolean): string => {
 }
 
 
-const DeltaIndicator = memo(({ data, metric, grouping, region }: { data: any[], metric: CountryMetrics, grouping: AggregatorType, region?: M49_subregion }) => {
+const DeltaIndicator = ({ data, metric, grouping, region }: { data: any[], metric: CountryMetrics, grouping: AggregatorType, region?: string }) => {
     if (data.length === 0) throw Error('Uh-oh, you have a data error, for there was no data retrieved from the DB for this metric ')
-
 
     let { val: latestVal, year: latestYear } = data.at(0)!
 
@@ -89,6 +84,6 @@ const DeltaIndicator = memo(({ data, metric, grouping, region }: { data: any[], 
             </p>
         </div>
     </div>
-})
+}
 
 export default DeltaIndicator
