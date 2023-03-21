@@ -2,7 +2,7 @@
 
 import { useRouter, usePathname, useSearchParams } from "next/navigation"
 import { DEFAULT_THEME_PROMPT } from "../app/constants/constants"
-import { replaceSpacesWithUnderscore, replaceUnderscoreWithSpace } from "../utils"
+import { replaceUnderscoreWithSpace } from "../utils"
 
 const AggregatorSelect = () => {
     const router = useRouter()

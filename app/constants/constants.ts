@@ -78,7 +78,7 @@ export const WORLD_SUMMIT_THEMES: {
 		name: "Future of Societies and Healthcare",
 		icon: Health,
 		//add lifespan
-		metrics: ["health_expenditure_per_person"],
+		metrics: ["infant_mortality", "health_expenditure_per_person"],
 	},
 	{
 		name: "Prioritizing Learning and Work",

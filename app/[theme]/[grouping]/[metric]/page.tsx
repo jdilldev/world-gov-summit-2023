@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic';
 
 import React from 'react'
-import { getAvg, getMetric, getMinMax } from '../../../api/routes';
+import { getAvg, getMetric, getMetricContext, getMinMax } from '../../../api/routes';
 import { WORLD_SUMMIT_THEMES } from '../../../constants/constants';
 import type { AggregatorType, CountryMetrics, M49_subregion, RouteParams } from '../../../data/types'
 import CountryAndRegionalComparissons from '../../../../components/CountryAndRegionalComparissons';
@@ -9,7 +9,6 @@ import DeltaIndicator from '../../../../components/DeltaIndicator';
 import { replaceUnderscoreWithSpace } from '../../../../utils';
 import TableAndMetric from '../../../../components/TableAndMetric';
 import SidebarContent from '../../../../components/SidebarContent';
-import { ThemeSelector, CircularThemeSelector } from '../../../../components/ThemeSelector';
 import MetricSelect from '../../../../components/MetricSelect';
 
 const getDeltaData = async (metric: CountryMetrics, grouping: AggregatorType, region?: M49_subregion) =>
@@ -22,6 +21,8 @@ const getTableData = async (metric: CountryMetrics, grouping: AggregatorType, re
     region ? await getMetric({ metric, grouping, region }) : await getMetric({ metric, grouping: (grouping as 'world' | 'allRegions') })
 
 const getWorldAvg = async (metric: CountryMetrics) => getAvg({ metric, grouping: 'world' })
+
+const getMetricData = async (metric: CountryMetrics) => getMetricContext(metric!)
 
 export default async function Page({ params, searchParams }: {
     params: { theme: string, grouping: AggregatorType, metric: CountryMetrics },
@@ -36,12 +37,14 @@ export default async function Page({ params, searchParams }: {
     const minMaxDataRegions = await getMinMaxData(metric, 'allRegions', region)
     const tableData = await getTableData(metric, grouping, region)
     const worldAvg = await getWorldAvg(metric)
+    const metricContext = await getMetricData(metric)
+    const { title: metricHumanReadableString } = metricContext
 
     return <>
         <MetricSelect theme={theme} grouping={grouping} metric={metric} />
-        <DeltaIndicator data={deltaData} metric={metric} grouping={grouping} region={region} />
+        <DeltaIndicator data={deltaData} metric={metricHumanReadableString} grouping={grouping} region={region} />
         <CountryAndRegionalComparissons data={{ countries: minMaxDataCountries, regions: minMaxDataRegions }} grouping={grouping} theme={theme} />
-        <TableAndMetric region={region} data={tableData} theme={theme} metric={metric} globalAvg={worldAvg} grouping={grouping} />
+        <TableAndMetric region={region} data={tableData} theme={theme} metricContext={metricContext} globalAvg={worldAvg} grouping={grouping} />
         <div className='md:hidden'>
             {false && <SidebarContent theme={theme} metric={metric} grouping={grouping} data={tableData} />}
         </div>

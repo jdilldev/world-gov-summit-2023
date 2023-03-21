@@ -1,5 +1,6 @@
 import clientPromise from "../../lib/mongodb";
-import { CountryMetrics, M49_subregion } from "../data/types";
+import { CountryMetrics, M49_subregion, MetricContext } from "../data/types";
+import { ObjectId } from "mongodb";
 
 interface BasicData {
 	metric: CountryMetrics;
@@ -375,6 +376,16 @@ export const getMetric = async (
 		case "world":
 			return _getMetricWorldwide(metric);
 	}
+};
+
+export const getMetricContext = async (metric: string) => {
+	const client = await clientPromise;
+	const db = client.db("presentFutureDB");
+	const collection = db.collection<MetricContext>("metrics");
+
+	const result = await collection.find({ _id: metric }).toArray();
+
+	return result[0];
 };
 
 /** only needed if data is being imported from CSV

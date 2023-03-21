@@ -1,18 +1,19 @@
 'use client'
 
 import { CONTEXT_CATEGORY, DEFAULT_THEME_PROMPT, WORLD_SUMMIT_THEMES } from "../app/constants/constants"
-import { AggregatorType, CountryMetrics } from "../app/data/types"
+import { AggregatorType, CountryMetrics, MetricContext } from "../app/data/types"
 import { useGlobalStore } from "../lib/store"
 import Table from "./Table"
 import { usePathname, useRouter } from "next/navigation"
 import AggregatorSelect from "./AggregatorSelect"
-import { replaceUnderscoreWithSpace } from "../utils"
 
-const TableAndMetric = ({ data, theme, metric, globalAvg, grouping, region }: { data: any[], theme: string, metric: CountryMetrics, globalAvg: any, grouping: AggregatorType, region?: string }) => {
+
+const TableAndMetric = ({ data, theme, metricContext, globalAvg, grouping, region }: { data: any[], theme: string, metricContext: MetricContext, globalAvg: any, grouping: AggregatorType, region?: string }) => {
     const { filter, setFilter, hideMissingData, setHideMissingData } = useGlobalStore()
 
     const mostRecentGlobalAvg = globalAvg.at(0)!.val
     const latestYear = Object.keys(data[0].years).at(-1)!
+    const { title: metricHumanReadableString } = metricContext
 
     let filteredData = data.filter((params) => {
         const filterAsNumber = parseFloat(filter)
@@ -49,14 +50,20 @@ const TableAndMetric = ({ data, theme, metric, globalAvg, grouping, region }: { 
             </div>
             <div className='max-h-[78%] h-fit overflow-scroll'>
                 <div className="flex flex-row flex-wrap justify-between items-center text-xs">
-                    <Table data={filteredData} sortOrder={'descending'} />
+                    <Table data={filteredData} metric={metricHumanReadableString} />
                 </div>
             </div>
 
         </div>
-        <div className="dashboard-card hidden md:inline md:h-1/4">
+        <div className="dashboard-card hidden md:inline md:h-[23%]">
             <p className="font-agelast tracking-widest">{CONTEXT_CATEGORY}</p>
-            <p className="font-body text-sm font-thin">TODO</p>
+            <div className='flex flex-row items-center justify-between'>
+                <a href={metricContext.url} target="_blank" rel="noopener noreferrer" className="font-equinox tracking-widest lowercase text-xs font-thin text-cyan-200 hover:text-cyan-100">{metricHumanReadableString}</a>
+                <p className='text-lime-500 font-equinox lowercase'>{metricContext.favor === 'lower' ? 'lower is better' : metricContext.favor === 'higher' ? 'higher is better' : 'neutral'}</p>
+            </div>
+            <div className="md:h-3/4 overflow-scroll">
+                <p className="text-sm">{metricContext.description}</p>
+            </div>
         </div>
     </div>
 }

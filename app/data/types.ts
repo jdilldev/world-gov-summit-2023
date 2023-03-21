@@ -4,6 +4,14 @@ export type RouteParams = {
 	metric: CountryMetrics;
 };
 
+export type MetricContext = {
+	_id: string;
+	title: string;
+	description: string;
+	favor: "higher" | "lower" | "neutral";
+	url: string;
+};
+
 export type SortType = "ascending" | "descending";
 
 export type TooltipPlacement =

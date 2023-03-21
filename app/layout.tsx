@@ -1,5 +1,4 @@
 import Map from "../components/Map";
-import Table from "../components/Table";
 import { CircularThemeSelector, ThemeSelector } from "../components/ThemeSelector";
 import ChartIcon from '../public/icons/bar-chart.svg'
 import MetricIcon from '../public/icons/hexagons.svg'
@@ -7,7 +6,6 @@ import BulbIcon from '../public/icons/026-learning.svg'
 import './globals.css'
 import { CHART_CATEGORY, METRIC_CATEGORY, CONTEXT_CATEGORY } from "./constants/constants";
 import AggregatorSelect from "../components/AggregatorSelect";
-import MetricSelect from "../components/MetricSelect";
 
 
 const RootLayout = async ({
@@ -15,7 +13,6 @@ const RootLayout = async ({
 }: {
   children: React.ReactNode
 }) => {
-
 
   return (
     <html lang="en">
