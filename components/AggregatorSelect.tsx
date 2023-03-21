@@ -2,7 +2,7 @@
 
 import { useRouter, usePathname, useSearchParams } from "next/navigation"
 import { DEFAULT_THEME_PROMPT } from "../app/constants/constants"
-import { replaceSpacesWithUnderscore } from "../utils"
+import { replaceSpacesWithUnderscore, replaceUnderscoreWithSpace } from "../utils"
 
 const AggregatorSelect = () => {
     const router = useRouter()
@@ -20,7 +20,7 @@ const AggregatorSelect = () => {
         value={grouping}>
         <option value='world'>Worldwide</option>
         <option value='allRegions'>By Region</option>
-        {region && <option value='singleRegion'>{replaceSpacesWithUnderscore(region)}</option>}
+        {region && <option value='singleRegion'>{replaceUnderscoreWithSpace(region)}</option>}
     </select>
 }
 
