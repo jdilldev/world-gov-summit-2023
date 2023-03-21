@@ -10,7 +10,6 @@ export const CircularThemeSelector = memo(() => {
     const pathname = usePathname()
     const searchParams = useSearchParams()
     const region = searchParams.get('region')
-    //TODO: look into why this weird hack is necessary; without it, I cant get global state values from zustand
 
     const absolutePositionTopAndLeft = 100
     const themeContainerWidth = 430

@@ -37,7 +37,7 @@ const TableAndMetric = ({ data, theme, metric, globalAvg, grouping, region }: { 
                     <p className="font-agelast tracking-widest">Rank</p>
 
                     <div className='flex flex-row justify-between'>
-                        <AggregatorSelect region={region} />
+                        <AggregatorSelect />
                         <select
                             className='text-xs bg-transparent w-28 border-solid border-b-2 border-pink-500'
                             value={metric}
