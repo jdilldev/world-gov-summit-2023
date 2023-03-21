@@ -43,7 +43,7 @@ const TableAndMetric = ({ data, theme, metric, globalAvg, grouping, region }: { 
                             value={metric}
                             onChange={(e) => {
                                 const [_, theme, grouping, __] = pathname!.split('/')
-                                const pathnameWithUpdatedMetric = `${theme}/${grouping}/${e.target.value}`;
+                                const pathnameWithUpdatedMetric = `${theme}/${grouping}/${e.target.value}${region ? '?region=' + region : ''}`;
                                 router.push(pathnameWithUpdatedMetric)
                             }}
                         >
