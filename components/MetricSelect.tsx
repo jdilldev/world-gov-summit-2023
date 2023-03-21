@@ -14,7 +14,7 @@ const MetricSelect = ({ theme, grouping, metric }: { theme: string, grouping: Ag
     return <div className='fixed flex flex-col bottom-2 self-center items-center border-solid border-b-2 border-lime-500'>
         <span className='font-equinox text-sm text-lime-500'>Metric</span>
         <select
-            className='text-sm bg-transparent'
+            className='text-sm text-pink-500 bg-transparent text-center'
             value={metric}
             onChange={(e) => {
                 const pathnameWithUpdatedMetric = `${theme}/${grouping}/${e.target.value}${region ? '?region=' + region : ''}`;
