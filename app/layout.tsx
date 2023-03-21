@@ -21,7 +21,7 @@ const RootLayout = async ({
       <head />
       <body className={`h-screen w-screen overflow-hidden bg-slate-900 text-[#9fd0dccc] font-body subpixel-antialiased`}>
         <div className="dashboard overflow-hidden">
-          <div className="mb-3 flex p-2 text-xs md:text-lg lg:text-xl font-agelast justify-start items-center dashboard-header bg-red border-solid border-b-[1px] border-[#ffffff2b]">
+          <div className="flex p-2 text-xs md:text-lg lg:text-xl font-agelast justify-start items-center dashboard-header bg-red border-solid border-b-[1px] border-[#ffffff2b]">
             <p>The Present Future Dashboard</p>
           </div>
           <div className='md:hidden'>
