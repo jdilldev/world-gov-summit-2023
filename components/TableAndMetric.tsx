@@ -32,7 +32,7 @@ const TableAndMetric = ({ data, theme, metricContext, globalAvg, grouping, regio
             <div className="sticky top-0 flex flex-col gap-y-1">
 
                 <div className="flex flex-col gap-1">
-                    <p className="font-agelast tracking-widest">Rank</p>
+                    <p className="font-agelast tracking-widest text-sm">Rank</p>
 
                     <div className='flex flex-row justify-between'>
                         <AggregatorSelect />
@@ -56,10 +56,10 @@ const TableAndMetric = ({ data, theme, metricContext, globalAvg, grouping, regio
 
         </div>
         <div className="dashboard-card hidden md:inline md:h-[23%]">
-            <p className="font-agelast tracking-widest">{CONTEXT_CATEGORY}</p>
+            <p className="font-agelast tracking-widest text-sm">{CONTEXT_CATEGORY}</p>
             <div className='flex flex-row items-center justify-between'>
                 <a href={metricContext.url} target="_blank" rel="noopener noreferrer" className="font-equinox tracking-widest lowercase text-xs font-thin text-cyan-200 hover:text-cyan-100">{metricHumanReadableString}</a>
-                <p className='text-lime-500 font-equinox lowercase'>{metricContext.favor === 'lower' ? 'lower is better' : metricContext.favor === 'higher' ? 'higher is better' : 'neutral'}</p>
+                <p className='text-lime-500 text-xs font-equinox lowercase'>{metricContext.favor === 'lower' ? 'lower is better' : metricContext.favor === 'higher' ? 'higher is better' : 'neutral'}</p>
             </div>
             <div className="md:h-3/4 overflow-scroll">
                 <p className="text-sm">{metricContext.description}</p>
