@@ -29,7 +29,7 @@ const TableAndMetric = ({ data, theme, metric, globalAvg, grouping, region }: { 
     if (hideMissingData)
         filteredData = filteredData.filter(({ years }) => years[latestYear])
 
-    return theme === DEFAULT_THEME_PROMPT ? <></> : <div className="fixed top-12 right-0 w-1/4 flex flex-col mr-3 h-full">
+    return theme === DEFAULT_THEME_PROMPT ? <></> : <div className="hidden md:flex fixed top-12 right-0 w-1/4 flex-col mr-3 h-full">
         <div className="hidden md:inline dashboard-card h-fit max-h-[66%] mb-3">
             <div className="sticky top-0 flex flex-col gap-y-1">
 

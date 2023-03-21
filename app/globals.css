@@ -164,7 +164,7 @@ tr:nth-child(even) {
 		height: 100%;
 		display: grid;
 		grid-template-rows: 50px auto;
-		grid-template-columns: auto minmax(auto, 1fr) 0;
+		grid-template-columns: minmax(auto, 100px) minmax(auto, 1fr) 0;
 		grid-template-areas:
 			"z z z"
 			"a b c";

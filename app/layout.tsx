@@ -27,7 +27,7 @@ const RootLayout = async ({
           <div className='md:hidden'>
             <AggregatorSelect />
           </div>
-          <div className="dashboard-left flex flex-col ml-3 mb-4">
+          <div className="dashboard-left flex flex-col ml-2">
             <div className="md:bg-transparent md:border-none w-full dashboard-card h-1/2 mb-3">
               <ThemeSelector />
               <CircularThemeSelector />
@@ -38,9 +38,9 @@ const RootLayout = async ({
                   { title: CHART_CATEGORY, icon: <ChartIcon /> },
                   { title: METRIC_CATEGORY, icon: <MetricIcon /> },
                   { title: CONTEXT_CATEGORY, icon: <BulbIcon /> }
-                ].map(category => <div key={category.title} className="flex flex-col items-center gap-2 text-sm p-2 tracking-[.15em] fill-[#9fd0dccc] hover:text-[#56d3dc] hover:fill-[#56d3dc]">
-                  <p>{category.title}</p>
-                  <div className='w-10 '>{category.icon}
+                ].map(category => <div key={category.title} className="flex flex-col items-center gap-2 text-sm p-2 tracking-widest fill-[#9fd0dccc] hover:text-[#56d3dc] hover:fill-[#56d3dc]">
+                  <p className='text-xs'>{category.title}</p>
+                  <div className='w-8 '>{category.icon}
                   </div>
                 </div>
                 )}

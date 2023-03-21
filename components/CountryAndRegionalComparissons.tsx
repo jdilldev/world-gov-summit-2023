@@ -25,7 +25,7 @@ const CountryAndRegionalComparissons = memo(({ data, grouping, theme }: { data: 
     const { region: minRegion, v: minValR } = minR
     const { region: maxRegion, v: maxValR } = maxR
 
-    return <div className="fixed bottom-0 md:min-w-[50%] md:fixed md:place-self-center flex flex-col justify-center gap-y-4 items-center p-4">
+    return <div className="fixed bottom-10 md:min-w-[50%] md:fixed md:place-self-center flex flex-col justify-center gap-y-4 items-center p-4">
         {!isThemeSelected && <p className="text-center font-nebula text-red-500">Please Select a Theme</p>}
         <div className="flex flex-col w-full lg:max-w-[70%]">
             <p className={`font-equinox text-xs lowercase text-white md:text-cyan-500 ${isSingleRegionGrouping || isRegionalGrouping ? 'text-center' : 'text-left'}`}>Highest</p>
