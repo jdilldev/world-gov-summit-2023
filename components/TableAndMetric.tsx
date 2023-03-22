@@ -4,7 +4,7 @@ import { CONTEXT_CATEGORY, DEFAULT_THEME_PROMPT, WORLD_SUMMIT_THEMES } from "../
 import { AggregatorType, CountryMetrics, MetricContext } from "../app/data/types"
 import { useGlobalStore } from "../lib/store"
 import Table from "./Table"
-import { usePathname, useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
 import AggregatorSelect from "./AggregatorSelect"
 
 
@@ -31,12 +31,10 @@ const TableAndMetric = ({ data, theme, metricContext, globalAvg, grouping, regio
         <div className="hidden md:inline dashboard-card h-fit max-h-[66%] mb-3">
             <div className="sticky top-0 flex flex-col gap-y-1">
 
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-1 w-full">
                     <p className="font-agelast tracking-widest text-sm">Rank</p>
 
-                    <div className='flex flex-row justify-between'>
-                        <AggregatorSelect />
-                    </div>
+                    <AggregatorSelect />
                 </div>
                 <div className='flex flex-row text-xs text-white items-center gap-2'>
                     <p>Hide missing data</p>
@@ -44,7 +42,7 @@ const TableAndMetric = ({ data, theme, metricContext, globalAvg, grouping, regio
                 </div>
                 <div className='flex flex-row gap-2 items-center'>
                     <span className='text-sm'>Filter</span>
-                    <input type='text' className="mb-2 bg-transparent border-solid border-b-2 border-pink-300 text-pink-500 px-1" value={filter} onChange={e => setFilter(e.target.value)} />
+                    <input type='text' className="mb-2 bg-transparent border-solid border-b-2 border-pink-500 text-pink-500 px-1" value={filter} onChange={e => setFilter(e.target.value)} />
                 </div>
             </div>
             <div className='max-h-[80%] h-fit overflow-scroll'>
