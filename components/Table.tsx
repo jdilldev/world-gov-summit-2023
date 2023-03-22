@@ -7,12 +7,14 @@ import { sortData } from "../utils"
 import UpArrow from '../public/icons/up-arrow.svg'
 import DownArrow from '../public/icons/down-arrow.svg'
 import { usePathname } from 'next/navigation';
+import { useGlobalStore } from "../lib/store"
 
 const Table = ({ data, metric, globalAvg }: { data: any[], metric: string, globalAvg: string }) => {
     if (!data || !data.length) return <p>No data matching criteria</p>
+    const { sortOrder, setSortOrder } = useGlobalStore()
+
     const latestYear = Object.keys(data[0].years).at(-1)!
 
-    const [sortOrder, setSortOrder] = useState<SortType>('descending')
     const sortedData = sortData(data, sortOrder, latestYear)
 
     const pathname = usePathname()
@@ -34,7 +36,6 @@ const Table = ({ data, metric, globalAvg }: { data: any[], metric: string, globa
                             const tmpSortOrder = (sortOrder === 'ascending') ? 'descending' : 'ascending'
 
                             setSortOrder(tmpSortOrder)
-                            // setSortedData([...sortData(data, tmpSortOrder, latestYear)])
                         }}
                     >
                         <span>
@@ -51,10 +52,10 @@ const Table = ({ data, metric, globalAvg }: { data: any[], metric: string, globa
         </thead>
         <thead className='sticky top-[4.25rem]'>
             <tr>
-                <th key='global_avg' className=" bg-lime-200 text-cyan-600 w-[65%]">
+                <th key='global_avg' className=" bg-lime-300 text-cyan-600 font-bold w-[65%]">
                     <td >Global Average</td>
                 </th>
-                <th className=" bg-lime-200 text-cyan-600">
+                <th className=" bg-lime-300 text-cyan-600 font-bold">
                     <td>{globalAvg}</td>
 
                 </th>
