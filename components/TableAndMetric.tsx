@@ -54,7 +54,7 @@ const TableAndMetric = ({ data, theme, metricContext, globalAvg, grouping, regio
         </div>
         <div className="dashboard-card hidden md:inline md:h-[23%]">
             <p className="font-agelast tracking-widest text-sm">{CONTEXT_CATEGORY}</p>
-            <div className='flex flex-row items-center justify-between'>
+            <div className='flex flex-row gap-2 items-center justify-between'>
                 <a href={metricContext.url} target="_blank" rel="noopener noreferrer" className="font-equinox tracking-widest lowercase text-xs font-thin text-cyan-200 hover:text-cyan-100">{metricHumanReadableString}</a>
                 <p className='text-lime-500 text-xs font-equinox lowercase'>{metricContext.favor === 'lower' ? 'lower is better' : metricContext.favor === 'higher' ? 'higher is better' : 'neutral'}</p>
             </div>
