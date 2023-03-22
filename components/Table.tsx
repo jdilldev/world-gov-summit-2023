@@ -55,8 +55,8 @@ const Table = ({ data, metric, globalAvg }: { data: any[], metric: string, globa
                 <th key='global_avg' className=" bg-lime-300 text-cyan-600 font-bold w-[65%]">
                     <td >Global Average</td>
                 </th>
-                <th className=" bg-lime-300 text-cyan-600 font-bold">
-                    <td>{globalAvg}</td>
+                <th className=" bg-lime-300 align-center text-cyan-600 font-bold">
+                    <td >{globalAvg}</td>
 
                 </th>
             </tr>
@@ -70,7 +70,7 @@ const Table = ({ data, metric, globalAvg }: { data: any[], metric: string, globa
                     const fieldKey = grouping === 'allRegions' ? fields.region : fields.country
                     return <tr key={fieldKey}>
                         <td>{fieldKey}</td>
-                        <td className={!mostRecentVal ? 'text-rose-500' : ''}>{mostRecentVal ?? 'no data'}</td>
+                        <td className={` ${!mostRecentVal ? 'text-rose-500' : ''}`}>{mostRecentVal ?? 'no data'}</td>
                     </tr>
                 })
             }

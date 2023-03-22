@@ -27,8 +27,8 @@ const TableAndMetric = ({ data, theme, metricContext, globalAvg, grouping, regio
     if (hideMissingData)
         filteredData = filteredData.filter(({ years }) => years[latestYear])
 
-    return theme === DEFAULT_THEME_PROMPT ? <></> : <div className="hidden md:flex fixed top-12 right-0 w-1/4 flex-col mr-3 h-full">
-        <div className="hidden md:inline dashboard-card h-fit max-h-[66%] mb-3">
+    return theme === DEFAULT_THEME_PROMPT ? <></> : <div className="hidden md:flex fixed top-12 right-0 w-1/4 lg:w-1/6 flex-col mr-3 h-full">
+        <div className="hidden md:inline dashboard-card h-fit max-h-[66%] mb-3 ">
             <div className="sticky top-0 flex flex-col gap-y-1">
 
                 <div className="flex flex-col gap-1 w-full">
@@ -58,6 +58,7 @@ const TableAndMetric = ({ data, theme, metricContext, globalAvg, grouping, regio
                 <a href={metricContext.url} target="_blank" rel="noopener noreferrer" className="font-equinox tracking-widest lowercase text-xs font-thin text-cyan-200 hover:text-cyan-100">{metricHumanReadableString}</a>
                 <p className='text-lime-500 text-xs font-equinox lowercase'>{metricContext.favor === 'lower' ? 'lower is better' : metricContext.favor === 'higher' ? 'higher is better' : 'neutral'}</p>
             </div>
+            <br />
             <div className="md:h-3/4 overflow-scroll">
                 <p className="text-sm">{metricContext.description}</p>
             </div>
