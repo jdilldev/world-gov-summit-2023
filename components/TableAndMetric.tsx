@@ -38,19 +38,18 @@ const TableAndMetric = ({ data, theme, metricContext, globalAvg, grouping, regio
                         <AggregatorSelect />
                     </div>
                 </div>
-                <p className='text-sm font-equinox lowercase text-pink-500'>Global Avg: {(mostRecentGlobalAvg).toFixed(2)}</p>
                 <div className='flex flex-row text-xs text-white items-center gap-2'>
                     <p>Hide missing data</p>
                     <input type='checkbox' className="" checked={hideMissingData} onChange={() => setHideMissingData(!hideMissingData)} />
                 </div>
-                <div className='flex flex-row gap-2'>
+                <div className='flex flex-row gap-2 items-center'>
+                    <span className='text-sm'>Filter</span>
                     <input type='text' className="mb-2 bg-transparent border-solid border-b-2 border-pink-300 text-pink-500 px-1" value={filter} onChange={e => setFilter(e.target.value)} />
-                    {/*    <span className='text-xs'>higher</span> */}
                 </div>
             </div>
             <div className='max-h-[78%] h-fit overflow-scroll'>
                 <div className="flex flex-row flex-wrap justify-between items-center text-xs">
-                    <Table data={filteredData} metric={metricHumanReadableString} />
+                    <Table data={filteredData} metric={metricHumanReadableString} globalAvg={(mostRecentGlobalAvg).toFixed(2)} />
                 </div>
             </div>
 
