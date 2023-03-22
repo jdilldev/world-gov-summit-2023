@@ -47,7 +47,7 @@ const TableAndMetric = ({ data, theme, metricContext, globalAvg, grouping, regio
                     <input type='text' className="mb-2 bg-transparent border-solid border-b-2 border-pink-300 text-pink-500 px-1" value={filter} onChange={e => setFilter(e.target.value)} />
                 </div>
             </div>
-            <div className='max-h-[78%] h-fit overflow-scroll'>
+            <div className='max-h-[80%] h-fit overflow-scroll'>
                 <div className="flex flex-row flex-wrap justify-between items-center text-xs">
                     <Table data={filteredData} metric={metricHumanReadableString} globalAvg={(mostRecentGlobalAvg).toFixed(2)} />
                 </div>

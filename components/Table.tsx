@@ -49,12 +49,12 @@ const Table = ({ data, metric, globalAvg }: { data: any[], metric: string, globa
             </tr>
 
         </thead>
-        <thead className='sticky top-[4.2rem]'>
+        <thead className='sticky top-[4.25rem]'>
             <tr>
-                <th key='global_avg' className=" bg-cyan-200 text-cyan-500 w-[65%]">
+                <th key='global_avg' className=" bg-lime-200 text-cyan-600 w-[65%]">
                     <td >Global Average</td>
                 </th>
-                <th className=" bg-pink-200 text-pink-500">
+                <th className=" bg-lime-200 text-cyan-600">
                     <td>{globalAvg}</td>
 
                 </th>
