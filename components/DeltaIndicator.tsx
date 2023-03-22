@@ -71,7 +71,7 @@ const DeltaIndicator = ({ data, metric, grouping, region }: { data: any[], metri
     let delta = previousVal ? latestVal - previousVal : latestVal
 
     delta = delta ? parseFloat(delta.toFixed(2)) : 'No data'
-    return <div className="flex flex-col gap-1 justify-center items-center font-equinox z-10 fixed top-[14%] right-0 pointer-events-none  w-3/4 md:w-1/3">
+    return <div className="flex flex-col gap-1 justify-center items-center font-equinox z-10 fixed top-[14%] right-0 md:right[20%] pointer-events-none  w-3/4 md:w-full">
         <p className={`flex flex-col text-center justify-center items-center tracking-widest lowercase ${_getDeltaColor(delta, isAvg)} text-xs`}>
             {metric + ' | ' + latestYear}
             <span className='text-white'>{grouping === 'singleRegion' ? region : grouping === 'allRegions' ? 'All Regions' : 'World'}</span>
