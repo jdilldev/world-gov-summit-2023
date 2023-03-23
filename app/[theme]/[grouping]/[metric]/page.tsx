@@ -38,11 +38,10 @@ export default async function Page({ params, searchParams }: {
     const tableData = await getTableData(metric, grouping, region)
     const worldAvg = await getWorldAvg(metric)
     const metricContext = await getMetricData(metric)
-    const { title: metricHumanReadableString } = metricContext
 
     return <>
         <MetricSelect theme={theme} grouping={grouping} metric={metric} />
-        <DeltaIndicator data={deltaData} metric={metricHumanReadableString} grouping={grouping} region={region} />
+        <DeltaIndicator data={deltaData} metric={metricContext} grouping={grouping} region={region} />
         <CountryAndRegionalComparissons data={{ countries: minMaxDataCountries, regions: minMaxDataRegions }} grouping={grouping} theme={theme} />
         <TableAndMetric region={region} data={tableData} theme={theme} metricContext={metricContext} globalAvg={worldAvg} grouping={grouping} />
         <div className='md:hidden'>

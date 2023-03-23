@@ -4,11 +4,13 @@ export type RouteParams = {
 	metric: CountryMetrics;
 };
 
+export type MetricFavor = "higher" | "lower" | "neutral";
+
 export type MetricContext = {
 	_id: string;
 	title: string;
 	description: string;
-	favor: "higher" | "lower" | "neutral";
+	favor: MetricFavor;
 	url: string;
 };
 

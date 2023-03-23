@@ -3,8 +3,7 @@
 import { Map as Mapbox, MapRef, MapLayerMouseEvent } from "react-map-gl";
 import { useCallback, useContext, useRef, useState } from "react";
 import { useWindowSize } from "../app/hooks/hooks";
-import { DEFAULT_THEME_PROMPT, } from "../app/constants/constants";
-
+import 'mapbox-gl/dist/mapbox-gl.css'
 import { useRouter } from "next/navigation";
 import { replaceSpacesWithUnderscore } from "../utils";
 import { usePathname } from "next/navigation";
