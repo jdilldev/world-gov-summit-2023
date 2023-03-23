@@ -59,7 +59,7 @@ const TableAndMetric = ({ data, theme, metricContext, globalAvg, grouping, regio
                 <p className='text-lime-500 text-xs font-equinox lowercase'>{metricContext.favor === 'lower' ? 'lower is better' : metricContext.favor === 'higher' ? 'higher is better' : 'neutral'}</p>
             </div>
             <br />
-            <div className="md:h-3/4 overflow-scroll">
+            <div className="md:h-[60%] overflow-scroll">
                 <p className="text-sm">{metricContext.description}</p>
             </div>
         </div>
