@@ -3,7 +3,7 @@ https://world-gov-summit-2023-q3if.vercel.app/
 
 I inititally entered this competition with an entirely different prototype (it was rushed and terrible). But I took the opportunity to iterate and redesign and I am pretty pleased with the outcome, although there some additional tweaks and changes I plan on making, as time allows (I am working on other side projects).
 
-This is the best reflection of my ability that is publicly shareable. Responsive, performance considerations, styling, and DRY. 
+Some concepts implemented: responsive, performance optimizations, styling, and DRY. 
 
 data source provided: https://docs.google.com/spreadsheets/d/1_xdns_UCtRNH9TWcxKYKa_HydlkZxbqCCYRfdxhUNpg/edit?usp=share_link
 I augmented some of the metrics by identifying additional data sources
