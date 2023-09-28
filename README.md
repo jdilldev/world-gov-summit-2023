@@ -1,5 +1,4 @@
 # World Gov Summit: Data is Beautiful Competition 
-![image](https://github.com/jdilldev/world-gov-summit-2023/assets/92639901/2d28c67b-8504-4a4e-afd1-c7a0229ad18e)
  2023
 https://world-gov-summit-2023-q3if.vercel.app/
 
